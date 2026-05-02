@@ -14,7 +14,7 @@ import {
 
 /*
  * CORS for `/api/lead-email` is handled exclusively by the global
- * `@elysiajs/cors` plugin mounted in `apps/api/src/index.ts`. Setting
+ * CORS wrapper in `apps/api/src/index.ts` (fetch handler). Setting
  * `Access-Control-Allow-Origin` here as well caused duplicate values in
  * the response header (e.g. "https://designedbyanthony.com,
  * https://designedbyanthony.com"), which browsers reject with:
