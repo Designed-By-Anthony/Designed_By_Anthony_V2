@@ -16,36 +16,34 @@ import { testEmailsRoute } from "./routes/testEmails";
 import { leadsRoute } from "./routes/leads";
 import { webhooks } from "./routes/webhooks";
 
-// Mock the Cloudflare Workers environment for non-Worker environments
-const env = typeof process !== "undefined" && process.env ? process.env : {
-AUDIT_REPORTS_KV: undefined,
-DB: undefined,
-};
-
-const workerBindings = env as unknown as {
-AUDIT_REPORTS_KV?: unknown;
-DB?: unknown;
-};
-
-const kvBinding = workerBindings.AUDIT_REPORTS_KV;
-if (kvBinding) {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-setReportKV(kvBinding as any);
-}
-
-// Wire the D1 binding so route handlers can insert leads without carrying
-// the binding through every function signature.
-const d1Binding = workerBindings.DB;
-if (d1Binding) {
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-setLedgerDb(createD1Client(d1Binding as any));
-}
+// Export the handler directly for Cloudflare Workers
+// env and ctx are passed directly from the Worker fetch handler to Elysia
+// so routes can access env.DB dynamically without static initialization.
 
 const app = new Elysia({ aot: true })
 	.use(
 		cors({
-			origin: (request) =>
-				isTrustedMarketingBrowserOrigin(request.headers.get("origin")),
+			origin: (request) => {
+				const origin = request.headers.get("origin");
+				if (!origin) return false;
+
+				// Allow production domains
+				if (origin === "https://designedbyanthony.com" ||
+					origin === "https://admin.designedbyanthony.com") {
+					return true;
+				}
+
+				// Allow localhost for development
+				if (origin === "http://localhost:3000" ||
+					origin === "http://127.0.0.1:3000" ||
+					origin === "http://localhost:3100" ||
+					origin === "http://127.0.0.1:3100") {
+					return true;
+				}
+
+				// Block all other origins
+				return false;
+			},
 			allowedHeaders: ["Content-Type", "Authorization"],
 			methods: ["GET", "POST", "DELETE", "OPTIONS"],
 		}),
@@ -77,9 +75,95 @@ const app = new Elysia({ aot: true })
   .use(testEmailsRoute)
   .use(webhooks);
 
+// Queue message type
+type AuditQueueMessage = {
+	jobId: string;
+	targetUrl: string;
+	city?: string;
+	industry?: string;
+};
+
+import { generateAuditPdf } from "./services/adobe";
+
+// Queue consumer handler
+async function handlePdfGeneration(message: AuditQueueMessage, env: any) {
+	try {
+		console.log(`Processing PDF generation job ${message.jobId} for ${message.targetUrl}`);
+
+		// Get audit data from KV
+		const auditDataStr = await env.AUDIT_REPORTS_KV.get(message.jobId);
+		if (!auditDataStr) {
+			throw new Error(`Audit data not found for job ${message.jobId}`);
+		}
+
+		const auditData = JSON.parse(auditDataStr);
+
+		// Update status to processing
+		await env.AUDIT_REPORTS_KV.put(message.jobId, JSON.stringify({
+			...auditData,
+			status: "processing",
+			timestamp: Date.now()
+		}));
+
+		// Generate PDF using Adobe services
+		const { pdfBuffer, fileName } = await generateAuditPdf(
+			message.jobId,
+			message.jobId, // Using jobId as reportId for now
+			message.targetUrl,
+			auditData.email,
+			auditData.name,
+			auditData.company,
+			auditData.location,
+			env
+		);
+
+		// Upload PDF to R2 storage
+		const r2Key = `reports/${fileName}`;
+		await env.PDF_STORAGE.put(r2Key, pdfBuffer, {
+			httpMetadata: { contentType: "application/pdf" },
+		});
+
+		// Generate public URL (using R2 dev URL format)
+		// Note: In production, this would use the actual R2 public endpoint
+		const r2Url = `https://pub-${env.PDF_STORAGE.accountId}.r2.dev/${r2Key}`;
+
+		// Update status to complete with download URL
+		await env.AUDIT_REPORTS_KV.put(message.jobId, JSON.stringify({
+			...auditData,
+			status: "complete",
+			pdfUrl: r2Url,
+			fileName,
+			timestamp: Date.now()
+		}));
+
+		console.log(`Completed PDF generation for job ${message.jobId}: ${r2Url}`);
+
+	} catch (error) {
+		console.error(`Failed to process job ${message.jobId}:`, error);
+
+		// Update status to error
+		await env.AUDIT_REPORTS_KV.put(message.jobId, JSON.stringify({
+			...JSON.parse(await env.AUDIT_REPORTS_KV.get(message.jobId) || '{}'),
+			status: "error",
+			message: error instanceof Error ? error.message : "Unknown error",
+			timestamp: Date.now()
+		}));
+
+		// Re-throw to allow Cloudflare Queue retries
+		throw error;
+	}
+}
+
 // Export the handler directly for Cloudflare Workers
 export default {
-	fetch: app.handle,
+	fetch: (request: Request, env: any, ctx: any) => {
+		return app.handle(request);
+	},
+	async queue(batch: any, env: any) {
+		for (const message of batch.messages) {
+			await handlePdfGeneration(message.body, env);
+		}
+	}
 };
 
 // Export the App type for Eden Treaty client generation
