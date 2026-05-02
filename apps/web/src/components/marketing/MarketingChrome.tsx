@@ -314,7 +314,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				aria-labelledby="cookie-consent-title"
 				aria-describedby="cookie-consent-desc"
 			>
-				<div className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border bg-card px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.14)]">
+				<div className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border/40 bg-brand-linen/80 backdrop-blur-[12px] px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.18)] [-webkit-backdrop-filter:blur(12px)]">
 					<p
 						id="cookie-consent-title"
 						className="m-0 mb-2 text-base font-bold tracking-[-0.01em] text-brand-indigo"

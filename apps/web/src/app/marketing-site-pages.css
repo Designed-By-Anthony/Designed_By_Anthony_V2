@@ -635,11 +635,15 @@ a.marketing-service-card:hover {
 	line-height: 0;
 	--media-parallax-y: 0px;
 	--media-scale: 1;
+	aspect-ratio: 16 / 9;
+	overflow: hidden;
 }
 
 .blog-index-card__img {
 	width: 100%;
-	height: auto;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 	transform: translate3d(0, var(--media-parallax-y), 0)
 		scale(var(--media-scale));
 	transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
