@@ -307,14 +307,14 @@ window.__dbaRevokeAnalyticsConsent = function () {
 
 			<div
 				id="cookie-consent-root"
-				className="fixed left-0 right-0 bottom-0 z-[10050] px-5 py-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))] pointer-events-none print:hidden"
+				className="fixed left-0 right-0 bottom-0 z-[10050] px-5 py-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))] pointer-events-none print:hidden transform-gpu"
 				hidden
 				role="dialog"
 				aria-modal="true"
 				aria-labelledby="cookie-consent-title"
 				aria-describedby="cookie-consent-desc"
 			>
-				<div className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border/40 bg-brand-linen/80 backdrop-blur-[12px] px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.18)] [-webkit-backdrop-filter:blur(12px)]">
+				<div className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border/40 bg-brand-linen/90 backdrop-blur-[16px] px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.18)] [-webkit-backdrop-filter:blur(16px)] transform-gpu will-change-transform">
 					<p
 						id="cookie-consent-title"
 						className="m-0 mb-2 text-base font-bold tracking-[-0.01em] text-brand-indigo"

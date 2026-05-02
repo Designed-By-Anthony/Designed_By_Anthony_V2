@@ -113,7 +113,7 @@ export function HomePage() {
 							Mohawk Valley Digital Agency · Utica · Rome · Syracuse · CNY —{" "}
 							{COPPER_CITY_HOOK}
 						</p>
-						<div className="hero-launch-pill" role="status">
+						<div className="hero-launch-pill relative z-[40]" role="status">
 							<span className="hero-launch-dot" aria-hidden="true" />
 							<span className="hero-launch-pill__text">
 								The 315 Pilot:{" "}
