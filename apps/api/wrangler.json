@@ -1,0 +1,35 @@
+{
+  "name": "dba-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dba-ledger",
+      "database_id": "961ce211-2843-4ed7-a609-9ab224f7eb8a"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "AUDIT_REPORTS_KV",
+      "id": "48827a794a8b4ccc8b0dc3dbca8c80ec"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "PDF_STORAGE",
+      "bucket_name": "dba-pdf-archive"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "queue": "pdf-gen-queue",
+        "binding": "PDF_GEN_QUEUE"
+      }
+    ]
+  }
+}

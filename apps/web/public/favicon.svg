@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="ANTHONY.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="mark" x1="16" y1="16" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="url(#bg)" />
+  <path
+    fill="url(#mark)"
+    d="M 16 16 L 30 16 C 41 16 48 22 48 32 C 48 42 41 48 30 48 L 16 48 Z M 24 23 L 24 41 L 29 41 C 35 41 39 37 39 32 C 39 27 35 23 29 23 Z"
+  />
+</svg>

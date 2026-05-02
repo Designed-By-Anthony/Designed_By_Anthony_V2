@@ -1,0 +1,1 @@
+{"rules":[{"allowed_origins":["https://designedbyanthony.com","http://localhost:3000"],"allowed_methods":["GET"],"max_age_seconds":3600}]}

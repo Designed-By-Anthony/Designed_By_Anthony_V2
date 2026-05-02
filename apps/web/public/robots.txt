@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Belt-and-suspenders: these paths also set X-Robots-Tag: noindex, nofollow
+# via response headers from Next.js. Explicit Disallow here avoids spending crawl budget
+# on them in the first place.
+Disallow: /report
+Disallow: /report/
+Disallow: /thank-you
+Disallow: /facebook-offer
+Disallow: /404
+Disallow: /lighthouse/report
+
+# AI Content Signals - declare usage preferences
+# https://contentsignals.org/
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+Sitemap: https://designedbyanthony.com/sitemap.xml
+
+# Agent Skills Discovery
+# https://agentskills.io/
+Link: </.well-known/agent-skills/index.json>; rel="agent-skills"; type="application/json"
+
+# API Catalog (RFC 9727)
+Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+
+# MCP Server Card
+Link: </.well-known/mcp/server-card.json>; rel="mcp-server"; type="application/json"

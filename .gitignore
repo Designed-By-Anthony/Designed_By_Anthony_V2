@@ -1,0 +1,12 @@
+
+node_modules/
+.next/
+dist/
+.vercel/
+*.local
+.env
+.env.*
+!.env.example
+.wrangler/
+.dev.vars
+bun.lock

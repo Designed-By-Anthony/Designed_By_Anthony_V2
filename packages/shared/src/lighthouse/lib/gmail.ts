@@ -1,0 +1,487 @@
+import { escapeHtml, normalizeEmail } from "./validation";
+
+const GMAIL_SENDER = "anthony@designedbyanthony.com";
+
+function sanitizeHeaderValue(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
+export function isGmailConfigured(): boolean {
+  return Boolean(process.env.GMAIL_SERVICE_ACCOUNT_KEY);
+}
+
+/**
+ * Test-fire mode for Lighthouse: record sends in-memory instead of hitting
+ * the Gmail API. Enabled when `EMAIL_TEST_MODE=true`, `NEXT_PUBLIC_IS_TEST=true`,
+ * or when running under Playwright.
+ */
+export function isGmailTestMode(): boolean {
+  if (process.env.EMAIL_TEST_MODE === "true") return true;
+  if (process.env.NEXT_PUBLIC_IS_TEST === "true") return true;
+  if (process.env.PLAYWRIGHT_TEST_BASE_URL) return true;
+  return false;
+}
+
+export type GmailCapturedEmail = {
+  id: string;
+  firedAt: string;
+  to: string;
+  subject: string;
+  html: string;
+};
+
+type GmailMailerGlobal = { outbox: GmailCapturedEmail[]; counter: number };
+const gmailGlobalKey = "__DBA_LIGHTHOUSE_GMAIL_OUTBOX__" as const;
+const gmailG = globalThis as unknown as Record<
+  typeof gmailGlobalKey,
+  GmailMailerGlobal | undefined
+>;
+
+function getGmailStore(): GmailMailerGlobal {
+  if (!gmailG[gmailGlobalKey]) {
+    gmailG[gmailGlobalKey] = { outbox: [], counter: 0 };
+  }
+  const store = gmailG[gmailGlobalKey];
+  if (!store) {
+    throw new Error("Failed to initialize Gmail in-memory store.");
+  }
+  return store;
+}
+
+export function getGmailTestOutbox(): GmailCapturedEmail[] {
+  return [...getGmailStore().outbox];
+}
+
+export function clearGmailTestOutbox(): void {
+  const s = getGmailStore();
+  s.outbox = [];
+  s.counter = 0;
+}
+
+/**
+ * Optional fine-tuning for `sendViaGmail`. All fields are opt-in; defaults
+ * preserve the historical "audit receipt" behaviour (BCC the sender, no
+ * Reply-To override).
+ */
+export interface SendViaGmailOptions {
+  /**
+   * RFC 5322 Reply-To header. Set this when the email is *to* Anthony but
+   * he should be able to reply directly to a third party (e.g. lead form
+   * notifications where the lead is the de-facto reply target).
+   */
+  replyTo?: string;
+  /**
+   * Override the BCC. Defaults to GMAIL_SENDER (Anthony's mailbox) so
+   * outbound mail to clients leaves a paper trail in his inbox. Pass
+   * `null` to suppress the BCC entirely (e.g. when the recipient already
+   * is GMAIL_SENDER and a self-BCC would be redundant).
+   */
+  bcc?: string | null;
+}
+
+// ── Web-standard JWT + OAuth2 helpers (no googleapis dependency) ──────────
+
+function base64url(data: ArrayBuffer | Uint8Array): string {
+  const bytes =
+    data instanceof Uint8Array ? data : new Uint8Array(data);
+  let binary = "";
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function encodeUtf8(str: string): Uint8Array {
+  return new TextEncoder().encode(str);
+}
+
+/**
+ * Strip PEM armour and decode the base64 body of a PKCS#8 private key.
+ */
+function pemToDer(pem: string): ArrayBuffer {
+  const b64 = pem
+    .replace(/-----BEGIN[^-]+-----/g, "")
+    .replace(/-----END[^-]+-----/g, "")
+    .replace(/\s+/g, "");
+  const binary = atob(b64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+/**
+ * Build and sign a service-account JWT, then exchange it for a short-lived
+ * OAuth2 access token using the Google token endpoint.
+ *
+ * Uses only Web Crypto APIs — fully compatible with Cloudflare Workers.
+ */
+async function getAccessToken(
+  clientEmail: string,
+  privateKeyPem: string,
+  scope: string,
+  subject: string,
+): Promise<string> {
+  const now = Math.floor(Date.now() / 1000);
+
+  const header = base64url(encodeUtf8(JSON.stringify({ alg: "RS256", typ: "JWT" })));
+  const claims = base64url(
+    encodeUtf8(
+      JSON.stringify({
+        iss: clientEmail,
+        sub: subject,
+        scope,
+        aud: "https://oauth2.googleapis.com/token",
+        iat: now,
+        exp: now + 3600,
+      }),
+    ),
+  );
+
+  const signingInput = `${header}.${claims}`;
+
+  const keyDer = pemToDer(privateKeyPem);
+  const cryptoKey = await crypto.subtle.importKey(
+    "pkcs8",
+    keyDer,
+    { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+
+  const signingInputBytes = encodeUtf8(signingInput);
+  const signature = await crypto.subtle.sign(
+    "RSASSA-PKCS1-v1_5",
+    cryptoKey,
+    signingInputBytes.buffer as ArrayBuffer,
+  );
+
+  const jwt = `${signingInput}.${base64url(signature)}`;
+
+  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "urn:ietf:params:oauth:grant-type:jwt-bearer",
+      assertion: jwt,
+    }),
+  });
+
+  if (!tokenRes.ok) {
+    const body = await tokenRes.text();
+    throw new Error(`OAuth2 token exchange failed (${tokenRes.status}): ${body}`);
+  }
+
+  const json = (await tokenRes.json()) as { access_token: string };
+  return json.access_token;
+}
+
+/**
+ * Sends an HTML email via the Gmail REST API using domain-wide delegation.
+ *
+ * Requires GMAIL_SERVICE_ACCOUNT_KEY env var containing the JSON of a service
+ * account that has been granted domain-wide delegation with the
+ * `https://www.googleapis.com/auth/gmail.send` scope in Google Workspace admin,
+ * and GMAIL_SENDER must be a real user in that workspace.
+ *
+ * Uses only Web Crypto + fetch — no googleapis package needed.
+ */
+export async function sendViaGmail(
+  to: string,
+  subject: string,
+  html: string,
+  options: SendViaGmailOptions = {},
+): Promise<void> {
+  const recipient = normalizeEmail(to);
+  if (!recipient) {
+    throw new Error("Invalid recipient email address.");
+  }
+
+  const replyTo = options.replyTo ? normalizeEmail(options.replyTo) : null;
+  const bcc =
+    options.bcc === null
+      ? null
+      : options.bcc
+        ? normalizeEmail(options.bcc)
+        : GMAIL_SENDER;
+
+  if (isGmailTestMode()) {
+    const store = getGmailStore();
+    store.counter += 1;
+    store.outbox.push({
+      id: `gmail-test-fire-${store.counter}-${Date.now()}`,
+      firedAt: new Date().toISOString(),
+      to: recipient,
+      subject,
+      html,
+    });
+    return;
+  }
+
+  const keyJson = process.env.GMAIL_SERVICE_ACCOUNT_KEY;
+  if (!keyJson) {
+    throw new Error("Email delivery is not configured.");
+  }
+
+  let key: { client_email: string; private_key: string };
+  try {
+    key = JSON.parse(keyJson);
+  } catch {
+    throw new Error("Email delivery credentials are invalid.");
+  }
+
+  const accessToken = await getAccessToken(
+    key.client_email,
+    key.private_key,
+    "https://www.googleapis.com/auth/gmail.send",
+    GMAIL_SENDER,
+  );
+
+  // RFC 2047 encode the subject for non-ASCII safety
+  const encodedSubject = `=?UTF-8?B?${btoa(
+    encodeURIComponent(sanitizeHeaderValue(subject)).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+      String.fromCharCode(parseInt(p1, 16)),
+    ),
+  )}?=`;
+
+  const messageParts: string[] = [
+    `From: Anthony <${GMAIL_SENDER}>`,
+    `To: ${recipient}`,
+  ];
+  if (bcc) {
+    messageParts.push(`Bcc: ${bcc}`);
+  }
+  if (replyTo) {
+    messageParts.push(`Reply-To: ${replyTo}`);
+  }
+  messageParts.push(
+    `Subject: ${encodedSubject}`,
+    "MIME-Version: 1.0",
+    'Content-Type: text/html; charset="UTF-8"',
+    "",
+    html,
+  );
+
+  const raw = base64url(encodeUtf8(messageParts.join("\r\n")));
+
+  const sendRes = await fetch(
+    "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ raw }),
+    },
+  );
+
+  if (!sendRes.ok) {
+    const body = await sendRes.text();
+    throw new Error(`Gmail send failed (${sendRes.status}): ${body}`);
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    console.info(`Email sent to ${recipient} via Gmail REST API`);
+  }
+}
+
+function formatScoreCell(value: number | null): string {
+  if (value == null) {
+    return '<span style="color:#6b7280;">N/A</span>';
+  }
+  return `<strong>${value}</strong>`;
+}
+
+export function buildReceiptEmail(params: {
+  firstName: string;
+  url: string;
+  reportId: string;
+  trustScore: number;
+  performance: number | null;
+  accessibility: number | null;
+  bestPractices: number | null;
+  seo: number | null;
+  /** Shown when lab scores were skipped (e.g. PageSpeed timeout). */
+  partialReportNote?: string | null;
+}): { subject: string; html: string } {
+  const {
+    firstName,
+    url,
+    reportId,
+    trustScore,
+    performance,
+    accessibility,
+    bestPractices,
+    seo,
+    partialReportNote,
+  } = params;
+  const safeFirstName = escapeHtml(firstName);
+  const safeUrl = escapeHtml(url);
+  const safeReportId = escapeHtml(reportId);
+  const greeting = safeFirstName ? `Hi ${safeFirstName}` : "Hey there";
+  const reportUrl = `https://designedbyanthony.com/report/${reportId}?utm_source=receipt_email&utm_medium=email&utm_campaign=audit_report`;
+  const calendarUrl = `https://calendar.app.google/c1CaLZJQkbTAs9abA?custom_url=designedbyanthony.com/report/${reportId}`;
+
+  const displayDomain = (() => {
+    try {
+      return new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+      return url;
+    }
+  })();
+  const subject = `Your site audit for ${displayDomain}`;
+  const safePartial =
+    partialReportNote != null && partialReportNote.length > 0
+      ? escapeHtml(partialReportNote)
+      : "";
+
+  const html = `
+  <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111; line-height: 1.6; font-size: 15px; max-width: 560px;">
+    <p>${greeting} &mdash;</p>
+
+    <p>Your Local Digital Presence Audit for <strong>${safeUrl}</strong> is ready and saved here:</p>
+
+    <p style="margin: 20px 0;">
+      <a href="${reportUrl}" style="display: inline-block; background-color: #111; color: #fff; padding: 12px 20px; text-decoration: none; border-radius: 6px; font-weight: 600;">View your report &rarr;</a>
+    </p>
+
+    ${
+      safePartial
+        ? `<p style="background:#fffbeb;border:1px solid #fcd34d;padding:12px 14px;border-radius:8px;font-size:14px;color:#78350f;">${safePartial}</p>`
+        : ""
+    }
+
+    <p>Your overall <strong>Local Trust Score</strong> came out to <strong>${trustScore}/100</strong>.</p>
+    
+    <p>Quick technical scores: ${formatScoreCell(performance)} / ${formatScoreCell(accessibility)} / ${formatScoreCell(bestPractices)} / ${formatScoreCell(seo)} (Performance / Accessibility / Best Practices / SEO). The full breakdown, my AI's analysis of your copywriting, and a print-ready version are all at the link above.</p>
+
+    <p style="color: #6b7280; font-size: 13px;">Audit run: ${new Date().toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" })} ET</p>
+
+    <p>If anything looks off or you want to walk through it together, just reply to this email &mdash; or grab 15 minutes on my calendar: <a href="${calendarUrl}" style="color: #111;">${calendarUrl.split("?")[0]}</a>.</p>
+
+    <p style="margin-top: 28px;">Best,<br><strong>Anthony</strong><br><span style="color: #666; font-size: 14px;">ANTHONY.</span></p>
+
+    <p style="color: #9ca3af; font-size: 12px; margin-top: 36px; border-top: 1px solid #e5e7eb; padding-top: 12px;">
+      Report ID: ${safeReportId} &middot; This is a one-time transactional receipt for the audit you requested.
+    </p>
+  </div>
+  `;
+
+  return { subject, html };
+}
+
+/**
+ * Builds a formatted internal alert email sent to Anthony
+ * whenever a new lead comes in from any form.
+ */
+export function buildInternalLeadAlert(params: {
+  source: "audit" | "contact";
+  projectCode: string;
+  name: string;
+  email: string;
+  company: string;
+  url: string;
+  location?: string;
+  phone?: string;
+  message?: string;
+  sheetUrl?: string | null;
+  // Audit-specific
+  trustScore?: number;
+  performance?: number;
+  accessibility?: number;
+  bestPractices?: number;
+  seo?: number;
+  conversion?: number;
+  rating?: number | null;
+  criticalIssue?: string;
+}): { subject: string; html: string } {
+  const isAudit = params.source === "audit";
+  const safeCompany = escapeHtml(params.company);
+  const safeName = escapeHtml(params.name);
+  const safeEmail = escapeHtml(params.email);
+  const safeUrl = escapeHtml(params.url);
+
+  const subject = isAudit
+    ? `🔔 New Audit Lead: ${params.company} (${params.projectCode})`
+    : `🔔 New Contact Lead: ${params.name}`;
+
+  const reportLink = isAudit
+    ? `https://designedbyanthony.com/report/${params.projectCode}`
+    : "";
+
+  let scoresBlock = "";
+  if (isAudit) {
+    scoresBlock = `
+    <table style="width:100%; border-collapse:collapse; margin:16px 0;">
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Trust Score</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0; font-size:18px; font-weight:800;">${params.trustScore ?? "N/A"}/100</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Performance</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.performance ?? "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Accessibility</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.accessibility ?? "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Best Practices</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.bestPractices ?? "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">SEO</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.seo ?? "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Conversion</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.conversion ?? "N/A"}</td>
+      </tr>
+      <tr>
+        <td style="padding:8px 12px; background:#f1f5f9; font-weight:700; border:1px solid #e2e8f0;">Google Rating</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0;">${params.rating != null ? `${params.rating}/5.0` : "Not listed"}</td>
+      </tr>
+      ${
+        params.criticalIssue
+          ? `<tr>
+        <td style="padding:8px 12px; background:#fef2f2; font-weight:700; border:1px solid #e2e8f0; color:#991b1b;">Critical Issue</td>
+        <td style="padding:8px 12px; border:1px solid #e2e8f0; color:#991b1b;">${escapeHtml(params.criticalIssue)}</td>
+      </tr>`
+          : ""
+      }
+    </table>`;
+  }
+
+  const html = `
+  <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111; line-height: 1.6; font-size: 15px; max-width: 600px;">
+    <div style="background:#0f172a; color:#fff; padding:16px 20px; border-radius:8px 8px 0 0;">
+      <strong style="font-size:16px;">${isAudit ? "📊 New Audit Lead" : "📬 New Contact Lead"}</strong>
+      <span style="float:right; font-size:13px; opacity:0.7;">${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })}</span>
+    </div>
+
+    <div style="padding:20px; border:1px solid #e2e8f0; border-top:none; border-radius:0 0 8px 8px;">
+      <p><strong>Name:</strong> ${safeName}</p>
+      <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
+      <p><strong>Company:</strong> ${safeCompany}</p>
+      <p><strong>Website:</strong> <a href="${safeUrl}">${safeUrl}</a></p>
+      ${params.location ? `<p><strong>Location:</strong> ${escapeHtml(params.location)}</p>` : ""}
+      ${params.phone ? `<p><strong>Phone:</strong> ${escapeHtml(params.phone)}</p>` : ""}
+      ${params.message ? `<p><strong>Message:</strong><br>${escapeHtml(params.message)}</p>` : ""}
+
+      ${scoresBlock}
+
+      ${reportLink ? `<p><a href="${reportLink}" style="display:inline-block; background:#111; color:#fff; padding:10px 18px; text-decoration:none; border-radius:6px; font-weight:600; margin-top:8px;">View Report →</a></p>` : ""}
+
+      ${params.sheetUrl ? `<p style="margin-top:12px;"><a href="${params.sheetUrl}" style="display:inline-block; background:#16a34a; color:#fff; padding:10px 18px; text-decoration:none; border-radius:6px; font-weight:600;">Open Project Sheet →</a></p>` : ""}
+
+      <p style="color:#9ca3af; font-size:12px; margin-top:24px; border-top:1px solid #e5e7eb; padding-top:12px;">
+        Project Code: ${escapeHtml(params.projectCode)} · This is an internal DBA lead alert.
+      </p>
+    </div>
+  </div>
+  `;
+
+  return { subject, html };
+}
