@@ -243,17 +243,23 @@ async function scanRedirectChain(url: string): Promise<RedirectChainResult> {
 		);
 	}
 
-	const finalUrl = hops.length > 0 ? hops[hops.length - 1].url : url;
+	const finalHop = hops.at(-1);
+	const finalUrl = finalHop?.url ?? url;
 
-	const hasMixedContent = hops.some(
-		(h, i) =>
-			i > 0 &&
+	const hasMixedContent = hops.some((h, i) => {
+		if (i <= 0) return false;
+		const prev = hops[i - 1];
+		return (
+			prev !== undefined &&
 			h.url.startsWith("http://") &&
-			hops[i - 1].url.startsWith("https://"),
-	);
+			prev.url.startsWith("https://")
+		);
+	});
+	const firstHop = hops[0];
 	const httpToHttps =
 		hops.length >= 2 &&
-		hops[0].url.startsWith("http://") &&
+		firstHop !== undefined &&
+		firstHop.url.startsWith("http://") &&
 		hops.some((h) => h.url.startsWith("https://"));
 
 	const firstHost = (() => {

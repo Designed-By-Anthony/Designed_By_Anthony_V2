@@ -1,7 +1,9 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Script from "next/script";
 import type { ReactNode } from "react";
 import { BrandFooter } from "@/components/brand/BrandFooter";
+import { Logo } from "@/components/ui/Logo";
 import { BrandHeader } from "@/components/brand/BrandHeader";
 import {
 	SITE_AUDIT_CTA,
@@ -11,7 +13,10 @@ import {
 import { businessProfile } from "@/lib/seo";
 import { FooterCta, type FooterCtaProps } from "./FooterCta";
 import { PageLifecycle } from "./PageLifecycle";
-import { SiteContactDrawer } from "./SiteContactDrawer";
+
+const SiteContactDrawer = dynamic(
+	() => import("./SiteContactDrawer").then((mod) => mod.SiteContactDrawer),
+);
 
 const mailtoContactHref = `mailto:${businessProfile.email}?subject=${encodeURIComponent("Website inquiry — ANTHONY.")}`;
 
@@ -19,13 +24,13 @@ const mailtoContactHref = `mailto:${businessProfile.email}?subject=${encodeURICo
 const siteScriptVersion =
 	process.env.NEXT_PUBLIC_SITE_SCRIPT_BUILD_ID ?? "local";
 
-/* ── Shared chrome utility classes (Midnight & Bronze, inline Tailwind v4) ── */
+/* ── Shared chrome utility classes (Linen / Indigo / Slate, inline Tailwind v4) ── */
 
-/* Cookie consent buttons — bronze primary, ink outline */
+/* Cookie consent — slate primary, linen outline */
 const cookieBtnBase =
-	"inline-flex items-center justify-center gap-[0.45rem] rounded-full font-[family-name:var(--font-display,'Outfit_Variable')] font-bold text-[0.78rem] tracking-[0.01em] leading-none cursor-pointer transition-[transform,box-shadow,border-color,background,color] duration-[350ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(212,175,55,0.5)] focus-visible:outline-offset-[3px] active:scale-[0.97] py-[0.55rem] px-[1.1rem]";
-const cookieBtnPrimary = `${cookieBtnBase} text-[#171008] border border-[rgba(212,175,55,0.78)] bg-[linear-gradient(180deg,#fcf0d2_0%,#D4AF37_100%)] shadow-[0_18px_34px_-22px_rgba(181,138,20,0.85),inset_0_1px_0_rgba(255,255,255,0.4)] hover:-translate-y-px hover:border-[rgba(212,175,55,0.95)] hover:bg-[linear-gradient(180deg,#fff5dc_0%,#d4af37_100%)]`;
-const cookieBtnOutline = `${cookieBtnBase} text-[rgba(247,244,238,0.92)] bg-[rgba(9,15,28,0.45)] border border-[rgba(226,232,240,0.5)] hover:-translate-y-px hover:border-[rgba(212,175,55,0.55)] hover:bg-[rgba(9,15,28,0.65)] hover:text-[rgba(252,240,210,0.96)]`;
+	"inline-flex items-center justify-center gap-[0.45rem] rounded-full font-[family-name:var(--font-display)] font-bold text-[0.78rem] tracking-[0.01em] leading-none cursor-pointer transition-[transform,box-shadow,border-color,background,color] duration-[350ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-[3px] active:scale-[0.97] py-[0.55rem] px-[1.1rem]";
+const cookieBtnPrimary = `${cookieBtnBase} text-brand-linen border border-brand-accent bg-brand-accent shadow-[0_14px_28px_-16px_rgb(var(--brand-accent-rgb)/0.55)] hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)]`;
+const cookieBtnOutline = `${cookieBtnBase} text-brand-charcoal bg-brand-linen border border-brand-border hover:-translate-y-px hover:border-brand-accent hover:bg-white hover:text-brand-indigo`;
 
 export function MarketingChrome({
 	children,
@@ -127,7 +132,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				aria-hidden="true"
 			>
 				<div
-					className="absolute inset-0 z-0 bg-[rgba(8,12,20,0.92)] backdrop-blur-[20px] [touch-action:none]"
+					className="absolute inset-0 z-0 bg-brand-surface backdrop-blur-[20px] [touch-action:none]"
 					data-mobile-nav-dismiss
 					aria-hidden="true"
 				/>
@@ -139,7 +144,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 							</h2>
 							<button
 								type="button"
-								className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-[rgba(255,252,245,0.14)] bg-[rgba(255,255,255,0.06)] text-[rgba(247,244,238,0.92)] text-[1.65rem] font-light leading-none cursor-pointer transition-[background,border-color,color] duration-200 hover:bg-[rgba(255,255,255,0.1)] hover:border-[rgba(212,175,55,0.45)] hover:text-[rgba(252,240,210,0.96)]"
+								className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-brand-border bg-white/90 text-brand-charcoal text-[1.65rem] font-light leading-none cursor-pointer transition-[background,border-color,color] duration-200 hover:bg-brand-linen hover:border-brand-accent hover:text-brand-indigo"
 								data-mobile-nav-close
 								aria-label="Close navigation menu"
 							>
@@ -147,7 +152,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 							</button>
 						</div>
 						<nav
-							className="flex flex-col items-center gap-8 flex-1 min-h-0 overflow-y-auto [overscroll-behavior:contain] [-webkit-overflow-scrolling:touch] pb-2 [&_a]:text-2xl [&_a]:font-bold [&_a]:text-white/70 [&_a]:uppercase [&_a]:tracking-[0.08em] [&_a]:transition-colors [&_a]:duration-200 [&_a]:no-underline [&_a:hover]:text-[rgba(247,244,238,0.98)]"
+							className="flex flex-col items-center gap-8 flex-1 min-h-0 overflow-y-auto [overscroll-behavior:contain] [-webkit-overflow-scrolling:touch] pb-2 [&_a]:text-2xl [&_a]:font-bold [&_a]:text-brand-charcoal/70 [&_a]:uppercase [&_a]:tracking-[0.08em] [&_a]:transition-colors [&_a]:duration-200 [&_a]:no-underline [&_a:hover]:text-brand-indigo"
 							aria-label="Mobile"
 						>
 							{SITE_HEADER_NAV_LINKS.map((link) => (
@@ -157,13 +162,13 @@ window.__dbaRevokeAnalyticsConsent = function () {
 							))}
 							<Link
 								href={SITE_CONTACT_LINK.href}
-								className="!mt-2 !bg-transparent !border !border-white/15 !text-white/85 !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-none hover:!border-[rgba(212,175,55,0.45)] hover:!text-[rgba(252,240,210,0.96)]"
+								className="!mt-2 !bg-transparent !border !border-brand-border !text-brand-charcoal/85 !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-none hover:!border-brand-accent hover:!text-brand-indigo"
 							>
 								{SITE_CONTACT_LINK.label}
 							</Link>
 							<Link
 								href={SITE_AUDIT_CTA.href}
-								className="!mt-4 !bg-[linear-gradient(135deg,rgba(212,175,55,0.28)_0%,rgba(181,138,20,0.42)_100%)] !border !border-[rgba(212,175,55,0.5)] !text-[rgba(252,240,210,0.96)] !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-[0_8px_24px_-4px_rgba(212,175,55,0.3)] hover:!brightness-110"
+								className="!mt-4 !bg-brand-accent !border !border-brand-accent !text-brand-linen !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-[0_10px_28px_-12px_rgb(var(--brand-accent-rgb)/0.45)] hover:!border-[var(--accent-bronze-dark)] hover:!bg-[var(--accent-bronze-dark)]"
 							>
 								{SITE_AUDIT_CTA.label}
 							</Link>
@@ -181,14 +186,14 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				</div>
 			</div>
 
-			{/* Sticky "Get in touch" side tab — Bronze-locked (was legacy blue) */}
+			{/* Sticky "Get in touch" side tab — slate CTA */}
 			<div
 				className="reach-out-sticky fixed right-0 top-1/2 z-[150] pointer-events-none translate-x-full -translate-y-1/2 opacity-0 invisible transition-[transform,opacity,visibility] duration-[400ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none [&.reach-out-sticky--visible]:translate-x-0 [&.reach-out-sticky--visible]:opacity-100 [&.reach-out-sticky--visible]:visible max-md:top-auto max-md:bottom-[5.5rem] max-md:translate-x-full max-md:translate-y-0 max-md:[&.reach-out-sticky--visible]:translate-x-0 max-md:[&.reach-out-sticky--visible]:translate-y-0 print:hidden"
 				id="reachOutSticky"
 			>
 				<button
 					type="button"
-					className="pointer-events-auto inline-flex items-center justify-center gap-[0.45rem] py-[0.7rem] px-[1.1rem] [writing-mode:vertical-rl] [text-orientation:mixed] border border-r-0 border-[rgba(212,175,55,0.55)] rounded-l-[0.75rem] bg-[linear-gradient(180deg,rgba(212,175,55,0.32)_0%,rgba(181,138,20,0.95)_100%)] text-[rgba(252,240,210,0.98)] text-[0.78rem] font-extrabold tracking-[0.1em] uppercase font-[family-name:var(--font-display,'Outfit_Variable')] cursor-pointer shadow-[-6px_0_24px_rgba(0,0,0,0.3),-4px_0_18px_-8px_rgba(212,175,55,0.65),inset_1px_0_0_rgba(255,255,255,0.18)] transition-[background,box-shadow,border-color,transform] duration-[250ms] ease-out hover:bg-[linear-gradient(180deg,rgba(232,213,168,0.36)_0%,rgba(155,110,15,1)_100%)] hover:border-[rgba(232,213,168,0.78)] hover:-translate-x-[3px] hover:shadow-[-10px_0_32px_rgba(0,0,0,0.35),-6px_0_24px_-8px_rgba(212,175,55,0.85),inset_1px_0_0_rgba(255,255,255,0.22)] active:-translate-x-[1px] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(212,175,55,0.45)] focus-visible:outline-offset-[3px] max-md:text-[0.72rem] max-md:py-[0.6rem] max-md:px-[0.85rem]"
+					className="pointer-events-auto inline-flex items-center justify-center gap-[0.45rem] py-[0.7rem] px-[1.1rem] [writing-mode:vertical-rl] [text-orientation:mixed] border border-r-0 border-brand-accent rounded-l-[0.75rem] bg-brand-accent text-brand-linen text-[0.78rem] font-extrabold tracking-[0.1em] uppercase font-[family-name:var(--font-display)] cursor-pointer shadow-[-6px_0_24px_rgba(26,42,64,0.18)] transition-[background,box-shadow,border-color,transform] duration-[250ms] ease-out hover:bg-[var(--accent-bronze-dark)] hover:border-[var(--accent-bronze-dark)] hover:-translate-x-[3px] hover:shadow-[-8px_0_28px_rgba(26,42,64,0.22)] active:-translate-x-[1px] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-[3px] max-md:text-[0.72rem] max-md:py-[0.6rem] max-md:px-[0.85rem]"
 					id="reachOutOpenBtn"
 					aria-haspopup="dialog"
 					aria-controls="reachOutModal"
@@ -204,17 +209,12 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				aria-labelledby="reachOutModalTitle"
 				aria-modal="true"
 			>
-				<div className="rounded-2xl bg-[linear-gradient(165deg,rgba(19,26,36,0.96)_0%,rgba(8,11,18,0.99)_100%)] border border-[rgba(255,252,245,0.1)] shadow-[0_32px_90px_-40px_rgba(0,0,0,0.88),0_0_0_1px_rgba(255,252,245,0.06)] backdrop-blur-[20px] text-[rgba(247,244,238,0.92)] px-[1.35rem] pt-[1.25rem] pb-[1.15rem]">
+				<div className="rounded-2xl border border-brand-border bg-card shadow-[0_24px_48px_-28px_rgba(26,42,64,0.18)] px-[1.35rem] pt-[1.25rem] pb-[1.15rem] text-brand-charcoal">
 					<div className="flex items-start justify-between gap-3 mb-[0.35rem]">
-						{/* biome-ignore lint/performance/noImgElement: Direct SVG wordmark keeps the bronze period locked to the master asset. */}
-						<img
-							src="/logos/anthony_master_wordmark.svg"
-							alt="ANTHONY."
-							className="block h-9 w-auto max-w-[min(240px,85vw)]"
-						/>
+						<Logo variant="dialog" className="max-w-[min(240px,85vw)]" />
 						<button
 							type="button"
-							className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full border border-[rgba(255,252,245,0.14)] bg-[rgba(255,255,255,0.08)] backdrop-blur-[14px] text-[rgba(247,244,238,0.88)] text-[1.45rem] font-light leading-none cursor-pointer transition-[background,color,border-color] duration-200 hover:bg-[rgba(255,255,255,0.14)] hover:text-[rgba(252,240,210,0.96)] hover:border-[rgba(255,252,245,0.22)] focus-visible:outline focus-visible:outline-[2px] focus-visible:outline-[rgba(212,175,55,0.45)] focus-visible:outline-offset-2"
+							className="shrink-0 inline-flex items-center justify-center w-9 h-9 rounded-full border border-brand-border bg-brand-linen text-brand-charcoal text-[1.45rem] font-light leading-none cursor-pointer transition-[background,color,border-color] duration-200 hover:bg-white hover:border-brand-accent hover:text-brand-indigo focus-visible:outline focus-visible:outline-[2px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-2"
 							data-reach-out-close
 							aria-label="Close"
 						>
@@ -223,22 +223,22 @@ window.__dbaRevokeAnalyticsConsent = function () {
 					</div>
 					<h2
 						id="reachOutModalTitle"
-						className="m-0 mb-[0.45rem] text-[1.35rem] font-extrabold tracking-[-0.02em] text-[rgba(252,240,210,0.96)] font-[family-name:var(--font-display,'Outfit_Variable')]"
+						className="m-0 mb-[0.45rem] text-[1.35rem] font-extrabold tracking-[-0.02em] text-brand-indigo font-[family-name:var(--font-display)]"
 					>
 						Say hello
 					</h2>
-					<p className="m-0 mb-[1.1rem] text-[0.92rem] leading-[1.5] text-[#9ca3ae]">
+					<p className="m-0 mb-[1.1rem] text-[0.92rem] leading-[1.5] text-brand-charcoal/75">
 						Start with a free site audit — or just call / email.
 					</p>
 					<Link
 						href="/lighthouse"
-						className="flex items-center justify-center gap-2 w-full py-[0.95rem] px-[1.1rem] mb-[1.15rem] rounded-full border border-[rgba(212,175,55,0.72)] bg-[linear-gradient(135deg,rgba(212,175,55,0.34),rgba(181,138,20,1)),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0))] text-[rgba(252,240,210,0.98)] text-base font-extrabold font-[family-name:var(--font-display,'Outfit_Variable')] no-underline tracking-[0.02em] shadow-[0_22px_40px_-22px_rgba(181,138,20,0.95),inset_0_1px_0_rgba(255,255,255,0.22)] transition-[transform,box-shadow,border-color,background] duration-200 ease-out hover:bg-[linear-gradient(135deg,rgba(232,204,105,0.38),rgba(155,110,15,1)),linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0))] hover:border-[rgba(232,213,168,0.85)] hover:-translate-y-px active:scale-[0.99]"
+						className="flex items-center justify-center gap-2 w-full py-[0.95rem] px-[1.1rem] mb-[1.15rem] rounded-full border border-brand-accent bg-brand-accent text-brand-linen text-base font-extrabold font-[family-name:var(--font-display)] no-underline tracking-[0.02em] shadow-[0_18px_36px_-20px_rgb(var(--brand-accent-rgb)/0.45)] transition-[transform,box-shadow,border-color,background] duration-200 ease-out hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:-translate-y-px active:scale-[0.99]"
 						data-reach-out-close
 					>
 						Audit My Site
 					</Link>
 					<section
-						className="grid grid-cols-3 gap-[0.65rem] border-t border-[rgba(255,252,245,0.08)] bg-black/20 backdrop-blur-[10px] -mx-[1.35rem] -mb-[1.15rem] p-[1rem_1rem_1.1rem] rounded-b-2xl max-[420px]:grid-cols-1"
+						className="grid grid-cols-3 gap-[0.65rem] border-t border-brand-border bg-brand-linen -mx-[1.35rem] -mb-[1.15rem] p-[1rem_1rem_1.1rem] rounded-b-2xl max-[420px]:grid-cols-1"
 						aria-label="Other ways to reach us"
 					>
 						{[
@@ -265,14 +265,14 @@ window.__dbaRevokeAnalyticsConsent = function () {
 							},
 						].map((action) => {
 							const className =
-								"flex flex-col items-center gap-[0.45rem] py-2 px-1 rounded-[0.65rem] no-underline text-[rgba(247,244,238,0.92)] text-center transition-[background,transform] duration-200 ease-out min-w-0 hover:bg-white/[0.06] active:scale-[0.98] focus-visible:outline focus-visible:outline-[2px] focus-visible:outline-[rgba(212,175,55,0.45)] focus-visible:outline-offset-2";
+								"flex flex-col items-center gap-[0.45rem] py-2 px-1 rounded-[0.65rem] no-underline text-brand-charcoal text-center transition-[background,transform] duration-200 ease-out min-w-0 hover:bg-white active:scale-[0.98] focus-visible:outline focus-visible:outline-[2px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-2";
 							const labelEl = (
-								<span className="text-[0.68rem] font-extrabold uppercase tracking-[0.06em] text-[rgba(232,213,168,0.92)]">
+								<span className="text-[0.68rem] font-extrabold uppercase tracking-[0.06em] text-brand-accent">
 									{action.label}
 								</span>
 							);
 							const detailEl = (
-								<span className="text-[0.72rem] font-semibold text-[rgba(252,240,210,0.96)] [word-break:break-word] leading-[1.25] max-[380px]:text-[0.65rem]">
+								<span className="text-[0.72rem] font-semibold text-brand-charcoal [word-break:break-word] leading-[1.25] max-[380px]:text-[0.65rem]">
 									{action.detail}
 								</span>
 							);
@@ -314,16 +314,16 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				aria-labelledby="cookie-consent-title"
 				aria-describedby="cookie-consent-desc"
 			>
-				<div className="pointer-events-auto max-w-[44rem] mx-auto px-6 py-5 rounded-[1.4rem] border border-[rgba(212,175,55,0.32)] bg-[linear-gradient(165deg,rgba(19,26,36,0.98)_0%,rgba(8,11,18,0.99)_100%)] backdrop-blur-[20px] shadow-[0_-20px_60px_-20px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,252,245,0.06),inset_0_1px_0_rgba(255,252,245,0.08)]">
+				<div className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border bg-card px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.14)]">
 					<p
 						id="cookie-consent-title"
-						className="m-0 mb-2 text-base font-bold text-[rgba(252,240,210,0.96)] tracking-[-0.01em]"
+						className="m-0 mb-2 text-base font-bold tracking-[-0.01em] text-brand-indigo"
 					>
 						Cookies and analytics
 					</p>
 					<p
 						id="cookie-consent-desc"
-						className="m-0 mb-4 text-[0.875rem] leading-[1.6] text-[#9ca3ae] [&_a]:text-[#D4AF37] [&_a]:no-underline [&_a]:border-b [&_a]:border-[rgba(212,175,55,0.4)] [&_a]:transition-[border-color] [&_a]:duration-200 [&_a:hover]:border-[#D4AF37]"
+						className="m-0 mb-4 text-[0.875rem] leading-[1.6] text-brand-charcoal [&_a]:text-brand-accent [&_a]:no-underline [&_a]:border-b [&_a]:border-brand-border [&_a]:transition-[border-color,color] [&_a]:duration-200 [&_a:hover]:border-brand-accent [&_a:hover]:text-[var(--accent-bronze-dark)]"
 					>
 						We use essential tools to keep forms secure and the site running. If
 						you are OK with it, we also load Google Analytics 4 to see how

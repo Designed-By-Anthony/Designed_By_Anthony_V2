@@ -13,6 +13,7 @@ import { reportRoute } from "./routes/report";
 import { reportEmailRoute } from "./routes/reportEmail";
 import { reportPdfRoute } from "./routes/reportPdf";
 import { testEmailsRoute } from "./routes/testEmails";
+import { testRateLimitsRoute } from "./routes/testRateLimits";
 import { leadsRoute } from "./routes/leads";
 import { webhooks } from "./routes/webhooks";
 
@@ -20,7 +21,9 @@ import { webhooks } from "./routes/webhooks";
 // env and ctx are passed directly from the Worker fetch handler to Elysia
 // so routes can access env.DB dynamically without static initialization.
 
-const app = new Elysia({ aot: true })
+// Wrangler local dev runs in a restricted worker context where Elysia's AOT
+// code generation can trip "Code generation from strings disallowed".
+const app = new Elysia({ aot: false })
 	.use(
 		cors({
 			origin: (request) => {
@@ -73,6 +76,7 @@ const app = new Elysia({ aot: true })
   .use(reportEmailRoute)
   .use(reportPdfRoute)
   .use(testEmailsRoute)
+  .use(testRateLimitsRoute)
   .use(webhooks);
 
 // Queue message type
@@ -156,9 +160,11 @@ async function handlePdfGeneration(message: AuditQueueMessage, env: any) {
 
 // Export the handler directly for Cloudflare Workers
 export default {
-	fetch: (request: Request, env: any, ctx: any) => {
-		return app.handle(request);
-	},
+  fetch: (request: Request, env: any, ctx: any) => {
+    app.store.env = env;
+    app.store.ctx = ctx;
+    return app.handle(request);
+  },
 	async queue(batch: any, env: any) {
 		for (const message of batch.messages) {
 			await handlePdfGeneration(message.body, env);

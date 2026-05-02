@@ -162,7 +162,7 @@ export function ScoreRing({ score, label, size = "md", countDelay = 0 }: ScoreRi
                     {score == null ? "—" : displayScore}
                 </span>
             </div>
-            <span className="text-center text-[9px] font-bold uppercase tracking-[0.25em] text-white/40">
+            <span className="text-center text-[9px] font-bold uppercase tracking-[0.25em] text-brand-charcoal/40">
                 {label}
             </span>
         </figure>

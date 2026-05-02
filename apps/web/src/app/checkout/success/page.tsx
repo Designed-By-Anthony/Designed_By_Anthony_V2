@@ -20,29 +20,20 @@ export const metadata: Metadata = {
 
 export default function CheckoutSuccessPage() {
 	return (
-		<main className="min-h-screen flex flex-col items-center justify-center px-5 py-[clamp(4rem,10vw,8rem)] bg-[#0a0c10]">
-			{/* Ambient glow */}
-			<div
-				className="pointer-events-none fixed inset-0 z-0"
-				aria-hidden="true"
-				style={{
-					background:
-						"radial-gradient(ellipse 60% 45% at 50% 0%, rgba(212,175,55,0.07) 0%, transparent 70%)",
-				}}
-			/>
-
-			<div className="relative z-10 w-full max-w-[38rem] flex flex-col items-center gap-8 text-center">
+		<main className="flex min-h-screen flex-col items-center justify-center bg-brand-linen px-5 py-[clamp(4rem,10vw,8rem)]">
+			<div className="relative z-10 flex w-full max-w-[38rem] flex-col items-center gap-8 text-center">
 				{/* Success icon */}
 				<div
-					className="flex items-center justify-center w-16 h-16 rounded-full border border-[rgba(212,175,55,0.35)] bg-[rgba(212,175,55,0.08)] shadow-[0_0_40px_-12px_rgba(212,175,55,0.45)]"
+					className="flex h-16 w-16 items-center justify-center rounded-full border border-brand-accent bg-[rgb(var(--brand-accent-rgb)/0.08)] shadow-[0_12px_36px_-16px_rgb(var(--brand-accent-rgb)/0.35)]"
 					aria-hidden="true"
 				>
 					<svg
+						className="text-brand-accent"
 						width="28"
 						height="28"
 						viewBox="0 0 24 24"
 						fill="none"
-						stroke="rgba(212,175,55,0.95)"
+						stroke="currentColor"
 						strokeWidth="2.2"
 						strokeLinecap="round"
 						strokeLinejoin="round"
@@ -54,15 +45,15 @@ export default function CheckoutSuccessPage() {
 				{/* Heading */}
 				<div className="flex flex-col gap-3">
 					<p
-						className="text-[0.7rem] font-extrabold tracking-[0.22em] uppercase text-[rgba(212,175,55,0.85)]"
+						className="text-[0.7rem] font-extrabold uppercase tracking-[0.22em] text-brand-accent"
 						aria-label="Payment received"
 					>
 						Payment received
 					</p>
-					<h1 className="font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.6rem)] font-bold tracking-[-0.032em] leading-[1.12] text-white m-0">
+					<h1 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.6rem)] font-bold leading-[1.12] tracking-[-0.032em] text-brand-indigo">
 						Your environment is being provisioned.
 					</h1>
-					<p className="text-[1rem] leading-[1.78] text-[rgba(247,244,238,0.68)] m-0">
+					<p className="m-0 text-[1rem] leading-[1.78] text-brand-charcoal/75">
 						{BESPOKE_CONFIG_DESCRIPTION}
 					</p>
 				</div>
@@ -81,12 +72,12 @@ export default function CheckoutSuccessPage() {
 				</div>
 
 				{/* Fine print */}
-				<p className="text-[0.74rem] leading-[1.7] text-[rgba(247,244,238,0.32)] max-w-[30rem]">
+				<p className="max-w-[30rem] text-[0.74rem] leading-[1.7] text-brand-charcoal/45">
 					You will receive a confirmation email shortly. If you have questions,
 					reply to that email or{" "}
 					<Link
 						href="/contact"
-						className="text-[rgba(212,175,55,0.7)] underline underline-offset-2 hover:text-[rgba(212,175,55,1)] transition-colors duration-150"
+						className="text-brand-accent underline underline-offset-2 transition-colors duration-150 hover:text-[var(--accent-bronze-dark)]"
 					>
 						contact us directly
 					</Link>

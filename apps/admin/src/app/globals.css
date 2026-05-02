@@ -1,3 +1,9 @@
 @import url("../../../web/src/design-system/tokens.css");
 @import url("../../../web/src/design-system/tailwind-v4-bridge.css");
 @import "tailwindcss";
+
+html,
+body {
+	background-color: #f8f9fa !important;
+	color: #333333;
+}

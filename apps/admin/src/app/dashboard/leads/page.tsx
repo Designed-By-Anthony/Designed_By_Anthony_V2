@@ -32,7 +32,7 @@ export default async function LeadsDashboardPage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <h1 className="font-[family-name:var(--font-fraunces)] text-3xl font-semibold text-white">
+        <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-white">
           Lead Management
         </h1>
         <div className="flex items-center gap-4">
@@ -67,7 +67,7 @@ export default async function LeadsDashboardPage() {
 
       {/* Lead Management Table */}
       <section className="mt-10">
-        <h2 className="font-[family-name:var(--font-fraunces)] text-xl font-semibold text-white mb-6">
+        <h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-white mb-6">
           Lead Pipeline
         </h2>
         
@@ -81,22 +81,22 @@ export default async function LeadsDashboardPage() {
           <table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-white/90">
             <thead>
               <tr className="border-b border-white/10">
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   ID
                 </th>
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   Email
                 </th>
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   Company
                 </th>
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   Status
                 </th>
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   Created At
                 </th>
-                <th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+                <th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold">
                   Actions
                 </th>
               </tr>

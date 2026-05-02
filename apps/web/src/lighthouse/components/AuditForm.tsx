@@ -135,8 +135,6 @@ export function AuditForm() {
 			<AuditResults
 				data={results}
 				reportId={reportId}
-				contactEmail={email}
-				contactName={name}
 				onReset={() => {
 					setStatus("idle");
 					setResults(null);
@@ -148,7 +146,7 @@ export function AuditForm() {
 
 	/* Bronze token inputs — aligned with SalesforceContactForm SF_FIELD pattern. */
 	const inputClass =
-		"w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-[rgba(8,12,18,0.78)] px-[0.95rem] py-[0.7rem] text-[0.95rem] text-white [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] font-[inherit] transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-white/[0.42] focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-[rgba(10,14,22,0.92)] focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]";
+		"w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.7rem] text-[0.95rem] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] font-[inherit] transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-brand-charcoal/[0.42] focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]";
 
 	const labelClass =
 		"mb-1.5 block text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-[var(--text-cream)]";
@@ -165,7 +163,11 @@ export function AuditForm() {
 				<div className="absolute inset-0 z-10 overflow-y-auto rounded-[1.25rem] bg-[rgba(6,10,18,0.97)] p-4 backdrop-blur-md md:p-6">
 					<AuditScanProgress
 						activePhase={scanPhase}
-						message={LOADING_MESSAGES[loadingTextIndex]}
+						message={
+							LOADING_MESSAGES[loadingTextIndex] ??
+							LOADING_MESSAGES[0] ??
+							""
+						}
 					/>
 				</div>
 			) : null}
@@ -179,10 +181,10 @@ export function AuditForm() {
 					<p className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[rgb(var(--accent-bronze-rgb)/0.85)] mb-2">
 						Free · Private · No Account Needed
 					</p>
-					<h2 className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold tracking-tight text-white sm:text-[1.85rem]">
+					<h2 className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold tracking-tight text-brand-charcoal sm:text-[1.85rem]">
 						Get Your Free Report
 					</h2>
-					<p className="mt-3 max-w-xl text-[14px] leading-[1.7] text-white/60">
+					<p className="mt-3 max-w-xl text-[14px] leading-[1.7] text-brand-charcoal/60">
 						Enter your site below. We score it on speed, SEO, and trust signals
 						in about 60 seconds and send a private report link to your email.
 					</p>
@@ -211,7 +213,7 @@ export function AuditForm() {
 						autoCorrect="off"
 						autoCapitalize="off"
 						spellCheck={false}
-						className="w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-[rgba(8,12,18,0.78)] px-[0.95rem] py-[0.95rem] font-mono text-[15px] text-white [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] shadow-[0_18px_40px_-20px_rgba(0,0,0,0.25)] placeholder:font-normal placeholder:text-white/[0.42] transition-[border-color,box-shadow,background-color] duration-200 focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-[rgba(10,14,22,0.92)] focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]"
+						className="w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.95rem] font-mono text-[15px] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] shadow-[0_18px_40px_-20px_rgba(0,0,0,0.25)] placeholder:font-normal placeholder:text-brand-charcoal/[0.42] transition-[border-color,box-shadow,background-color] duration-200 focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]"
 					/>
 				</div>
 
@@ -304,9 +306,9 @@ export function AuditForm() {
 							onSuccess={(token) => setTurnstileToken(token)}
 							onExpire={() => setTurnstileToken(null)}
 							onError={() => setTurnstileToken(null)}
-							options={{ theme: "dark", size: "flexible" }}
+							options={{ theme: "light", size: "flexible" }}
 						/>
-						<p className="text-[0.7rem] font-bold uppercase tracking-widest text-white/30">
+						<p className="text-[0.7rem] font-bold uppercase tracking-widest text-brand-charcoal/30">
 							Security check required to proceed
 						</p>
 					</div>
@@ -333,7 +335,7 @@ export function AuditForm() {
 					</button>
 
 					<div className="text-center sm:text-right">
-						<p className="font-mono text-[11px] tracking-tight text-white/45">
+						<p className="font-mono text-[11px] tracking-tight text-brand-charcoal/45">
 							~60-90s · Private report · Shareable URL
 						</p>
 					</div>

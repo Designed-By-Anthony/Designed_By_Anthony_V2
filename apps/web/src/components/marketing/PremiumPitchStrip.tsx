@@ -8,21 +8,21 @@ import {
 
 /* Inline Tailwind: premium-pitch-* classes (layout-shell.css). */
 const SECTION =
-	"py-[var(--section-space-tight)] border-y border-white/[0.05] bg-[linear-gradient(180deg,rgba(8,12,20,0.35)_0%,transparent_100%)]";
+	"py-[var(--section-space-tight)] border-y border-brand-border bg-brand-linen";
 const HEADER = "max-w-[52rem] mx-auto mb-8 text-center";
 const TITLE =
-	"font-[family-name:var(--font-display)] text-[clamp(1.45rem,3.2vw,2rem)] font-extrabold tracking-[-0.04em] leading-[1.2] mt-2 mb-3 text-[var(--text-cream)]";
-const LEDE = "m-0 text-[var(--text-gray)] text-[1.02rem] leading-[1.65]";
+	"font-[family-name:var(--font-display)] text-[clamp(1.45rem,3.2vw,2rem)] font-extrabold tracking-[-0.04em] leading-[1.2] mt-2 mb-3 text-brand-indigo";
+const LEDE = "m-0 text-brand-charcoal/80 text-[1.02rem] leading-[1.65]";
 const GRID =
 	"list-none m-0 p-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4";
 const CARD =
-	"surface-card reveal-up p-[1.35rem_1.25rem] flex flex-col gap-[0.45rem] min-h-full transition-[border-color,box-shadow] duration-[var(--motion-duration-normal,0.28s)] [transition-timing-function:var(--ease-out,ease)] focus-within:border-[rgba(212,175,55,0.4)] focus-within:shadow-[0_12px_40px_-24px_rgba(212,175,55,0.45)]";
+	"surface-card reveal-up p-[1.35rem_1.25rem] flex flex-col gap-[0.45rem] min-h-full bg-brand-surface border border-brand-border transition-[border-color,box-shadow] duration-[var(--motion-duration-normal,0.28s)] [transition-timing-function:var(--ease-out,ease)] focus-within:border-brand-indigo/25 focus-within:shadow-[0_12px_40px_-24px_rgba(91,124,153,0.18)]";
 const LABEL =
-	"text-[0.68rem] font-extrabold tracking-[0.2em] uppercase text-[rgba(232,213,168,0.95)]";
+	"text-[0.68rem] font-extrabold tracking-[0.2em] uppercase text-brand-accent";
 const CARD_TITLE =
 	"text-[1.08rem] font-extrabold tracking-[-0.03em] m-0 leading-[1.25]";
 const CARD_BODY =
-	"m-0 text-[0.9rem] leading-[1.55] text-[var(--text-gray)] flex-1";
+	"m-0 text-[0.9rem] leading-[1.55] text-brand-charcoal/80 flex-1";
 
 export function PremiumPitchStrip({
 	variant = "home",

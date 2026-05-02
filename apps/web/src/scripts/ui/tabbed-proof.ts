@@ -40,6 +40,7 @@ export function initTabbedProof(): void {
 				const nextIndex =
 					(index + direction + triggers.length) % triggers.length;
 				const nextTrigger = triggers[nextIndex];
+				if (!nextTrigger) return;
 				nextTrigger.focus();
 				nextTrigger.click();
 			});

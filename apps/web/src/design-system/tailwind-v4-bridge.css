@@ -1,13 +1,10 @@
 /**
  * Maps DBA :root tokens to Tailwind v4 @theme names (marketing + Lighthouse).
- *
- * Brand palette: Midnight Obsidian (#0a0c10 → #0f1218) + Bronze (#C9A86C / #D4AF37).
- * All --color-brand-* tokens are bronze-first. Blue survives only in the
- * Lighthouse-specific block (--color-primary / --color-accent / --color-label)
- * until that segment is migrated in a later phase.
+ * Permanent light / high-contrast — linen page, indigo headings, slate accent.
  */
 @theme {
 	/* ── Backgrounds ─────────────────────────────────────────────── */
+	--color-brand-background: var(--brand-background);
 	--color-bg-dark: var(--bg-dark);
 	--color-bg-deeper: var(--bg-deeper);
 	--color-bg-ink: var(--bg-ink);
@@ -37,20 +34,27 @@
 	--color-accent-blue: var(--accent-blue);
 	--color-accent-blue-hover: var(--accent-blue-hover);
 
-	/* ── Brand tokens — bronze-first ────────────────────────────── */
+	/* ── Brand tokens (slate accent) ─────────────────────────────── */
 	--color-brand: var(--accent-bronze);
 	--color-brand-hover: var(--accent-bronze-dark);
-	--color-brand-subtle: rgb(212 175 55 / 0.14);
-	--color-brand-glow: rgb(212 175 55 / 0.22);
-	--color-brand-ring: rgb(212 175 55 / 0.5);
+	--color-brand-subtle: rgb(var(--brand-accent-rgb) / 0.14);
+	--color-brand-glow: rgb(var(--brand-accent-rgb) / 0.22);
+	--color-brand-ring: rgb(var(--brand-accent-rgb) / 0.45);
+
+	--color-brand-linen: var(--brand-linen);
+	--color-brand-indigo: var(--brand-indigo);
+	--color-brand-charcoal: var(--brand-charcoal);
+	--color-brand-accent: var(--brand-accent);
+	--color-brand-surface: var(--brand-surface);
+	--color-brand-border: var(--border-brand);
 
 	/* ── Borders ─────────────────────────────────────────────────── */
 	--color-border-soft: var(--border-soft);
 
-	/* ── Glass surfaces ──────────────────────────────────────────── */
-	--color-glass-bg: rgba(255, 255, 255, 0.03);
-	--color-glass-border: rgba(255, 255, 255, 0.06);
-	--color-glass-border-hover: rgba(255, 255, 255, 0.12);
+	/* ── Glass surfaces (light) ──────────────────────────────────── */
+	--color-glass-bg: rgba(255, 255, 255, 0.92);
+	--color-glass-border: var(--border-brand);
+	--color-glass-border-hover: rgba(26, 42, 64, 0.18);
 
 	/* ── Status ──────────────────────────────────────────────────── */
 	--color-success: var(--success-green);
@@ -58,20 +62,25 @@
 	--color-danger: #ef4444;
 	--color-info: var(--accent-bronze);
 
-	/* ── Fonts ───────────────────────────────────────────────────── */
-	--font-main: var(--font-main);
-	--font-display: var(--font-display);
+	/* Logo / display tracking — wordmark uses `tracking-tighter` (-0.05em). */
+	--tracking-tighter: -0.05em;
 
-	/* ── Lighthouse app (blue preserved until Phase 3+ migration) ── */
-	--color-foreground: var(--text-white);
-	--color-primary: var(--accent-blue-hover);
-	--color-accent: var(--accent-blue);
-	--color-card: rgba(13, 19, 32, 0.96);
-	--color-card-border: rgba(255, 255, 255, 0.08);
-	--color-input: #0d1320;
-	--color-input-border: rgba(96, 165, 250, 0.18);
-	--color-label: #93c5fd;
-	--color-placeholder: rgba(255, 255, 255, 0.32);
+	/* ── Fonts (Tailwind font-sans / font-serif + legacy token names) ─ */
+	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+	--font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+
+	/* ── Lighthouse app (light) ─────────────────────────────────── */
+	--color-foreground: var(--brand-charcoal);
+	--color-primary: var(--brand-accent);
+	--color-accent: var(--brand-accent);
+	--color-card: var(--brand-surface);
+	--color-card-border: var(--border-brand);
+	--color-input: #ffffff;
+	--color-input-border: var(--border-brand);
+	--color-label: var(--brand-indigo);
+	--color-placeholder: rgba(51, 51, 51, 0.42);
 }
 
 /*
@@ -81,6 +90,14 @@
  * Disabled controls are excluded so they keep `cursor: not-allowed`.
  */
 @layer base {
+	h1,
+	h2 {
+		font-family: var(--font-serif);
+		font-weight: 700;
+		letter-spacing: -0.05em;
+		color: var(--brand-indigo);
+	}
+
 	button:not(:disabled),
 	[role="button"]:not([aria-disabled="true"]),
 	[type="button"]:not(:disabled),
@@ -90,6 +107,22 @@
 	label[for],
 	a[href] {
 		cursor: pointer;
+	}
+
+	input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+	textarea,
+	select {
+		background-color: #ffffff;
+		border: 1px solid var(--border-brand);
+		color: var(--brand-charcoal);
+	}
+
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible {
+		border-color: var(--brand-indigo);
+		outline: 2px solid rgb(var(--brand-accent-rgb) / 0.28);
+		outline-offset: 1px;
 	}
 }
 
@@ -167,13 +200,13 @@
 	0%,
 	100% {
 		box-shadow:
-			0 22px 40px -22px rgba(145, 112, 56, 0.65),
+			0 22px 40px -22px rgb(var(--brand-accent-rgb) / 0.35),
 			inset 0 1px 0 rgba(255, 255, 255, 0.22);
 	}
 	50% {
 		box-shadow:
-			0 22px 40px -22px rgba(145, 112, 56, 0.88),
-			0 0 32px 6px rgba(212, 175, 55, 0.22),
+			0 22px 40px -22px rgb(var(--brand-accent-rgb) / 0.48),
+			0 0 28px 5px rgb(var(--brand-accent-rgb) / 0.22),
 			inset 0 1px 0 rgba(255, 255, 255, 0.22);
 	}
 }
@@ -193,7 +226,7 @@
 
 html {
 	scroll-behavior: smooth;
-	background-color: var(--bg-ink);
+	background-color: var(--brand-linen);
 	/* Prevent rare horizontal rubber-band from full-bleed children on narrow viewports */
 	overflow-x: clip;
 	min-width: 0;
@@ -215,34 +248,12 @@ html {
 
 body {
 	min-width: 0;
-	background-color: var(--bg-dark);
-	background-image: /* Primary atmospheric glow - enhanced sky blue (matching Lighthouse) */
-			radial-gradient(
-				ellipse 120% 50% at 50% -10%,
-				rgb(var(--accent-bronze-rgb) / 0.12),
-				transparent 55%
-			),
-			/* Secondary warm accent - bronze glow (matching Lighthouse depth) */
-			radial-gradient(
-				ellipse 80% 40% at 85% 20%,
-				rgb(var(--accent-bronze-rgb) / 0.06),
-				transparent 50%
-			),
-			/* Tertiary depth layer - subtle blue */
-			radial-gradient(
-				ellipse 60% 30% at 15% 70%,
-				rgb(var(--accent-bronze-rgb) / 0.05),
-				transparent 45%
-			),
-			/* Base ink gradient */
-			linear-gradient(
-				180deg,
-				var(--bg-ink) 0%,
-				var(--bg-dark) 35%,
-				var(--bg-deeper) 100%
-			);
-	color: var(--text-white);
+	background-color: var(--brand-linen);
+	background-image: none;
+	color: var(--brand-charcoal);
 	font-family: var(--font-main);
+	font-weight: 500;
+	letter-spacing: 0;
 	line-height: 1.7;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -278,28 +289,20 @@ body::before {
 	position: fixed;
 	inset: 0;
 	background-image:
-		linear-gradient(rgba(255, 252, 245, 0.022) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 252, 245, 0.022) 1px, transparent 1px);
+		linear-gradient(rgba(26, 42, 64, 0.04) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(26, 42, 64, 0.04) 1px, transparent 1px);
 	background-size: 72px 72px;
 	pointer-events: none;
 	z-index: 1;
 }
 
-/* Fine grain — reads like paper / print studio */
 body::after {
-	content: "";
-	position: fixed;
-	inset: 0;
-	opacity: 0.04;
-	pointer-events: none;
-	z-index: 1;
-	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-	mix-blend-mode: overlay;
+	display: none;
 }
 
 ::selection {
-	background: rgb(var(--accent-bronze-rgb) / 0.28);
-	color: var(--text-cream);
+	background: rgb(var(--brand-accent-rgb) / 0.22);
+	color: var(--brand-indigo);
 }
 
 a {
@@ -318,7 +321,7 @@ textarea:focus-visible,
 select:focus-visible,
 summary:focus-visible,
 [role="button"]:focus-visible {
-	outline: 2px solid rgb(var(--accent-bronze-rgb) / 0.5);
+	outline: 2px solid rgb(var(--brand-accent-rgb) / 0.55);
 	outline-offset: 2px;
 }
 
@@ -336,10 +339,10 @@ main {
 .section-shell--wash {
 	background: linear-gradient(
 		180deg,
-		rgba(255, 252, 245, 0.02) 0%,
+		rgba(26, 42, 64, 0.03) 0%,
 		transparent 12%,
 		transparent 88%,
-		rgba(255, 252, 245, 0.02) 100%
+		rgba(26, 42, 64, 0.03) 100%
 	);
 }
 
@@ -347,21 +350,17 @@ main {
 	position: relative;
 	background: linear-gradient(
 		180deg,
-		rgba(8, 12, 18, 0.92) 0%,
-		rgba(12, 18, 28, 0.82) 100%
+		#ffffff 0%,
+		var(--brand-linen) 100%
 	);
 }
 
 .section-shell--technical {
 	position: relative;
 	background:
-		linear-gradient(rgba(255, 252, 245, 0.02) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(255, 252, 245, 0.02) 1px, transparent 1px),
-		linear-gradient(
-			180deg,
-			rgba(8, 13, 24, 0.92) 0%,
-			rgba(7, 11, 18, 0.92) 100%
-		);
+		linear-gradient(rgba(26, 42, 64, 0.05) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(26, 42, 64, 0.05) 1px, transparent 1px),
+		linear-gradient(180deg, #ffffff 0%, var(--brand-linen) 100%);
 	background-size:
 		48px 48px,
 		48px 48px,
@@ -373,12 +372,12 @@ main {
 	background:
 		radial-gradient(
 			circle at 0% 0%,
-			rgb(var(--accent-bronze-rgb) / 0.08),
+			rgb(var(--brand-accent-rgb) / 0.12),
 			transparent 34%
 		),
 		radial-gradient(
 			circle at 100% 100%,
-			rgb(var(--accent-bronze-rgb) / 0.08),
+			rgb(var(--brand-accent-rgb) / 0.1),
 			transparent 30%
 		);
 }
@@ -487,7 +486,7 @@ main {
 	}
 }
 
-/* ── Display Font: Outfit Variable for all headlines ── */
+/* ── Display: Playfair Display for marketing headlines ── */
 .section-header h1,
 .section-header h2,
 .page-hero h1,
@@ -501,8 +500,8 @@ main {
 .page-hero h1,
 .page-hero h2 {
 	font-size: clamp(2.8rem, 6.5vw, 5.4rem);
-	font-weight: 800;
-	letter-spacing: -0.035em;
+	font-weight: 700;
+	letter-spacing: -0.05em;
 	line-height: 1.05;
 	margin-bottom: 1rem;
 	color: var(--text-cream);
@@ -512,7 +511,7 @@ main {
 .section-header h2 {
 	font-size: clamp(2.8rem, 6.5vw, 5.4rem);
 	font-weight: 700;
-	letter-spacing: -0.035em;
+	letter-spacing: -0.05em;
 	line-height: 1.05;
 	margin-bottom: 1rem;
 	color: var(--text-cream);
@@ -550,12 +549,11 @@ main {
 	}
 }
 
-/* Home hero: Abril Fatface for primary headline (single weight 400; avoid faux-bold). */
+/* Home hero — Playfair Display, bold, tight tracking. */
 .page-hero--home h1 {
 	font-family: var(--font-hero);
-	font-weight: 400;
-	letter-spacing: -0.02em;
-	/* Reserve line block when Abril swaps in (reduces font-swap CLS on desktop + mobile). */
+	font-weight: 700;
+	letter-spacing: -0.05em;
 	min-height: calc(4 * 1.05 * clamp(2.8rem, 6.5vw, 5.4rem));
 }
 
@@ -693,9 +691,9 @@ main {
 	gap: 0.5rem;
 	padding: 0.46rem 0.78rem;
 	border-radius: 999px;
-	border: 1px solid rgba(212, 175, 55, 0.2);
-	background: rgba(14, 20, 30, 0.72);
-	color: rgba(255, 255, 255, 0.84);
+	border: 1px solid rgb(var(--brand-accent-rgb) / 0.22);
+	background: var(--brand-surface);
+	color: var(--brand-charcoal);
 	font-size: 0.84rem;
 	font-weight: 600;
 }
@@ -775,7 +773,7 @@ main {
 	font-size: 1.45rem;
 	font-weight: 800;
 	letter-spacing: -0.03em;
-	color: var(--text-white);
+	color: var(--brand-indigo);
 	margin-bottom: 0.35rem;
 }
 
@@ -785,12 +783,8 @@ main {
 }
 
 .surface-card {
-	background: linear-gradient(
-		165deg,
-		rgba(14, 18, 28, 0.97) 0%,
-		rgba(18, 24, 36, 0.93) 100%
-	);
-	border: 1px solid var(--border-soft);
+	background: var(--brand-surface);
+	border: 1px solid var(--border-brand);
 	border-radius: var(--radius-card-lg);
 	box-shadow: var(--shadow-card);
 	perspective: 800px;
@@ -803,39 +797,27 @@ main {
 }
 
 .surface-card--editorial {
-	background: linear-gradient(
-		175deg,
-		rgba(20, 25, 36, 0.95) 0%,
-		rgba(14, 18, 28, 0.9) 100%
-	);
-	border-color: rgb(var(--accent-bronze-rgb) / 0.24);
+	background: var(--brand-surface);
+	border-color: var(--border-brand);
 }
 
 .surface-card--technical {
-	background: linear-gradient(
-		175deg,
-		rgba(9, 14, 24, 0.95) 0%,
-		rgba(11, 17, 29, 0.95) 100%
-	);
-	border-color: rgb(var(--accent-bronze-rgb) / 0.22);
+	background: var(--brand-surface);
+	border-color: var(--border-brand);
 	box-shadow:
-		0 28px 70px -38px rgba(2, 6, 23, 0.96),
-		inset 0 0 0 1px rgba(148, 163, 184, 0.08);
+		0 20px 48px -28px rgba(26, 42, 64, 0.14),
+		inset 0 0 0 1px rgba(26, 42, 64, 0.06);
 }
 
 .surface-card--proof {
 	background:
 		radial-gradient(
 			circle at top right,
-			rgba(34, 197, 94, 0.08),
+			rgba(34, 197, 94, 0.12),
 			transparent 40%
 		),
-		linear-gradient(
-			165deg,
-			rgba(15, 20, 30, 0.96) 0%,
-			rgba(15, 19, 28, 0.92) 100%
-		);
-	border-color: rgba(34, 197, 94, 0.22);
+		var(--brand-surface);
+	border-color: rgba(34, 197, 94, 0.28);
 }
 
 /* Cursor glow pseudo-element — Bronze warmth instead of blue */
@@ -846,7 +828,7 @@ main {
 	border-radius: inherit;
 	background: radial-gradient(
 		300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-		rgba(212, 175, 55, 0.05),
+		rgb(var(--brand-accent-rgb) / 0.08),
 		transparent 60%
 	);
 	opacity: 0;
@@ -862,9 +844,9 @@ main {
 .surface-card:hover {
 	transform: translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
 	box-shadow:
-		0 32px 64px -32px rgba(2, 6, 23, 0.85),
-		0 0 0 1px rgba(212, 175, 55, 0.1);
-	border-color: rgba(255, 255, 255, 0.14);
+		0 28px 56px -28px rgba(26, 42, 64, 0.18),
+		0 0 0 1px rgb(var(--brand-accent-rgb) / 0.2);
+	border-color: rgba(26, 42, 64, 0.16);
 }
 
 @media (prefers-reduced-motion: reduce), (pointer: coarse) {
@@ -909,16 +891,12 @@ main {
  * the non-clipping variant when the container DOESN'T have overflow:hidden
  * (so we still want the visual gutter to feel right). */
 .text-bubble.is-bordered {
-	/* Remove the flat dark background, replace with a subtle glass gradient */
-	background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
-	/* Crisper, lighter border */
-	border: 1px solid rgba(255, 255, 255, 0.08);
+	background: var(--brand-surface);
+	border: 1px solid var(--border-brand);
 	border-radius: 1rem;
-	/* The secret sauce: a 1px white inner highlight at the very top */
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 	padding: 1.5rem;
-	/* Make the text feel more editorial */
-	color: rgba(255, 255, 255, 0.75);
+	color: var(--brand-charcoal);
 	line-height: 1.8;
 }
 
@@ -952,9 +930,9 @@ main {
 	align-items: center;
 	padding: 0.36rem 0.7rem;
 	border-radius: 999px;
-	background: rgb(var(--accent-bronze-rgb) / 0.1);
-	border: 1px solid rgb(var(--accent-bronze-rgb) / 0.24);
-	color: var(--accent-bronze-light, #fcf0d2);
+	background: rgb(var(--brand-accent-rgb) / 0.12);
+	border: 1px solid rgb(var(--brand-accent-rgb) / 0.28);
+	color: var(--brand-indigo);
 	font-size: 0.72rem;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -967,9 +945,9 @@ main {
 
 a .card-tag:hover,
 button:hover .card-tag {
-	background: rgb(var(--accent-bronze-rgb) / 0.18);
-	border-color: rgb(var(--accent-bronze-rgb) / 0.4);
-	color: var(--accent-bronze-light, #fcf0d2);
+	background: rgb(var(--brand-accent-rgb) / 0.2);
+	border-color: rgb(var(--brand-accent-rgb) / 0.42);
+	color: var(--brand-indigo);
 }
 
 .cta-band {
@@ -978,11 +956,11 @@ button:hover .card-tag {
 	background:
 		radial-gradient(
 			circle at top right,
-			rgba(96, 165, 250, 0.16),
-			transparent 28%
+			rgb(var(--brand-accent-rgb) / 0.14),
+			transparent 32%
 		),
-		linear-gradient(135deg, #0b1220 0%, #111c31 48%, #16243d 100%);
-	border: 1px solid rgb(var(--accent-bronze-rgb) / 0.4);
+		linear-gradient(135deg, #ffffff 0%, var(--brand-linen) 55%, #eef2f6 100%);
+	border: 1px solid var(--border-brand);
 	box-shadow: var(--shadow-card);
 }
 
@@ -992,6 +970,7 @@ button:hover .card-tag {
 	letter-spacing: -0.04em;
 	line-height: 1.05;
 	margin-bottom: 1rem;
+	color: var(--brand-indigo);
 }
 
 .cta-band p {
@@ -1009,7 +988,7 @@ button:hover .card-tag {
 	display: flex;
 	align-items: flex-start;
 	gap: 0.7rem;
-	color: rgba(255, 255, 255, 0.82);
+	color: var(--brand-charcoal);
 }
 
 .trust-list li::before {
@@ -1028,8 +1007,8 @@ button:hover .card-tag {
 	margin: 0 auto;
 	padding: clamp(1.7rem, 3vw, 2.1rem);
 	border-radius: 1.4rem;
-	background: rgba(13, 19, 32, 0.9);
-	border: 1px solid rgba(255, 255, 255, 0.06);
+	background: var(--brand-surface);
+	border: 1px solid var(--border-brand);
 }
 
 .article-shell p,
@@ -1039,7 +1018,7 @@ button:hover .card-tag {
 
 .article-shell h2,
 .article-shell h3 {
-	color: var(--text-white);
+	color: var(--brand-indigo);
 	letter-spacing: -0.03em;
 }
 

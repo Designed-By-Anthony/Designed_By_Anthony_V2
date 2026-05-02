@@ -1,6 +1,6 @@
 import { blogPosts } from "@/data/blogPosts";
+import { MARKETING_SERVICES } from "@/data/marketing-services";
 import { getAllServiceAreaSlugs } from "@/data/serviceAreaLocations";
-import { MARKETING_SERVICES } from "@/lib/seo";
 
 /**
  * Portfolio case-study URL segments — must match `caseStudySlug` on entries in

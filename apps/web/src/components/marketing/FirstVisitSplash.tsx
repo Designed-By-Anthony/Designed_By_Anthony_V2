@@ -68,12 +68,12 @@ export function FirstVisitSplash() {
                     <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[rgb(var(--accent-bronze-rgb)/0.9)]">
                         New: Micro SaaS Division
                     </p>
-                    <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-medium tracking-[-0.035em] leading-[1.1] text-white">
+                    <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-medium tracking-[-0.035em] leading-[1.1] text-brand-charcoal">
                         Bespoke web apps & automations.
                     </h2>
                 </div>
 
-                <p className="mb-8 text-[0.95rem] leading-relaxed text-white/75">
+                <p className="mb-8 text-[0.95rem] leading-relaxed text-brand-charcoal/75">
                     From custom CRMs to complex API integrations—if your business needs it to scale, we can build it. 
                 </p>
 
@@ -89,7 +89,7 @@ export function FirstVisitSplash() {
                     <button
                         type="button"
                         onClick={handleClose}
-                        className="flex-1 sm:flex-none rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-[0.95rem] font-medium text-white/80 transition hover:bg-white/10"
+                        className="flex-1 sm:flex-none rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-[0.95rem] font-medium text-brand-charcoal/80 transition hover:bg-white/10"
                     >
                         Explore the site
                     </button>

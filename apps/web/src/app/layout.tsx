@@ -1,40 +1,12 @@
 import "@/design-system/dba-global.css";
+import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, Outfit } from "next/font/google";
 import Script from "next/script";
-import type { ReactNode } from "react";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/fraunces";
+import type { CSSProperties, ReactNode } from "react";
 import { CrispBootstrap } from "@/components/CrispBootstrap";
 import { JsonLd } from "@/components/JsonLd";
-
-/**
- * Load Outfit Variable via Next.js Font API so the --font-outfit CSS variable
- * is available globally. theme.css sets --font-display to "Outfit Variable",
- * but without the Next.js font loader the Google Font only loads on the
- * Lighthouse segment (which has its own Outfit import). Loading it here
- * ensures headings use Outfit everywhere on the marketing site.
- */
-const outfit = Outfit({
-	variable: "--font-outfit",
-	subsets: ["latin"],
-	display: "swap",
-});
-
-/**
- * Load Fraunces Variable via Next.js Font API so --font-fraunces is set on
- * <html>. Decorative serif headings may reference var(--font-fraunces).
- */
-const fraunces = Fraunces({
-	variable: "--font-fraunces",
-	subsets: ["latin"],
-	axes: ["opsz", "SOFT", "WONK"],
-	display: "swap",
-});
-
-const inter = Inter({
-	variable: "--font-inter",
-	subsets: ["latin"],
-	display: "swap",
-});
 
 /** Mobile-first: correct scaling on phones/tablets; safe areas for notched devices. */
 export const viewport: Viewport = {
@@ -42,11 +14,8 @@ export const viewport: Viewport = {
 	initialScale: 1,
 	viewportFit: "cover",
 	interactiveWidget: "resizes-content",
-	themeColor: [
-		{ media: "(prefers-color-scheme: dark)", color: "#0f1218" },
-		{ media: "(prefers-color-scheme: light)", color: "#0f1218" },
-	],
-	colorScheme: "dark",
+	themeColor: "#f8f9fa",
+	colorScheme: "light",
 };
 
 const SITE_TITLE = "ANTHONY. | Digital Infrastructure Architect";
@@ -63,7 +32,7 @@ export const metadata: Metadata = {
 	manifest: "/manifest.webmanifest",
 	appleWebApp: {
 		capable: true,
-		statusBarStyle: "black-translucent",
+		statusBarStyle: "default",
 		title: SITE_TITLE,
 	},
 	formatDetection: {
@@ -102,17 +71,28 @@ export const metadata: Metadata = {
 	},
 	icons: {
 		icon: [
-			{ url: "/favicon.ico", sizes: "16x16", type: "image/x-icon" },
 			{ url: "/favicon.svg", type: "image/svg+xml" },
-			{ url: "/favicon.png", sizes: "16x16", type: "image/png" },
+			{ url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
+			{ url: "/favicon.png", sizes: "32x32", type: "image/png" },
 		],
 		shortcut: "/favicon.ico",
-		apple: "/apple-touch-icon-180.png",
+		apple: [
+			{
+				url: "/apple-touch-icon.png",
+				sizes: "180x180",
+				type: "image/png",
+			},
+		],
 	},
 };
 
 const DEFAULT_LEAD_WEBHOOK =
 	"https://tremendous-emu-522.convex.site/webhook/lead";
+
+const fontVariables: CSSProperties = {
+	"--font-inter": '"Inter Variable"',
+	"--font-playfair": '"Fraunces Variable"',
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
 	const leadWebhookDefault =
@@ -123,7 +103,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 			prefix="og: https://ogp.me/ns#"
 			data-scroll-behavior="smooth"
 			data-lead-webhook={leadWebhookDefault || undefined}
-			className={`${outfit.variable} ${fraunces.variable} ${inter.variable}`}
+			style={fontVariables}
 		>
 			<head>
 				<JsonLd />

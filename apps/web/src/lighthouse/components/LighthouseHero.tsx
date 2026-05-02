@@ -99,7 +99,7 @@ function MiniScoreRing({
 					{score}
 				</span>
 			</div>
-			<span className="text-[9px] font-bold uppercase tracking-[0.12em] text-white/40">
+			<span className="text-[9px] font-bold uppercase tracking-[0.12em] text-brand-charcoal/40">
 				{label}
 			</span>
 		</div>
@@ -116,10 +116,10 @@ function DiagnosticPreview({ animate }: { animate: boolean }) {
 		>
 			<div className="flex items-start justify-between gap-3 mb-4">
 				<div>
-					<p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white/45 mb-1">
+					<p className="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-brand-charcoal/45 mb-1">
 						Sample audit report
 					</p>
-					<p className="font-[family-name:var(--font-fraunces)] text-base font-semibold text-white">
+					<p className="font-[family-name:var(--font-playfair)] text-base font-semibold text-brand-charcoal">
 						local-roofing.com
 					</p>
 				</div>
@@ -153,10 +153,10 @@ function DiagnosticPreview({ animate }: { animate: boolean }) {
 							aria-hidden
 						/>
 						<span className="min-w-0">
-							<span className="block font-[family-name:var(--font-display)] text-[14px] font-semibold leading-tight text-white/95">
+							<span className="block font-[family-name:var(--font-display)] text-[14px] font-semibold leading-tight text-brand-charcoal/95">
 								{row.label}
 							</span>
-							<span className="mt-0.5 block text-[11.5px] leading-[1.5] text-white/50">
+							<span className="mt-0.5 block text-[11.5px] leading-[1.5] text-brand-charcoal/50">
 								{row.value}
 							</span>
 						</span>
@@ -170,7 +170,7 @@ function DiagnosticPreview({ animate }: { animate: boolean }) {
 					className="inline-flex h-1.5 w-1.5 rounded-full bg-amber-400/80 shadow-[0_0_6px_rgba(251,191,36,0.45)]"
 					aria-hidden="true"
 				/>
-				<span className="text-[11px] text-white/40">
+				<span className="text-[11px] text-brand-charcoal/40">
 					Full PageSpeed data · SEO breakdown · AI fix list
 				</span>
 			</div>
@@ -187,23 +187,13 @@ export function LighthouseHero() {
 			className="relative max-w-3xl pt-[var(--space-element)] pb-[var(--space-block)]"
 			aria-labelledby="lighthouse-hero-heading"
 		>
-			{/* Ambient glow — twin bronze halos (left + right) for warm symmetry.
-			    The right-side stale blue (rgba(91,156,248,*)) was retired in
-			    Phase 4 SEV-2 along with the broader bronze sweep. */}
+			{/* Ambient wash — soft slate blobs (no gradients) */}
 			<div
-				className="pointer-events-none absolute -left-20 top-0 h-96 w-96 rounded-full opacity-25 blur-3xl"
-				style={{
-					background:
-						"radial-gradient(circle, rgb(var(--accent-bronze-rgb) / 0.14), transparent 70%)",
-				}}
+				className="pointer-events-none absolute -left-20 top-0 h-96 w-96 rounded-full bg-[rgb(var(--brand-accent-rgb)/0.14)] opacity-30 blur-3xl"
 				aria-hidden
 			/>
 			<div
-				className="pointer-events-none absolute -right-10 top-20 h-72 w-72 rounded-full opacity-15 blur-3xl"
-				style={{
-					background:
-						"radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%)",
-				}}
+				className="pointer-events-none absolute -right-10 top-20 h-72 w-72 rounded-full bg-[rgb(var(--brand-accent-rgb)/0.12)] opacity-40 blur-3xl"
 				aria-hidden
 			/>
 			<MotionDiv
@@ -212,10 +202,7 @@ export function LighthouseHero() {
 				animate={{ opacity: 1, x: 0 }}
 				transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
 			>
-				<span
-					className="inline-block w-7 h-px bg-[linear-gradient(90deg,transparent,rgb(var(--accent-bronze-rgb)/0.85)_60%,rgb(var(--accent-bronze-rgb)/0.15))]"
-					aria-hidden
-				/>
+				<span className="inline-block h-px w-7 bg-brand-accent/70" aria-hidden />
 				<span>The Diagnostic Bench</span>
 			</MotionDiv>
 
@@ -230,7 +217,7 @@ export function LighthouseHero() {
 			>
 				<h1
 					id="lighthouse-hero-heading"
-					className="font-[family-name:var(--font-fraunces)] text-[clamp(2.55rem,5.5vw,4.85rem)] font-bold tracking-[-0.02em] leading-[1.0] text-[var(--text-cream)] text-balance mb-0"
+					className="font-[family-name:var(--font-playfair)] text-[clamp(2.55rem,5.5vw,4.85rem)] font-bold tracking-[-0.05em] leading-[1.0] text-[var(--text-cream)] text-balance mb-0"
 				>
 					Know What's Costing You Customers.
 				</h1>
@@ -241,7 +228,7 @@ export function LighthouseHero() {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.6, delay: 0.18 }}
 			>
-				<p className="mt-6 max-w-[64ch] text-[clamp(1rem,1.5vw,1.12rem)] leading-[1.75] text-white/70">
+				<p className="mt-6 max-w-[64ch] text-[clamp(1rem,1.5vw,1.12rem)] leading-[1.75] text-brand-charcoal/70">
 					Get a full scored breakdown of your site's speed, SEO gaps, and trust
 					signals — with a prioritized AI fix list. Free, private, and ready in
 					about 60 seconds.
@@ -259,10 +246,10 @@ export function LighthouseHero() {
 						key={point.k}
 						className="flex flex-col items-start min-w-0 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
 					>
-						<span className="font-[family-name:var(--font-display)] text-[17px] font-semibold leading-none text-white">
+						<span className="font-[family-name:var(--font-display)] text-[17px] font-semibold leading-none text-brand-charcoal">
 							{point.v}
 						</span>
-						<span className="mt-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white/45">
+						<span className="mt-1 text-[9px] font-bold uppercase tracking-[0.16em] text-brand-charcoal/45">
 							{point.k}
 						</span>
 					</div>

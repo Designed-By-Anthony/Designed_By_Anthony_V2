@@ -16,7 +16,7 @@ import {
 export type { AuditAiInsight, AuditData };
 
 const LABEL_STYLE = "text-[10px] font-bold uppercase tracking-[0.2em] text-[rgb(var(--accent-bronze-rgb)/0.85)] mb-2";
-const HEADING_STYLE = "font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.035em] text-white mb-4";
+const HEADING_STYLE = "font-[family-name:var(--font-display)] text-2xl font-medium tracking-[-0.035em] text-brand-charcoal mb-4";
 
 // Stagger variants for the score ring row
 const ringRowVariants = {
@@ -35,7 +35,7 @@ function formatStars(rating: number | null | undefined): string {
 
 function ExecutiveSummaryBody({ text }: { text: string }) {
     return (
-        <div className="font-[family-name:var(--font-main)] text-[15px] leading-relaxed text-white/80 space-y-4">
+        <div className="font-[family-name:var(--font-main)] text-[15px] leading-relaxed text-brand-charcoal/80 space-y-4">
             {text.split(/\n\n+/).filter(Boolean).map((para, i) => (
                 <p key={i}>{para}</p>
             ))}
@@ -47,14 +47,10 @@ export function AuditResults({
     data,
     reportId,
     onReset,
-    contactEmail,
-    contactName,
 }: {
     data: AuditData;
     reportId?: string | null;
     onReset?: () => void;
-    contactEmail?: string;
-    contactName?: string;
 }) {
     const router = useRouter();
     const [pdfStatus, setPdfStatus] = useState<"idle" | "generating" | "error">("idle");
@@ -105,16 +101,16 @@ export function AuditResults({
             <div className="mb-12 grid gap-8 lg:grid-cols-[1fr_360px] items-start">
                 <div>
                     <p className={LABEL_STYLE}>Analysis Complete</p>
-                    <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-6xl font-medium tracking-[-0.035em] leading-[1.05] text-white mb-6">
+                    <h1 className="font-[family-name:var(--font-display)] text-4xl md:text-6xl font-medium tracking-[-0.035em] leading-[1.05] text-brand-charcoal mb-6">
                         System Report
                     </h1>
-                    <p className="text-xl text-white/70 leading-relaxed max-w-2xl">
-                        Deep-scan results for <span className="text-white">{data.url}</span>.
+                    <p className="text-xl text-brand-charcoal/70 leading-relaxed max-w-2xl">
+                        Deep-scan results for <span className="text-brand-charcoal">{data.url}</span>.
                     </p>
                 </div>
                 
                 <div className={`${SURFACE_CARD_TECHNICAL} ${CARD_HAS_TEXT_PAD} bg-white/[0.02]`}>
-                    <p className="text-[11px] font-bold uppercase text-white/30 mb-2">Deliverables</p>
+                    <p className="text-[11px] font-bold uppercase text-brand-charcoal/30 mb-2">Deliverables</p>
                     <div className="space-y-3">
                         {/* Primary CTA — book a strategy session */}
                         <Link
@@ -127,13 +123,13 @@ export function AuditResults({
                         <button
                             onClick={handleDownloadPdf}
                             disabled={pdfStatus === "generating"}
-                            className="w-full rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-sm py-3 text-sm font-bold text-white hover:bg-white/10 transition-all disabled:opacity-50"
+                            className="w-full rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-sm py-3 text-sm font-bold text-brand-charcoal hover:bg-white/10 transition-all disabled:opacity-50"
                         >
                             {pdfStatus === "generating" ? "Generating…" : "Download PDF Report"}
                         </button>
                         <button 
                             onClick={handlePrintView}
-                            className="w-full rounded-xl border border-white/[0.06] bg-transparent py-2.5 text-xs font-bold text-white/50 hover:text-white/80 hover:border-white/10 transition-all"
+                            className="w-full rounded-xl border border-white/[0.06] bg-transparent py-2.5 text-xs font-bold text-brand-charcoal/50 hover:text-brand-charcoal/80 hover:border-white/10 transition-all"
                         >
                             Print Full Layout
                         </button>
@@ -182,11 +178,11 @@ export function AuditResults({
                                         {i + 1}
                                     </span>
                                     <div>
-                                        <p className="text-[16px] font-semibold text-white/90 mb-1">{item.action}</p>
+                                        <p className="text-[16px] font-semibold text-brand-charcoal/90 mb-1">{item.action}</p>
                                         <div className="flex gap-2">
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">{item.impact} Impact</span>
-                                            <span className="text-[10px] font-bold text-white/20">•</span>
-                                            <span className="text-[10px] font-bold uppercase tracking-wider text-white/30">{item.effort} Effort</span>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-charcoal/30">{item.impact} Impact</span>
+                                            <span className="text-[10px] font-bold text-brand-charcoal/20">•</span>
+                                            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-charcoal/30">{item.effort} Effort</span>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +194,7 @@ export function AuditResults({
                 <aside className="lg:col-span-4 space-y-10">
                     <div className={`${SURFACE_CARD_TECHNICAL} ${CARD_HAS_TEXT_PAD}`}>
                         <p className={LABEL_STYLE}>Technical Health</p>
-                        <h3 className="text-xl font-bold text-white mb-6">Lab Vitals</h3>
+                        <h3 className="text-xl font-bold text-brand-charcoal mb-6">Lab Vitals</h3>
                         <div className="space-y-5">
                             {[
                                 { l: "First Contentful Paint", v: data.metrics?.fcp },
@@ -207,7 +203,7 @@ export function AuditResults({
                                 { l: "Cumulative Layout Shift", v: data.metrics?.cls },
                             ].map(m => (
                                 <div key={m.l} className="flex justify-between items-end border-b border-white/5 pb-2">
-                                    <span className="text-xs font-medium text-white/40">{m.l}</span>
+                                    <span className="text-xs font-medium text-brand-charcoal/40">{m.l}</span>
                                     <span className="text-sm font-bold text-[rgb(var(--accent-bronze-rgb))]">{m.v || "—"}</span>
                                 </div>
                             ))}
@@ -216,11 +212,11 @@ export function AuditResults({
 
                     <div className={`${SURFACE_CARD_TECHNICAL} ${CARD_HAS_TEXT_PAD} bg-[rgb(var(--accent-bronze-rgb)/0.03)]`}>
                         <p className={LABEL_STYLE}>Market Signals</p>
-                        <h3 className="text-xl font-bold text-white mb-4">Local Visibility</h3>
-                        <p className="text-2xl font-bold text-white mb-1">
+                        <h3 className="text-xl font-bold text-brand-charcoal mb-4">Local Visibility</h3>
+                        <p className="text-2xl font-bold text-brand-charcoal mb-1">
                             {formatStars(data.places?.rating)}
                         </p>
-                        <p className="text-sm text-white/40">
+                        <p className="text-sm text-brand-charcoal/40">
                             Based on {data.places?.userRatingCount ?? 0} verified reviews.
                         </p>
                     </div>
@@ -230,7 +226,7 @@ export function AuditResults({
             <div className="mt-24 border-t border-white/10 pt-16 text-center">
                 <button 
                     onClick={() => { if(onReset) onReset(); else router.push('/lighthouse'); }}
-                    className="text-xs font-bold uppercase tracking-[0.3em] text-white/30 hover:text-[rgb(var(--accent-bronze-rgb))] transition-colors"
+                    className="text-xs font-bold uppercase tracking-[0.3em] text-brand-charcoal/30 hover:text-[rgb(var(--accent-bronze-rgb))] transition-colors"
                 >
                     ← Run New Scan
                 </button>

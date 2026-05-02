@@ -7,7 +7,7 @@ export default function DashboardHomePage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="mb-10">
-        <h1 className="font-[family-name:var(--font-fraunces)] text-3xl font-semibold text-white">
+        <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-white">
           Admin Dashboard
         </h1>
         <p className="text-white/60 mt-2">Welcome to the ANTHONY. command center</p>

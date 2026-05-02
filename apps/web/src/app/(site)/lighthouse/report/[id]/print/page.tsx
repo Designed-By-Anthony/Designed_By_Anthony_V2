@@ -20,8 +20,8 @@ const PRINT_PANEL = "#fffdf8";
 const PRINT_INK = "#171008";
 const PRINT_MUTED = "#6f6658";
 const PRINT_BORDER = "#e8dcc6";
-const PRINT_BRONZE = "#D4AF37";
-const PRINT_BRONZE_DARK = "#8b6a38";
+const PRINT_ACCENT = "#5b7c99";
+const PRINT_ACCENT_DARK = "#4a6278";
 
 function ScoreBadge({ score, label }: { score: number | null; label: string }) {
 	const isNull = score == null;
@@ -84,7 +84,7 @@ function SectionCard({
 	eyebrow,
 	title,
 	children,
-	accent = PRINT_BRONZE,
+	accent = PRINT_ACCENT,
 }: {
 	eyebrow: string;
 	title: string;
@@ -106,7 +106,7 @@ function SectionCard({
 			<div
 				style={{
 					height: "3px",
-					background: `linear-gradient(90deg, ${accent}, transparent)`,
+					background: accent,
 				}}
 			/>
 			<div style={{ padding: "1.25rem 1.5rem 1.25rem 2rem" }}>
@@ -184,10 +184,10 @@ function PrintReport({
 				style={{
 					position: "relative",
 					overflow: "hidden",
-					background: "linear-gradient(145deg, #171008 0%, #080a0f 100%)",
-					border: `1px solid ${PRINT_BRONZE}`,
+					background: PRINT_PANEL,
+					border: `1px solid ${PRINT_ACCENT}`,
 					borderRadius: "1rem",
-					boxShadow: "0 18px 44px rgba(23,16,8,0.16)",
+					boxShadow: "0 12px 32px rgba(26, 42, 64, 0.08)",
 					padding: "1.4rem 1.5rem",
 					display: "flex",
 					alignItems: "flex-end",
@@ -203,7 +203,7 @@ function PrintReport({
 						right: 0,
 						top: 0,
 						height: "3px",
-						background: `linear-gradient(90deg, transparent, ${PRINT_BRONZE}, transparent)`,
+						background: PRINT_ACCENT,
 					}}
 				/>
 				<div>
@@ -213,7 +213,7 @@ function PrintReport({
 							fontWeight: 700,
 							textTransform: "uppercase",
 							letterSpacing: "0.2em",
-							color: PRINT_BRONZE,
+							color: PRINT_ACCENT,
 							marginBottom: "0.3rem",
 						}}
 					>
@@ -224,7 +224,7 @@ function PrintReport({
 							fontSize: "1.6rem",
 							fontWeight: 700,
 							letterSpacing: "-0.03em",
-							color: "#fffdf8",
+							color: PRINT_INK,
 							margin: 0,
 							lineHeight: 1.1,
 						}}
@@ -233,7 +233,7 @@ function PrintReport({
 					</h1>
 				</div>
 				<div style={{ textAlign: "right" }}>
-					<p style={{ fontSize: "0.75rem", color: "#e8d5a8", margin: 0 }}>
+					<p style={{ fontSize: "0.75rem", color: PRINT_MUTED, margin: 0 }}>
 						{dateStr}
 					</p>
 					{reportId && (
@@ -241,7 +241,7 @@ function PrintReport({
 							style={{
 								fontSize: "0.65rem",
 								fontFamily: "monospace",
-								color: "rgba(255,253,248,0.62)",
+								color: PRINT_MUTED,
 								marginTop: "0.2rem",
 							}}
 						>
@@ -261,7 +261,7 @@ function PrintReport({
 					style={{
 						fontSize: "0.875rem",
 						fontWeight: 600,
-						color: PRINT_BRONZE_DARK,
+						color: PRINT_ACCENT_DARK,
 						wordBreak: "break-all",
 					}}
 				>
@@ -274,7 +274,7 @@ function PrintReport({
 				<div
 					style={{
 						background: "#fff8df",
-						border: `1px solid ${PRINT_BRONZE}`,
+						border: `1px solid ${PRINT_ACCENT}`,
 						borderRadius: "0.75rem",
 						padding: "0.875rem 1rem",
 						marginBottom: "1.25rem",
@@ -307,7 +307,7 @@ function PrintReport({
 			<SectionCard
 				eyebrow="Lab vitals"
 				title="Core Web Vitals"
-				accent={PRINT_BRONZE}
+				accent={PRINT_ACCENT}
 			>
 				<div
 					style={{
@@ -363,7 +363,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="Executive readout"
 					title="Summary"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					{/<[a-z][\s\S]*>/i.test(data.aiInsight.executiveSummary) ? (
 						<div
@@ -394,7 +394,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="What to fix first"
 					title="Priority actions"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					<ol style={{ paddingLeft: 0, margin: 0, listStyle: "none" }}>
 						{actions.map((item, idx) => (
@@ -415,7 +415,7 @@ function PrintReport({
 								<span
 									style={{
 										fontWeight: 700,
-										color: PRINT_BRONZE_DARK,
+										color: PRINT_ACCENT_DARK,
 										fontSize: "0.8rem",
 										minWidth: "1.2rem",
 										paddingTop: "0.1rem",
@@ -455,7 +455,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="Link profile"
 					title="Authority & backlinks"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					{data.backlinks.dataSource === "internal" && (
 						<p
@@ -536,7 +536,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="Technical crawl"
 					title="Site crawl signals"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					<table
 						style={{ width: "100%", borderCollapse: "collapse", ...bodyText }}
@@ -570,7 +570,7 @@ function PrintReport({
 										style={{
 											padding: "0.5rem 0",
 											fontWeight: 600,
-											color: PRINT_BRONZE_DARK,
+											color: PRINT_ACCENT_DARK,
 											width: "38%",
 											paddingRight: "1rem",
 										}}
@@ -591,7 +591,7 @@ function PrintReport({
 					<SectionCard
 						eyebrow="Maps & reputation"
 						title="Local listing signal"
-						accent={PRINT_BRONZE}
+						accent={PRINT_ACCENT}
 					>
 						<p style={bodyText}>
 							{data.places.rating != null
@@ -611,7 +611,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="AI analysis"
 					title="Strengths & gaps"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					<div
 						style={{
@@ -699,7 +699,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="Market context"
 					title="Competitive snapshot"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					<table
 						style={{ width: "100%", borderCollapse: "collapse", ...bodyText }}
@@ -738,7 +738,7 @@ function PrintReport({
 					<SectionCard
 						eyebrow="Search footprint"
 						title="Index coverage"
-						accent={PRINT_BRONZE}
+						accent={PRINT_ACCENT}
 					>
 						<p style={bodyText}>
 							~{data.indexCoverage.estimatedIndexedPages.toLocaleString()} pages
@@ -752,7 +752,7 @@ function PrintReport({
 				<div
 					style={{
 						background: "#fffbeb",
-						border: `1px solid ${PRINT_BRONZE}`,
+						border: `1px solid ${PRINT_ACCENT}`,
 						borderRadius: "0.75rem",
 						padding: "0.875rem 1rem",
 						marginBottom: "1.25rem",
@@ -781,7 +781,7 @@ function PrintReport({
 				<SectionCard
 					eyebrow="Messaging & copy"
 					title="Copywriting analysis"
-					accent={PRINT_BRONZE}
+					accent={PRINT_ACCENT}
 				>
 					<p style={bodyText}>{data.aiInsight.copywritingAnalysis}</p>
 				</SectionCard>
@@ -902,7 +902,7 @@ export default function LighthouseReportPrintPage() {
 	if (!id) {
 		return (
 			<main className="flex min-h-screen items-center justify-center bg-slate-950 p-8">
-				<p className="text-white/60">Invalid report link.</p>
+				<p className="text-brand-charcoal/60">Invalid report link.</p>
 			</main>
 		);
 	}
@@ -910,7 +910,7 @@ export default function LighthouseReportPrintPage() {
 	if (error) {
 		return (
 			<main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-950 p-8">
-				<p className="text-white/70">{error}</p>
+				<p className="text-brand-charcoal/70">{error}</p>
 				<Link
 					href="/lighthouse"
 					className="text-sm text-sky-400 underline underline-offset-4"
@@ -924,7 +924,7 @@ export default function LighthouseReportPrintPage() {
 	if (!data) {
 		return (
 			<main className="flex min-h-screen items-center justify-center bg-slate-950">
-				<p className="text-white/50 text-sm">Loading report…</p>
+				<p className="text-brand-charcoal/50 text-sm">Loading report…</p>
 			</main>
 		);
 	}
@@ -937,7 +937,7 @@ export default function LighthouseReportPrintPage() {
 					<p className="text-[10px] font-bold uppercase tracking-[0.2em] text-(--accent-bronze-muted)">
 						ANTHONY.
 					</p>
-					<p className="text-sm font-semibold text-white/80">
+					<p className="text-sm font-semibold text-brand-charcoal/80">
 						Executive audit report
 					</p>
 				</div>

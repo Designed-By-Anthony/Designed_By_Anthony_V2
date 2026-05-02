@@ -156,7 +156,9 @@ export function checkLocalRateLimit(
 	const recentHits = existing.filter((timestamp) => now - timestamp < windowMs);
 
 	if (recentHits.length >= limit) {
-		const retryAfterMs = windowMs - (now - recentHits[0]);
+		const oldest = recentHits[0];
+		if (oldest === undefined) return null;
+		const retryAfterMs = windowMs - (now - oldest);
 		localRateLimitBuckets.set(key, recentHits);
 		return Math.max(1, Math.ceil(retryAfterMs / 1000));
 	}
@@ -164,6 +166,10 @@ export function checkLocalRateLimit(
 	recentHits.push(now);
 	localRateLimitBuckets.set(key, recentHits);
 	return null;
+}
+
+export function resetLocalRateLimitBuckets(): void {
+	localRateLimitBuckets.clear();
 }
 
 export async function fetchWithTimeout(

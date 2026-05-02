@@ -16,7 +16,8 @@
     "preview": "bun run build:worker && wrangler dev",
     "deploy": "bun run build:worker && wrangler deploy",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "icons:generate": "node scripts/generate-brand-icons.mjs"
   },
   "dependencies": {
     "@dba/shared": "workspace:*",
@@ -41,6 +42,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "esbuild": "^0.28.0",
+    "png-to-ico": "^3.0.1",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
     "wrangler": "^4.86.0"

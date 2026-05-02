@@ -1,13 +1,30 @@
 
+# Dependencies
 node_modules/
+bun.lock
+
+# Build outputs
 .next/
 .open-next/
 dist/
 .vercel/
+
+# Environment files
 *.local
 .env
 .env.*
 !.env.example
+
+# Cloudflare
 .wrangler/
 .dev.vars
-bun.lock
+
+# Test results
+test-results/
+playwright-report/
+reports/
+
+# Local tooling / caches
+.cursor/
+.turbo/
+*.tsbuildinfo

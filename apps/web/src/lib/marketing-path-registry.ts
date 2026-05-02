@@ -3,7 +3,7 @@ import { COMPARE_COMPETITORS } from "@/data/compare-competitors";
 import { getAllServiceAreaSlugs } from "@/data/serviceAreaLocations";
 import { showcaseItems } from "@/data/showcase";
 import { listAllInfrastructurePaths } from "@/lib/programmaticSeo";
-import { MARKETING_SERVICES } from "@/lib/seo";
+import { MARKETING_SERVICES } from "@/data/marketing-services";
 
 /** Single-page marketing slugs handled by `(site)/[...path]`. */
 export const STATIC_MARKETING_SLUGS = [

@@ -6,20 +6,17 @@ interface SurfaceCardProps {
 	interactive?: boolean;
 }
 
-/**
- * Global Surface Card component - consistent card styling across all pages
- * Uses the site's bronze accent color palette and glass morphism
- */
+/** Solid surface card — Linen / Indigo system (no gradients). */
 export function SurfaceCard({
 	children,
 	className = "",
 	interactive = false,
 }: SurfaceCardProps) {
 	const baseClasses =
-		"surface-card relative overflow-hidden rounded-[1.15rem] border border-white/[0.06] bg-gradient-to-br from-[rgba(14,19,32,0.97)] via-[rgba(9,13,22,0.94)] to-[rgba(12,18,30,0.96)] p-[clamp(1.2rem,2.4vw,1.6rem)] shadow-[0_32px_80px_-40px_rgba(2,6,23,0.95),0_0_0_1px_rgba(255,252,245,0.04)_inset] backdrop-blur-[24px] transition-all duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]";
+		"surface-card relative overflow-hidden rounded-[1.15rem] border border-brand-border bg-brand-surface p-[clamp(1.2rem,2.4vw,1.6rem)] shadow-[var(--shadow-card)] transition-all duration-[0.35s] ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 	const interactiveClasses = interactive
-		? "hover:-translate-y-[3px] hover:border-[rgba(96,165,250,0.2)] hover:shadow-[0_40px_90px_-36px_rgba(2,6,23,0.98),0_0_0_1px_rgba(255,252,245,0.06)_inset]"
+		? "hover:-translate-y-[3px] hover:border-brand-indigo/22 hover:shadow-[0_28px_56px_-32px_rgba(26,42,64,0.16)]"
 		: "";
 
 	return (

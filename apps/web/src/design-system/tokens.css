@@ -1,82 +1,89 @@
 /**
- * :root tokens — single source of truth (Phase 5.5).
- * Consumed by dba-global.css → every Next.js marketing page + Lighthouse.
- * theme.css was DELETED in Phase 5.5; rules live in tailwind-v4-bridge.css.
+ * :root tokens — permanent light / high-contrast brand (hard-coded).
+ * Consumed by dba-global.css → marketing, Lighthouse, admin (via globals.css).
  */
 :root {
-	--bg-dark: #0f1218;
-	--bg-deeper: #0a0c10;
-	--bg-ink: #06080d;
-	--surface-1: #0e1219;
-	--surface-2: #131a24;
-	--surface-3: rgba(15, 20, 30, 0.82);
-	--gray-800: #1f2937;
-	--gray-900: #0f172a;
-	--text-white: #f7f4ee;
-	--text-cream: #faf7f1;
-	--text-soft: rgba(247, 244, 238, 0.92);
-	--text-gray: #9ca3ae;
-	--text-muted: rgba(247, 244, 238, 0.58);
-	--accent-bronze-rgb: 212 175 55;
-	--accent-bronze: #D4AF37;
-	--accent-bronze-dark: #A68A2B;
-	--accent-bronze-light: #fcf0d2;
-	--accent-bronze-muted: #e8d5a8;
-	--accent-bronze-soft: rgb(var(--accent-bronze-rgb) / 0.35);
-	--accent-bronze-hairline: rgb(var(--accent-bronze-rgb) / 0.22);
-	--accent-bronze-glow: rgb(var(--accent-bronze-rgb) / 0.45);
-	/* Legacy blue tokens retargeted to Bronze — Midnight & Bronze aesthetic. */
-	--accent-blue: var(--accent-bronze);
+	/* ── Brand palette (canonical) ───────────────────────────────── */
+	--brand-linen: #f8f9fa;
+	--brand-indigo: #1a2a40;
+	--brand-charcoal: #333333;
+	--brand-accent: #5b7c99;
+	--brand-accent-rgb: 91 124 153;
+	--brand-surface: #ffffff;
+	--border-brand: rgba(26, 42, 64, 0.1);
+
+	/* Header chrome */
+	--brand-background: #ffffff;
+
+	/* Surfaces / page (legacy names → light mapping) */
+	--bg-dark: var(--brand-linen);
+	--bg-deeper: #f3f4f6;
+	--bg-ink: var(--brand-linen);
+	--surface-1: var(--brand-surface);
+	--surface-2: var(--brand-surface);
+	--surface-3: #ffffff;
+	--gray-800: #4b5563;
+	--gray-900: var(--brand-charcoal);
+
+	/* Typography — legacy token names map to light UI */
+	--text-white: var(--brand-charcoal);
+	--text-cream: var(--brand-indigo);
+	--text-soft: rgba(51, 51, 51, 0.88);
+	--text-gray: rgba(51, 51, 51, 0.72);
+	--text-muted: rgba(51, 51, 51, 0.48);
+
+	/* Accent system (slate blue; keeps --accent-bronze-* names for compat) */
+	--accent-bronze-rgb: 91 124 153;
+	--accent-bronze: var(--brand-accent);
+	--accent-bronze-dark: #4a6278;
+	--accent-bronze-light: #e8eef3;
+	--accent-bronze-muted: #c5d4e0;
+	--accent-bronze-soft: rgb(var(--brand-accent-rgb) / 0.18);
+	--accent-bronze-hairline: rgb(var(--brand-accent-rgb) / 0.28);
+	--accent-bronze-glow: rgb(var(--brand-accent-rgb) / 0.35);
+	--accent-blue: var(--brand-accent);
 	--accent-blue-hover: var(--accent-bronze-dark);
-	--accent-blue-soft: rgb(var(--accent-bronze-rgb) / 0.12);
-	--accent-brass: var(--accent-bronze);
-	--accent-brass-soft: var(--accent-bronze-soft);
-	--border-soft: rgba(255, 252, 245, 0.07);
-	--border-strong: rgb(var(--accent-bronze-rgb) / 0.22);
-	--success-green: #22c55e;
-	--font-main:
-		"Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	--font-display:
-		"Outfit Variable", "Inter Variable", -apple-system, BlinkMacSystemFont,
-		sans-serif;
-	--font-hero: "Abril Fatface", Georgia, "Times New Roman", serif;
-	--font-report-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+	--accent-blue-soft: rgb(var(--brand-accent-rgb) / 0.12);
+	--accent-brass: var(--brand-accent);
+	--accent-brass-soft: rgb(var(--brand-accent-rgb) / 0.14);
+
+	--border-soft: var(--border-brand);
+	--border-strong: rgb(var(--brand-accent-rgb) / 0.35);
+	--success-green: #15803d;
+
+	--font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+	--font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-hero: var(--font-playfair), Georgia, "Times New Roman", serif;
+	--font-report-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+
 	--container-gutter: max(0.85rem, min(2rem, clamp(1.15rem, 2.7vw, 2rem)));
 	--content-max: 1160px;
-	/* Apple breathing room: py-24 (6rem) on mobile → md:py-32 (8rem). */
 	--section-space: clamp(6rem, 9vw, 8rem);
 	--section-space-tight: clamp(3.5rem, 5.5vw, 5rem);
 	--radius-card: 1.25rem;
 	--radius-card-lg: 1.4rem;
-	/* Spacing scale — single source of truth for vertical / horizontal rhythm. */
 	--space-section: clamp(4rem, 8vw, 6rem);
 	--space-block: clamp(2rem, 4vw, 3rem);
 	--space-element: clamp(1rem, 2vw, 1.5rem);
 	--space-inline: 0.75rem;
 	--card-pad: clamp(1.5rem, 1rem + 1.4vw, 1.75rem);
 	--card-pad-lg: clamp(1.75rem, 1.25rem + 1.4vw, 2rem);
-	--shadow-soft: 0 18px 36px -22px rgba(15, 23, 42, 0.95);
-	--shadow-card: 0 28px 70px -38px rgba(15, 23, 42, 0.95);
+	--shadow-soft: 0 12px 28px -18px rgba(26, 42, 64, 0.12);
+	--shadow-card: 0 16px 40px -24px rgba(26, 42, 64, 0.14);
 	--motion-duration-fast: 0.15s;
 	--motion-duration: 0.22s;
 	--motion-duration-slow: 0.35s;
 	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-	--splash-scrim: rgba(5, 8, 14, 0.82);
+
+	--splash-scrim: rgba(248, 249, 250, 0.92);
 	--splash-scrim-blur: 12px;
-	--splash-shell-bg: linear-gradient(
-		165deg,
-		rgba(19, 26, 36, 0.96) 0%,
-		rgba(8, 11, 18, 0.99) 100%
-	);
-	--splash-shell-border: rgba(255, 252, 245, 0.1);
-	--splash-shell-shadow:
-		0 32px 90px -40px rgba(0, 0, 0, 0.88), 0 0 0 1px rgba(255, 252, 245, 0.06);
-	--splash-close-bg: rgba(255, 255, 255, 0.08);
-	--splash-close-bg-hover: rgba(255, 255, 255, 0.14);
-	--splash-close-border: rgba(255, 252, 245, 0.14);
-	--splash-calendly-chrome-bg: linear-gradient(
-		180deg,
-		#0c111a 0%,
-		#0d1320 100%
-	);
+	--splash-shell-bg: var(--brand-surface);
+	--splash-shell-border: var(--border-brand);
+	--splash-shell-shadow: 0 24px 60px -36px rgba(26, 42, 64, 0.18);
+	--splash-close-bg: rgba(26, 42, 64, 0.06);
+	--splash-close-bg-hover: rgba(26, 42, 64, 0.1);
+	--splash-close-border: var(--border-brand);
+	--splash-calendly-chrome-bg: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
 }

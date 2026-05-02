@@ -44,12 +44,12 @@ export function LighthouseValueStrip() {
 					</p>
 					<h2
 						id="lh-process-heading"
-						className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-bold tracking-tight text-white leading-[1.1]"
+						className="font-[family-name:var(--font-display)] text-3xl md:text-4xl font-bold tracking-tight text-brand-charcoal leading-[1.1]"
 					>
 						Five checks. One clear picture of where your site stands.
 					</h2>
 				</div>
-				<p className="text-[0.95rem] leading-[1.65] text-white/55 max-w-md">
+				<p className="text-[0.95rem] leading-[1.65] text-brand-charcoal/55 max-w-md">
 					Built for local service businesses that need the next move, not a pile
 					of disconnected scores.
 				</p>
@@ -69,14 +69,14 @@ export function LighthouseValueStrip() {
 							ease: [0.22, 1, 0.36, 1],
 						}}
 					>
-						<span className="inline-flex items-center justify-center min-w-[2.4rem] h-[1.65rem] px-2 w-fit rounded-md border border-[rgb(var(--accent-bronze-rgb)/0.25)] bg-[rgb(var(--accent-bronze-rgb)/0.08)] text-[0.7rem] font-bold tracking-[0.06em] text-[rgb(var(--accent-bronze-rgb)/0.95)] font-[family-name:var(--font-fraunces)]">
+						<span className="inline-flex items-center justify-center min-w-[2.4rem] h-[1.65rem] px-2 w-fit rounded-md border border-[rgb(var(--accent-bronze-rgb)/0.25)] bg-[rgb(var(--accent-bronze-rgb)/0.08)] text-[0.7rem] font-bold tracking-[0.06em] text-[rgb(var(--accent-bronze-rgb)/0.95)] font-[family-name:var(--font-playfair)]">
 							{phase.num}
 						</span>
 						<span className="min-w-0">
-							<span className="block font-[family-name:var(--font-display)] text-[15px] font-semibold leading-tight text-white/95">
+							<span className="block font-[family-name:var(--font-display)] text-[15px] font-semibold leading-tight text-brand-charcoal/95">
 								{phase.title}
 							</span>
-							<span className="mt-1.5 block text-[12px] leading-[1.55] text-white/55">
+							<span className="mt-1.5 block text-[12px] leading-[1.55] text-brand-charcoal/55">
 								{phase.body}
 							</span>
 						</span>

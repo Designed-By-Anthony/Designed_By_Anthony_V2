@@ -1,90 +1,93 @@
 export const dynamic = "force-dynamic";
 
-import Image from "next/image";
-import {
-	createD1Client,
-	type Lead,
-	leads,
-	type Transaction,
-	transactions,
-} from "@dba/shared/db/client";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { desc } from "drizzle-orm";
+import { Logo } from "@/components/Logo";
+
+interface Lead {
+  id: string;
+  email: string;
+  company_name: string | null;
+  source: string;
+  status: string;
+  created_at: number;
+}
 
 export default async function AdminLedgerPage() {
 	let leadRows: Lead[] = [];
-	let txRows: Transaction[] = [];
+	let txRows: any[] = [];
 
 	try {
-		const env = getCloudflareContext().env as { DB?: unknown };
-		const d1 = env.DB;
-		if (d1) {
-			const db = createD1Client(d1);
-			[leadRows, txRows] = await Promise.all([
-				db.select().from(leads).orderBy(desc(leads.created_at)).limit(200),
-				db
-					.select()
-					.from(transactions)
-					.orderBy(desc(transactions.created_at))
-					.limit(200),
-			]);
+		// Fetch leads from API
+		const apiBaseUrl = process.env.NODE_ENV === 'production'
+			? 'https://dba-api.anthony-6b4.workers.dev'
+			: 'http://localhost:8787';
+
+		const response = await fetch(`${apiBaseUrl}/leads`, {
+			headers: {
+				'Cache-Control': 'no-store'
+			}
+		});
+
+		if (!response.ok) {
+			throw new Error(`Failed to fetch leads: ${response.status} ${response.statusText}`);
 		}
-	} catch {
+
+		const data = await response.json();
+		leadRows = data.leads || [];
+	} catch (error) {
+		console.error("Error fetching leads from API:", error);
 		leadRows = [];
-		txRows = [];
 	}
+
+	// Note: Transactions fetching would be added here if there's a transactions endpoint
+	// For now, keeping txRows empty as there's no transactions API endpoint visible
+	txRows = [];
 
 	return (
 		<main className="mx-auto max-w-7xl px-6 py-12">
 			<div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-				<Image
-					src="/logos/anthony_master_wordmark.png"
-					alt="ANTHONY. | Digital Infrastructure Architect"
-					width={720}
-					height={140}
-					className="h-10 md:h-11 w-auto max-w-[min(92vw,20rem)] object-contain object-left"
-					priority
-				/>
-				<p className="font-[family-name:var(--font-inter)] text-sm text-white/60 md:text-right md:max-w-xs">
-					The Vault · Midnight ledger
+				<span className="inline-flex min-w-0" role="img" aria-label="ANTHONY. | Digital Infrastructure Architect">
+					<Logo variant="dialog" />
+				</span>
+				<p className="font-[family-name:var(--font-inter)] text-sm text-brand-charcoal/65 md:text-right md:max-w-xs">
+					The Vault · Pipeline ledger
 				</p>
 			</div>
 
 			<section className="mt-10">
-				<h2 className="font-[family-name:var(--font-fraunces)] text-xl font-semibold text-white">
+				<h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-brand-indigo">
 					315 Pipeline
 				</h2>
 				<div className="text-bubble is-bordered mt-4 overflow-x-auto">
-					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-white/90">
+					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-brand-charcoal">
 						<thead>
-							<tr className="border-b border-white/10">
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+							<tr className="border-b border-brand-border">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Email
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Company
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Source
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Status
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Created
 								</th>
 							</tr>
 						</thead>
-						<tbody>
-							{leadRows.length === 0 ? (
-								<tr>
-									<td colSpan={5} className="py-6 text-white/50">
-										No rows (configure D1 binding `DB` or run migrations).
-									</td>
-								</tr>
-							) : (
+        <tbody>
+          {leadRows.length === 0 ? (
+            <tr>
+              <td colSpan={5} className="py-6 text-brand-charcoal/50">
+                No leads found in pipeline.
+              </td>
+            </tr>
+          ) : (
 								leadRows.map((row) => (
-									<tr key={row.id} className="border-b border-white/5">
+									<tr key={row.id} className="border-b border-brand-border/60">
 										<td className="py-2 pr-4">{row.email}</td>
 										<td className="py-2 pr-4">{row.company_name ?? "—"}</td>
 										<td className="py-2 pr-4">{row.source}</td>
@@ -103,29 +106,29 @@ export default async function AdminLedgerPage() {
 			</section>
 
 			<section className="mt-12">
-				<h2 className="font-[family-name:var(--font-fraunces)] text-xl font-semibold text-white">
+				<h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-brand-indigo">
 					Revenue Ledger
 				</h2>
 				<div className="text-bubble is-bordered mt-4 overflow-x-auto">
-					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-white/90">
+					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-brand-charcoal">
 						<thead>
-							<tr className="border-b border-white/10">
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+							<tr className="border-b border-brand-border">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Session
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Customer
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Amount (¢)
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Plan
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Status
 								</th>
-								<th className="font-[family-name:var(--font-fraunces)] py-2 pr-4 font-semibold">
+								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
 									Created
 								</th>
 							</tr>
@@ -133,7 +136,7 @@ export default async function AdminLedgerPage() {
 						<tbody>
 							{txRows.length === 0 ? (
 								<tr>
-									<td colSpan={6} className="py-6 text-white/50">
+									<td colSpan={6} className="py-6 text-brand-charcoal/50">
 										No transactions yet.
 									</td>
 								</tr>
@@ -141,7 +144,7 @@ export default async function AdminLedgerPage() {
 								txRows.map((row) => (
 									<tr
 										key={row.stripe_session_id}
-										className="border-b border-white/5"
+										className="border-b border-brand-border/60"
 									>
 										<td className="max-w-[14rem] truncate py-2 pr-4 font-mono text-xs">
 											{row.stripe_session_id}

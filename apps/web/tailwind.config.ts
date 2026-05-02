@@ -1,18 +1,24 @@
 import type { Config } from "tailwindcss";
 
 /**
- * Tailwind v4 — supplemental JS config for tooling / IDE IntelliSense.
- *
- * **Canonical palette:** `apps/web/src/design-system/tokens.css` (`--accent-bronze`,
- * `--accent-bronze-rgb`). Utilities resolve via `@theme` in
- * `tailwind-v4-bridge.css` (`accent-bronze`, `accent-bronze-dark`, …).
+ * Tailwind v4 — supplemental JS config (palette hard-coded for tooling / IntelliSense).
+ * Runtime utilities resolve via `@theme` in `tailwind-v4-bridge.css`.
  */
 export default {
 	content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
 	theme: {
 		extend: {
 			colors: {
-				"accent-bronze": "#D4AF37",
+				"brand-linen": "#F8F9FA",
+				"brand-indigo": "#1A2A40",
+				"brand-charcoal": "#333333",
+				"brand-accent": "#5B7C99",
+				"brand-surface": "#FFFFFF",
+				"brand-border": "rgba(26, 42, 64, 0.1)",
+				"accent-bronze": "#5B7C99",
+			},
+			letterSpacing: {
+				tighter: "-0.05em",
 			},
 		},
 	},

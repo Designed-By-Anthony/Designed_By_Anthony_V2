@@ -36,7 +36,7 @@ import {
     MotionStagger,
     MotionStaggerChild,
 } from "./MotionReveal";
-import { SalesforceContactForm } from "./SalesforceContactForm";
+import { SovereignLeadForm } from "./SovereignLeadForm";
 
 function PageHero({
     title,
@@ -121,21 +121,21 @@ function ServicesIndex() {
                         duration={0.6}
                     >
                         {/* Apple/Linear Sleek Card Container */}
-                        <div className="relative w-full rounded-2xl border border-white/10 bg-[rgb(10_12_18)] p-8 md:p-10 mb-8">
-                            <div className="absolute left-1/2 top-0 h-[1px] w-32 -translate-x-1/2 bg-linear-to-r from-transparent via-[rgb(var(--accent-bronze-rgb)/0.8)] to-transparent" />
+                        <div className="relative mb-8 w-full rounded-2xl border border-brand-border bg-card p-8 md:p-10">
+                            <div className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2 bg-brand-border" />
 
                             <div className="mb-6 flex flex-col gap-2">
-                                <span className="text-xs font-semibold uppercase tracking-widest text-[rgb(var(--accent-bronze-rgb))]">
+                                <span className="text-xs font-semibold uppercase tracking-widest text-brand-accent">
                                     Services Strategy
                                 </span>
-                                <h3 className="font-display text-xl font-medium tracking-tight text-white md:text-2xl">
+                                <h3 className="font-display text-xl font-medium tracking-tight text-brand-charcoal md:text-2xl">
                                     {section.heading}
                                 </h3>
                             </div>
 
                             <div className="text-bubble is-bordered">
                                 {section.paragraphs.map((p, i) => (
-                                    <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-white/75" : "text-[0.95rem] text-white/75"}>
+                                    <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-brand-charcoal/75" : "text-[0.95rem] text-brand-charcoal/75"}>
                                         {p}
                                     </p>
                                 ))}
@@ -206,21 +206,21 @@ function ServiceDetailPage({ slug }: { slug: string }) {
                         duration={0.6}
                     >
                         {/* Apple/Linear Sleek Card Container */}
-                        <div className="relative w-full rounded-2xl border border-white/10 bg-[rgb(10_12_18)] p-8 md:p-10 mb-8">
-                            <div className="absolute left-1/2 top-0 h-[1px] w-32 -translate-x-1/2 bg-linear-to-r from-transparent via-[rgb(var(--accent-bronze-rgb)/0.8)] to-transparent" />
+                        <div className="relative mb-8 w-full rounded-2xl border border-brand-border bg-card p-8 md:p-10">
+                            <div className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2 bg-brand-border" />
 
                             <div className="mb-6 flex flex-col gap-2">
-                                <span className="text-xs font-semibold uppercase tracking-widest text-[rgb(var(--accent-bronze-rgb))]">
+                                <span className="text-xs font-semibold uppercase tracking-widest text-brand-accent">
                                     Methodology
                                 </span>
-                                <h3 className="font-display text-xl font-medium tracking-tight text-white md:text-2xl">
+                                <h3 className="font-display text-xl font-medium tracking-tight text-brand-charcoal md:text-2xl">
                                     {section.heading}
                                 </h3>
                             </div>
 
                             <div className="text-bubble is-bordered">
                                 {section.paragraphs.map((p, i) => (
-                                    <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-white/75" : "text-[0.95rem] text-white/75"}>
+                                    <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-brand-charcoal/75" : "text-[0.95rem] text-brand-charcoal/75"}>
                                         {p}
                                     </p>
                                 ))}
@@ -382,21 +382,21 @@ function BlogPostPage({ slug }: { slug: string }) {
                                     duration={0.6}
                                 >
                                     {/* Apple/Linear Sleek Card Container */}
-                                    <div className="relative w-full rounded-2xl border border-white/10 bg-[rgb(10_12_18)] p-8 md:p-10">
-                                        <div className="absolute left-1/2 top-0 h-[1px] w-32 -translate-x-1/2 bg-linear-to-r from-transparent via-[rgb(var(--accent-bronze-rgb)/0.8)] to-transparent" />
+                                    <div className="relative w-full rounded-2xl border border-brand-border bg-card p-8 md:p-10">
+                                        <div className="absolute left-1/2 top-0 h-px w-32 -translate-x-1/2 bg-brand-border" />
 
                                         <div className="mb-6 flex flex-col gap-2">
-                                            <span className="text-xs font-semibold uppercase tracking-widest text-[rgb(var(--accent-bronze-rgb))]">
+                                            <span className="text-xs font-semibold uppercase tracking-widest text-brand-accent">
                                                 Insight
                                             </span>
-                                            <h3 className="font-display text-xl font-medium tracking-tight text-white md:text-2xl">
+                                            <h3 className="font-display text-xl font-medium tracking-tight text-brand-charcoal md:text-2xl">
                                                 {section.heading}
                                             </h3>
                                         </div>
 
                                         <div className="text-bubble is-bordered">
                                             {section.paragraphs.map((p, i) => (
-                                                <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-white/75" : "text-[0.95rem] text-white/75"}>
+                                                <p key={i} className={i > 0 ? "mt-4 text-[0.95rem] text-brand-charcoal/75" : "text-[0.95rem] text-brand-charcoal/75"}>
                                                     {p}
                                                 </p>
                                             ))}
@@ -538,7 +538,9 @@ function PortfolioCaseStudy({ slug }: { slug: string }) {
 }
 
 export function StaticMarketingPage({ slug }: { slug: string }) {
-    const copy = staticMarketingPageCopy[slug];
+    const copy = Object.hasOwn(staticMarketingPageCopy, slug)
+        ? staticMarketingPageCopy[slug as keyof typeof staticMarketingPageCopy]
+        : undefined;
     if (!copy) notFound();
     const showContactForm = slug === "contact";
     const showFacebookCta = slug === "facebook-offer";
@@ -572,7 +574,7 @@ export function StaticMarketingPage({ slug }: { slug: string }) {
                                 Tell us what you are trying to fix — we reply within one
                                 business day.
                             </p>
-                            <SalesforceContactForm />
+                            <SovereignLeadForm />
                         </div>
                     </div>
                 </section>
@@ -648,7 +650,11 @@ export function MarketingSiteRouter({ path }: { path: string[] }) {
         if (!isServiceAreaSlug(b)) notFound();
         return <ServiceAreaLocationPage slug={b} />;
     }
-    if (path.length === 1 && staticMarketingPageCopy[a]) {
+    if (
+        path.length === 1 &&
+        a !== undefined &&
+        Object.hasOwn(staticMarketingPageCopy, a)
+    ) {
         return <StaticMarketingPage slug={a} />;
     }
 

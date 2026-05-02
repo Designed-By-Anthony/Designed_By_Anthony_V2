@@ -127,8 +127,8 @@ export default function LighthouseReportViewerPage() {
                     <div className={`${SECTION_CONTAINER} max-w-2xl`}>
                         <div className={`${SURFACE_CARD_TECHNICAL} ${CARD_HAS_TEXT_PAD} text-center`}>
                             <p className={LABEL_STYLE}>Connection Error</p>
-                            <p className="text-white/70 mb-8">{error || "Invalid link."}</p>
-                            <Link href="/lighthouse" className="inline-flex rounded-xl bg-white/5 border border-white/10 px-8 py-3 text-sm font-bold text-white hover:bg-white/10">
+                            <p className="text-brand-charcoal/70 mb-8">{error || "Invalid link."}</p>
+                            <Link href="/lighthouse" className="inline-flex rounded-xl bg-white/5 border border-white/10 px-8 py-3 text-sm font-bold text-brand-charcoal hover:bg-white/10">
                                 Back to Scanner
                             </Link>
                         </div>
@@ -145,7 +145,7 @@ export default function LighthouseReportViewerPage() {
                     <div className={SECTION_CONTAINER}>
                         <div className="flex flex-col items-center justify-center py-32">
                             <div className="w-12 h-12 rounded-full border-2 border-white/10 border-t-[rgb(var(--accent-bronze-rgb))] animate-spin mb-4" />
-                            <p className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Retrieving Audit...</p>
+                            <p className="text-brand-charcoal/40 font-bold uppercase tracking-widest text-[10px]">Retrieving Audit...</p>
                         </div>
                     </div>
                 </main>

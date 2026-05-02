@@ -103,7 +103,7 @@ export function CalculatorClient() {
 				</fieldset>
 			</div>
 
-			<div className="rounded-2xl border border-[rgba(212,175,55,0.35)] bg-[linear-gradient(165deg,rgba(212,175,55,0.12)_0%,rgba(8,11,18,0.92)_100%)] p-6 md:p-7">
+			<div className="rounded-2xl border border-brand-border bg-card p-6 md:p-7">
 				<p className="text-[0.72rem] uppercase tracking-[0.2em] text-[rgb(var(--accent-bronze-rgb))] m-0">
 					Indicative range
 				</p>

@@ -132,19 +132,19 @@ export function HomePage() {
 							data-hero-h1
 							className="home-hero-title font-[family-name:var(--font-inter)] font-normal tracking-[-0.02em]"
 						>
-							<span className="font-[family-name:var(--font-fraunces)] font-bold">
+							<span className="font-[family-name:var(--font-playfair)] font-bold">
 								Software
 							</span>{" "}
 							<span className="font-[family-name:var(--font-inter)] font-normal">
 								is built by machines.{" "}
 							</span>
-							<span className="font-[family-name:var(--font-fraunces)] font-bold">
+							<span className="font-[family-name:var(--font-playfair)] font-bold">
 								Infrastructure
 							</span>{" "}
 							<span className="font-[family-name:var(--font-inter)] font-normal">
 								is designed by{" "}
 							</span>
-							<span className="font-[family-name:var(--font-fraunces)] font-bold whitespace-nowrap">
+							<span className="font-[family-name:var(--font-playfair)] font-bold whitespace-nowrap">
 								ANTHONY
 								<span className="text-[rgb(var(--accent-bronze-rgb))]">.</span>
 							</span>

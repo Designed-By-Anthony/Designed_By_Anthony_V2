@@ -14,7 +14,7 @@ import brandMarkImage from "./brand-mark.webp";
  * NEVER hardcode logo paths in individual components — import one of
  * the constants below so a rename touches a single file.
  */
-/** Public wordmark — displayed as Fraunces + bronze period in chrome. */
+/** Public wordmark — Playfair Display + bronze period in chrome (when graphical). */
 export const BRAND_NAME = "ANTHONY.";
 
 /** Bundled mark for `next/image` (avoids 404 when `/public` statics mis-deploy). */

@@ -4,7 +4,7 @@
  * Four-step provisioning timeline shown on the /checkout/success page.
  *
  * Steps:
- *  1. Payment Received   — completed (solid bronze)
+ *  1. Payment Received   — completed (solid slate accent)
  *  2. Design Meeting     — pending   (muted)
  *  3. Brand Integration  — in progress (shimmer animation at 0.05 opacity)
  *  4. Production Launch  — 48h       (muted)
@@ -45,22 +45,22 @@ type StepState = "done" | "active" | "pending";
 
 function stepDotClass(state: StepState): string {
 	if (state === "done")
-		return "w-3 h-3 rounded-full bg-[rgba(212,175,55,0.95)] shadow-[0_0_10px_2px_rgba(212,175,55,0.35)]";
+		return "h-3 w-3 rounded-full bg-brand-accent shadow-[0_0_10px_2px_rgb(var(--brand-accent-rgb)/0.35)]";
 	if (state === "active")
-		return "w-3 h-3 rounded-full border-2 border-[rgba(212,175,55,0.6)] bg-[rgba(212,175,55,0.15)]";
-	return "w-3 h-3 rounded-full border border-[rgba(255,255,255,0.18)] bg-transparent";
+		return "h-3 w-3 rounded-full border-2 border-brand-accent bg-[rgb(var(--brand-accent-rgb)/0.12)]";
+	return "h-3 w-3 rounded-full border border-brand-border bg-transparent";
 }
 
 function stepLabelClass(state: StepState): string {
-	if (state === "done") return "text-[rgba(247,244,238,0.92)] font-semibold";
-	if (state === "active") return "text-[rgba(212,175,55,0.9)] font-semibold";
-	return "text-[rgba(247,244,238,0.38)]";
+	if (state === "done") return "font-semibold text-brand-indigo";
+	if (state === "active") return "font-semibold text-brand-accent";
+	return "text-brand-charcoal/45";
 }
 
 function stepSubClass(state: StepState): string {
-	if (state === "done") return "text-[rgba(212,175,55,0.7)]";
-	if (state === "active") return "text-[rgba(212,175,55,0.55)]";
-	return "text-[rgba(247,244,238,0.25)]";
+	if (state === "done") return "text-brand-charcoal/65";
+	if (state === "active") return "text-brand-charcoal/55";
+	return "text-brand-charcoal/35";
 }
 
 export function CheckoutTimeline() {
@@ -84,7 +84,7 @@ export function CheckoutTimeline() {
 							<div className="mt-[1.1rem]">{/* top spacing to centre dot */}</div>
 							<div className={stepDotClass(step.state)} />
 							{!isLast && (
-								<div className="flex-1 w-px bg-[rgba(255,255,255,0.09)] mt-1 mb-0 min-h-[2rem]" />
+								<div className="mb-0 mt-1 min-h-[2rem] w-px flex-1 bg-brand-border" />
 							)}
 						</div>
 
@@ -96,13 +96,7 @@ export function CheckoutTimeline() {
 							{isActive && (
 								<span
 									aria-hidden="true"
-									className="pointer-events-none absolute inset-0 rounded-md"
-									style={{
-										background:
-											"linear-gradient(90deg, transparent 0%, rgba(212,175,55,0.05) 50%, transparent 100%)",
-										backgroundSize: "200% 100%",
-										animation: "checkout-shimmer 2.8s ease-in-out infinite",
-									}}
+									className="pointer-events-none absolute inset-0 animate-pulse rounded-md bg-[rgb(var(--brand-accent-rgb)/0.06)]"
 								/>
 							)}
 							<p
@@ -120,12 +114,6 @@ export function CheckoutTimeline() {
 				);
 			})}
 
-			<style>{`
-				@keyframes checkout-shimmer {
-					0%   { background-position: -100% 0; }
-					100% { background-position: 200% 0; }
-				}
-			`}</style>
 		</div>
 	);
 }

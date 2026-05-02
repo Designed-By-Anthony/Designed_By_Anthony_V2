@@ -756,7 +756,7 @@ a.marketing-service-card:hover {
 		),
 		radial-gradient(
 			120% 80% at 50% 0%,
-			rgba(212, 175, 55, 0.14),
+			rgba(91, 124, 153, 0.14),
 			transparent 55%
 		);
 	padding: clamp(0.65rem, 2vw, 1.1rem);
@@ -781,16 +781,18 @@ a.marketing-service-card:hover {
 	font-size: clamp(1.75rem, 4vw, 2.35rem);
 	margin: 0 0 0.75rem;
 	line-height: 1.15;
+	color: var(--brand-indigo);
 }
 
 .page-lead {
 	font-size: 1.1rem;
 	margin: 0;
-	opacity: 0.92;
+	opacity: 0.88;
 	line-height: 1.55;
+	color: var(--brand-charcoal);
 }
 
-/* Editorial inner heroes: centered, Fraunces display, calmer aurora — after base .page-title/.page-lead so cascade wins. */
+/* Editorial inner heroes: centered, Playfair display — after base .page-title/.page-lead so cascade wins. */
 .marketing-page-hero--editorial {
 	padding-block: clamp(4.25rem, 10vw, 6.25rem);
 }
@@ -815,29 +817,22 @@ a.marketing-service-card:hover {
 
 .marketing-page-hero--editorial .page-title {
 	font-family: var(--font-report-display, Georgia, serif);
-	font-weight: 500;
+	font-weight: 700;
 	font-size: clamp(2.35rem, 5.2vw, 3.35rem);
 	line-height: 1.06;
-	letter-spacing: -0.02em;
+	letter-spacing: -0.05em;
 	font-feature-settings:
 		"kern" 1,
 		"liga" 1;
-	color: var(--text-cream);
+	color: var(--brand-indigo);
 	text-wrap: balance;
-	background: linear-gradient(
-		180deg,
-		rgba(250, 247, 241, 0.98) 0%,
-		rgba(247, 244, 238, 0.88) 45%,
-		rgb(var(--accent-bronze-rgb) / 0.42) 100%
-	);
-	background-clip: text;
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+	background: none;
+	-webkit-text-fill-color: var(--brand-indigo);
 }
 
 @supports not (background-clip: text) {
 	.marketing-page-hero--editorial .page-title {
-		color: var(--text-cream);
+		color: var(--brand-indigo);
 		-webkit-text-fill-color: unset;
 	}
 }
@@ -849,31 +844,13 @@ a.marketing-service-card:hover {
 	line-height: 1.62;
 	font-weight: 450;
 	letter-spacing: 0.01em;
-	color: rgba(247, 244, 238, 0.72);
-	opacity: 1;
+	color: var(--brand-charcoal);
+	opacity: 0.88;
 	text-wrap: balance;
 }
 
 .marketing-page-hero--editorial::after {
-	background:
-		radial-gradient(
-			ellipse 85% 55% at 50% 0%,
-			rgba(91, 156, 248, 0.1),
-			transparent 58%
-		),
-		radial-gradient(
-			ellipse 70% 45% at 80% 100%,
-			rgb(var(--accent-bronze-rgb) / 0.06),
-			transparent 55%
-		),
-		linear-gradient(
-			180deg,
-			rgba(6, 8, 13, 0.2) 0%,
-			transparent 35%,
-			transparent 70%,
-			rgba(6, 8, 13, 0.35) 100%
-		);
-	opacity: 1;
+	display: none;
 }
 
 .marketing-page-hero--editorial .marketing-hero-aurora__glow {
@@ -1207,11 +1184,11 @@ a.marketing-service-card:hover {
 	font-weight: 800;
 	text-transform: uppercase;
 	letter-spacing: 0.14em;
-	color: #fef3c7;
+	color: #e8eef3;
 	background: linear-gradient(
 		135deg,
 		rgb(var(--accent-bronze-rgb) / 0.25),
-		rgba(145, 112, 56, 0.4)
+		rgba(74, 98, 120, 0.4)
 	);
 	border: 1px solid rgb(var(--accent-bronze-rgb) / 0.4);
 }
@@ -1306,7 +1283,7 @@ a.marketing-service-card:hover {
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
-	background: radial-gradient(circle at 30% 25%, #fef9c3, var(--accent-blue));
+	background: radial-gradient(circle at 30% 25%, #e8eef3, var(--accent-blue));
 	box-shadow: 0 0 0 1px rgb(var(--accent-bronze-rgb) / 0.35);
 	margin-top: 0.42rem;
 	flex-shrink: 0;
@@ -1526,7 +1503,7 @@ a.marketing-service-card:hover {
 	margin-top: 0.25rem;
 	background: linear-gradient(
 		90deg,
-		rgba(212, 175, 55, 0.78),
+		rgba(91, 124, 153, 0.78),
 		rgba(147, 197, 253, 0.85)
 	);
 	opacity: 0.72;
@@ -1572,9 +1549,9 @@ a.marketing-service-card:hover {
 }
 
 .region-card-tag--bronze {
-	color: #d4af37;
-	background: rgba(212, 175, 55, 0.08);
-	border: 1px solid rgba(212, 175, 55, 0.32);
+	color: #5b7c99;
+	background: rgba(91, 124, 153, 0.08);
+	border: 1px solid rgba(91, 124, 153, 0.32);
 }
 
 .region-card-link {
@@ -1595,15 +1572,15 @@ a.marketing-service-card:hover {
 }
 
 .region-card-link:hover {
-	border-color: rgba(212, 175, 55, 0.35);
+	border-color: rgba(91, 124, 153, 0.35);
 	box-shadow:
-		0 0 0 1px rgba(212, 175, 55, 0.12),
+		0 0 0 1px rgba(91, 124, 153, 0.12),
 		0 24px 44px -34px rgba(15, 23, 42, 0.88);
 	transform: translateY(-2px);
 }
 
 .region-card-link:focus-visible {
-	outline: 2px solid var(--accent-brass, #d4af37);
+	outline: 2px solid var(--accent-brass, #5b7c99);
 	outline-offset: 2px;
 }
 
@@ -1611,7 +1588,7 @@ a.marketing-service-card:hover {
 	margin-top: 0.35rem;
 	font-size: 0.78rem;
 	font-weight: 700;
-	color: var(--accent-brass, #d4af37);
+	color: var(--accent-brass, #5b7c99);
 	letter-spacing: 0.02em;
 }
 
@@ -1715,7 +1692,7 @@ a.marketing-service-card:hover {
 }
 
 .marketing-breadcrumb-nav .breadcrumbs a:hover {
-	border-bottom-color: rgba(212, 175, 55, 0.45);
+	border-bottom-color: rgba(91, 124, 153, 0.45);
 }
 
 /* ── Stat Highlights (About, Our Edge) ── */
@@ -1939,7 +1916,7 @@ a.marketing-service-card:hover {
 .highlight-strip__value {
 	font-size: clamp(1.4rem, 2.2vw, 1.85rem);
 	font-weight: 700;
-	color: var(--accent-bronze-light, var(--accent-bronze));
+	color: var(--brand-indigo);
 	letter-spacing: -0.02em;
 }
 
@@ -1948,11 +1925,21 @@ a.marketing-service-card:hover {
 	font-weight: 600;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
-	color: rgba(247, 244, 238, 0.55);
+	color: var(--brand-accent);
 }
 
 .highlight-strip__note {
 	font-size: 0.8rem;
-	color: rgba(247, 244, 238, 0.5);
+	color: var(--brand-charcoal);
+	opacity: 0.65;
 	line-height: 1.4;
+}
+
+/* Linen / Indigo system: disable decorative gradient motion layers on inner marketing/pSEO pages */
+.inner-page-motion-system {
+	display: none !important;
+}
+
+.marketing-page-hero {
+	background-color: var(--brand-linen) !important;
 }

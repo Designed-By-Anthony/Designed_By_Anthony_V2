@@ -39,8 +39,9 @@ const ENRICHED_JSONLD_SEGMENTS = new Set([
  * + extras in `EnrichedPages.tsx`.
  */
 export function MarketingJsonLd({ path }: { path: string[] }) {
-	const [a, b] = path;
-	if (path.length === 1 && ENRICHED_JSONLD_SEGMENTS.has(a)) {
+	const a = path[0];
+	const b = path[1];
+	if (path.length === 1 && a !== undefined && ENRICHED_JSONLD_SEGMENTS.has(a)) {
 		return null;
 	}
 	if (a === "service-areas" && b && path.length === 2 && isServiceAreaSlug(b)) {
@@ -169,8 +170,13 @@ export function MarketingJsonLd({ path }: { path: string[] }) {
 		return <>{blocks}</>;
 	}
 
-	if (path.length === 1 && staticMarketingPageCopy[a]) {
-		const copy = staticMarketingPageCopy[a];
+	if (
+		path.length === 1 &&
+		a !== undefined &&
+		Object.hasOwn(staticMarketingPageCopy, a)
+	) {
+		const copy =
+			staticMarketingPageCopy[a as keyof typeof staticMarketingPageCopy];
 		pushWebPageBreadcrumb(copy.title, copy.description);
 		return <>{blocks}</>;
 	}

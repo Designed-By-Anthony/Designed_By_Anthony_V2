@@ -43,7 +43,7 @@ export default async function AnalyticsDashboardPage() {
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <h1 className="font-[family-name:var(--font-fraunces)] text-3xl font-semibold text-white">
+        <h1 className="font-[family-name:var(--font-playfair)] text-3xl font-semibold text-white">
           Analytics Dashboard
         </h1>
       </div>

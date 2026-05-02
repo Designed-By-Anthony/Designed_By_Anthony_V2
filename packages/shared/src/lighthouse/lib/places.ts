@@ -84,6 +84,7 @@ export async function scanPlaces(
 		const data = (await res.json()) as PlacesApiResponse;
 		if (data.places && data.places.length > 0) {
 			const place = data.places[0];
+			if (!place) return result;
 			result.found = true;
 			result.rating = place.rating ?? null;
 			result.userRatingCount = place.userRatingCount ?? 0;

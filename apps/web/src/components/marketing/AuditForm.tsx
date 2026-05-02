@@ -36,18 +36,18 @@ export interface AuditFormProps {
 	issueRows?: number;
 }
 
-/* Inline Tailwind: audit-form classes (layout-shell.css), Bronze focus ring. */
+/* Inline Tailwind: audit-form classes — slate focus ring */
 const FORM =
-	"grid gap-[1.1rem] relative [&_input]:w-full [&_textarea]:w-full [&_input]:py-[0.95rem] [&_input]:px-4 [&_textarea]:py-[0.95rem] [&_textarea]:px-4 [&_input]:rounded-2xl [&_textarea]:rounded-2xl [&_input]:border [&_input]:border-[rgba(226,232,240,0.5)] [&_textarea]:border [&_textarea]:border-[rgba(226,232,240,0.5)] [&_input]:bg-[rgba(8,15,28,0.78)] [&_textarea]:bg-[rgba(8,15,28,0.78)] [&_input]:text-[var(--text-white)] [&_textarea]:text-[var(--text-white)] [&_input]:font-[inherit] [&_textarea]:font-[inherit] [&_input]:transition-[border-color,box-shadow,transform] [&_textarea]:transition-[border-color,box-shadow,transform] [&_input]:duration-[250ms] [&_textarea]:duration-[250ms] [&_input::placeholder]:text-white/[0.34] [&_textarea::placeholder]:text-white/[0.34] [&_input:focus]:outline-none [&_textarea:focus]:outline-none [&_input:focus]:border-[rgba(212,175,55,0.78)] [&_textarea:focus]:border-[rgba(212,175,55,0.78)] [&_input:focus]:shadow-[0_0_0_3px_rgba(212,175,55,0.28),0_0_12px_rgba(212,175,55,0.18)] [&_textarea:focus]:shadow-[0_0_0_3px_rgba(212,175,55,0.28),0_0_12px_rgba(212,175,55,0.18)] [&_input:focus]:-translate-y-px [&_textarea:focus]:-translate-y-px [&_textarea]:resize-y [&_textarea]:min-h-[140px] [&_label]:flex [&_label]:items-center [&_label]:justify-between [&_label]:gap-3 [&_label]:text-[0.84rem] [&_label]:font-bold [&_label]:text-white/[0.86] [&_label]:tracking-[0.01em] [&_[aria-invalid='true']]:border-[rgba(248,113,113,0.8)] [&_[aria-invalid='true']]:shadow-[0_0_0_4px_rgba(248,113,113,0.14)]";
+	"grid gap-[1.1rem] relative [&_input]:w-full [&_textarea]:w-full [&_input]:py-[0.95rem] [&_input]:px-4 [&_textarea]:py-[0.95rem] [&_textarea]:px-4 [&_input]:rounded-2xl [&_textarea]:rounded-2xl [&_input]:border [&_input]:border-[rgba(226,232,240,0.5)] [&_textarea]:border [&_textarea]:border-[rgba(226,232,240,0.5)] [&_input]:bg-white [&_textarea]:bg-white [&_input]:text-[var(--brand-charcoal)] [&_textarea]:text-[var(--brand-charcoal)] [&_input]:font-[inherit] [&_textarea]:font-[inherit] [&_input]:transition-[border-color,box-shadow,transform] [&_textarea]:transition-[border-color,box-shadow,transform] [&_input]:duration-[250ms] [&_textarea]:duration-[250ms] [&_input::placeholder]:text-brand-charcoal/[0.34] [&_textarea::placeholder]:text-brand-charcoal/[0.34] [&_input:focus]:outline-none [&_textarea:focus]:outline-none [&_input:focus]:border-[rgb(var(--brand-accent-rgb)/0.78)] [&_textarea:focus]:border-[rgb(var(--brand-accent-rgb)/0.78)] [&_input:focus]:shadow-[0_0_0_3px_rgb(var(--brand-accent-rgb)/0.28),0_0_12px_rgb(var(--brand-accent-rgb)/0.18)] [&_textarea:focus]:shadow-[0_0_0_3px_rgb(var(--brand-accent-rgb)/0.28),0_0_12px_rgb(var(--brand-accent-rgb)/0.18)] [&_input:focus]:-translate-y-px [&_textarea:focus]:-translate-y-px [&_textarea]:resize-y [&_textarea]:min-h-[140px] [&_label]:flex [&_label]:items-center [&_label]:justify-between [&_label]:gap-3 [&_label]:text-[0.84rem] [&_label]:font-bold [&_label]:text-brand-charcoal/[0.86] [&_label]:tracking-[0.01em] [&_[aria-invalid='true']]:border-[rgba(248,113,113,0.8)] [&_[aria-invalid='true']]:shadow-[0_0_0_4px_rgba(248,113,113,0.14)]";
 const FORM_GRID = "grid grid-cols-1 sm:grid-cols-2 gap-4";
 const FIELD = "grid gap-[0.45rem]";
 const FIELD_FULL = `${FIELD} col-span-full`;
 const FIELD_HINT = "min-h-[1.2rem] text-[0.84rem] text-[#fca5a5] m-0";
 const ACTIONS = "grid gap-[0.8rem]";
 const META =
-	"min-h-[1.2rem] text-[0.84rem] text-[#fca5a5] m-0 mt-[-0.15rem] text-white/54 leading-[1.65]";
+	"min-h-[1.2rem] text-[0.84rem] text-[#fca5a5] m-0 mt-[-0.15rem] text-brand-charcoal/55 leading-[1.65]";
 const PRIVACY =
-	"text-white/[0.46] text-[0.8rem] leading-[1.55] m-0 [&_a]:text-[rgba(232,213,168,0.95)]";
+	"text-brand-charcoal/[0.46] text-[0.8rem] leading-[1.55] m-0 [&_a]:text-brand-accent [&_a:hover]:text-[var(--accent-bronze-dark)]";
 const STATUS = "min-h-[1.2rem] text-[0.84rem] text-[#fca5a5] m-0 mt-[-0.15rem]";
 /* JS-set hook (audit-forms.ts adds .audit-submit-success on success) — handled via [&.audit-submit-success] variant in btnPrimaryAudit */
 const SUBMIT_BTN = btnPrimaryAudit;
@@ -178,9 +178,9 @@ export function AuditForm({
 								onSuccess={(token) => setTurnstileToken(token)}
 								onExpire={() => setTurnstileToken(null)}
 								onError={() => setTurnstileToken(null)}
-								options={{ theme: "dark", size: "flexible" }}
+								options={{ theme: "light", size: "flexible" }}
 							/>
-							<p className="text-[0.7rem] font-bold uppercase tracking-widest text-white/30">
+							<p className="text-[0.7rem] font-bold uppercase tracking-widest text-brand-charcoal/30">
 								Security check required to proceed
 							</p>
 						</div>

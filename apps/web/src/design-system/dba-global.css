@@ -16,7 +16,7 @@
  * tailwind-v4-bridge.css under the Tailwind v4 design layer.
  */
 
-/* 1. :root CSS custom properties (Midnight & Bronze palette). */
+/* 1. :root CSS custom properties (permanent light / high-contrast palette). */
 @import url("./tokens.css");
 
 /* 2. @theme tokens + @font-face + base/component rules. */

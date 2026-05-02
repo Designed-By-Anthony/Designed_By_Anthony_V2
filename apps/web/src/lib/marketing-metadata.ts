@@ -290,8 +290,13 @@ export function resolveMarketingMetadata(path: string[]): Metadata {
 		};
 	}
 
-	const staticCopy = staticMarketingPageCopy[a];
-	if (path.length === 1 && staticCopy) {
+	if (
+		path.length === 1 &&
+		a !== undefined &&
+		Object.hasOwn(staticMarketingPageCopy, a)
+	) {
+		const staticCopy =
+			staticMarketingPageCopy[a as keyof typeof staticMarketingPageCopy];
 		return {
 			...base,
 			title: staticCopy.title,
