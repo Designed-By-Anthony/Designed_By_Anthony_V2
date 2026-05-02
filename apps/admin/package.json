@@ -10,11 +10,11 @@
   },
   "scripts": {
     "dev": "next dev --port 3010",
-    "build": "bun run build:worker",
+    "build": "bun run build:next",
     "build:next": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:worker": "NODE_OPTIONS=\"--max-old-space-size=4096\" opennextjs-cloudflare build",
     "preview": "bun run build:worker && wrangler dev",
-    "deploy": "bun run build && wrangler pages deploy",
+    "deploy": "bun run build:worker && wrangler deploy",
     "start": "next start --port 3010",
     "typecheck": "tsc --noEmit"
   },

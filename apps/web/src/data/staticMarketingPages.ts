@@ -3,10 +3,13 @@ import {
 	PRIVATE_FACEBOOK_LABEL,
 } from "@/lib/offers";
 
-export const staticMarketingPageCopy: Record<
-	string,
-	{ title: string; description: string; paragraphs: string[] }
-> = {
+type StaticMarketingPageCopy = {
+	title: string;
+	description: string;
+	paragraphs: string[];
+};
+
+export const staticMarketingPageCopy = {
 	about: {
 		title: "About ANTHONY.",
 		description:
@@ -113,4 +116,4 @@ export const staticMarketingPageCopy: Record<
 			"Try the homepage, the services index, or contact Anthony if you followed an old bookmark.",
 		],
 	},
-};
+} satisfies Record<string, StaticMarketingPageCopy>;

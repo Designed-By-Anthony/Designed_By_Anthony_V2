@@ -1,4 +1,4 @@
-export const DEFAULT_PUBLIC_API_BASE_URL = "https://api.designedbyanthony.com";
+export const DEFAULT_PUBLIC_API_BASE_URL = "https://dba-api.anthony-6b4.workers.dev";
 const LOCAL_PUBLIC_API_BASE_URL = "";
 
 export function getPublicApiBaseUrl(): string {
