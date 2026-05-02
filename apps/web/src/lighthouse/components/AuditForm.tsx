@@ -1,6 +1,5 @@
 "use client";
 
-import type { AuditData } from "@lh/auditReport";
 import { initCursorGlow } from "@lh/lib/cursorGlow";
 import { Turnstile } from "@marsidev/react-turnstile";
 import type React from "react";
@@ -8,16 +7,6 @@ import { useEffect, useState } from "react";
 import { btnPrimaryAudit } from "@/design-system/buttons";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { resolveEffectiveSiteKey } from "@/lib/turnstile";
-import { AuditResults } from "./AuditResults";
-import { AuditScanProgress, type ScanPhase } from "./AuditScanProgress";
-
-const LOADING_MESSAGES = [
-	"Calling Google PageSpeed Insights for mobile lab scores…",
-	"Reading your homepage HTML for titles, headings, and schema…",
-	"Checking robots.txt, sitemap, and redirect behavior…",
-	"Pulling optional local/maps context when configured…",
-	"Running the AI pass for your executive summary and top fixes…",
-];
 
 export function AuditForm() {
 	const [url, setUrl] = useState("");
@@ -27,59 +16,28 @@ export function AuditForm() {
 	const [location, setLocation] = useState("");
 
 	const [status, setStatus] = useState<
-		"idle" | "loading" | "success" | "error"
+		"idle" | "submitting" | "queued" | "error"
 	>("idle");
 	const [errorMsg, setErrorMsg] = useState("");
-	const [results, setResults] = useState<AuditData | null>(null);
-	const [reportId, setReportId] = useState<string | null>(null);
 	const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-	const [loadingTextIndex, setLoadingTextIndex] = useState(0);
-	const [scanPhase, setScanPhase] = useState<ScanPhase>("pagespeed");
-
-	// Initialize cursor glow effect for glass cards
 	useEffect(() => {
-		if (status !== "loading") {
+		if (status === "idle") {
 			const cleanup = initCursorGlow(".glass-card");
 			return cleanup;
 		}
 	}, [status]);
 
-	useEffect(() => {
-		let interval: ReturnType<typeof setInterval> | undefined;
-		let phaseTimer: ReturnType<typeof setInterval> | undefined;
-		if (status === "loading") {
-			setScanPhase("pagespeed");
-			const start = Date.now();
-			interval = setInterval(() => {
-				setLoadingTextIndex((prev) => (prev + 1) % LOADING_MESSAGES.length);
-			}, 3800);
-			phaseTimer = setInterval(() => {
-				const elapsed = Date.now() - start;
-				if (elapsed < 12_000) setScanPhase("pagespeed");
-				else if (elapsed < 28_000) setScanPhase("onpage");
-				else if (elapsed < 48_000) setScanPhase("crawl");
-				else if (elapsed < 72_000) setScanPhase("local");
-				else setScanPhase("ai");
-			}, 600);
-		}
-		return () => {
-			if (interval) clearInterval(interval);
-			if (phaseTimer) clearInterval(phaseTimer);
-		};
-	}, [status]);
-
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!url || status === "loading") return;
+		if (!url || status === "submitting") return;
 
 		let finalUrl = url;
 		if (!finalUrl.startsWith("http://") && !finalUrl.startsWith("https://")) {
 			finalUrl = `https://${finalUrl}`;
 		}
 
-		setStatus("loading");
-		setLoadingTextIndex(0);
+		setStatus("submitting");
 		setErrorMsg("");
 
 		try {
@@ -100,9 +58,8 @@ export function AuditForm() {
 
 			let data: {
 				error?: string;
-				results?: AuditData | null;
-				reportId?: string;
-				psiDegradedReason?: string | null;
+				ok?: boolean;
+				jobId?: string;
 			} | null = null;
 			try {
 				data = await res.json();
@@ -114,37 +71,51 @@ export function AuditForm() {
 				throw new Error(data?.error || "Something went wrong.");
 			}
 
-			if (!data?.results) {
-				throw new Error("We couldn't complete the audit. Please try again.");
+			if (!data?.ok && !data?.jobId) {
+				throw new Error("We couldn't queue your audit. Please try again.");
 			}
 
-			setResults(data.results);
-			setReportId(typeof data.reportId === "string" ? data.reportId : null);
-			setStatus("success");
+			setStatus("queued");
 		} catch (err: unknown) {
 			const message =
-				err instanceof Error ? err.message : "Failed to fetch audit.";
+				err instanceof Error ? err.message : "Failed to queue audit.";
 			setErrorMsg(message);
 			setStatus("error");
 			setTurnstileToken(null);
 		}
 	};
 
-	if (status === "success" && results) {
+	if (status === "queued") {
 		return (
-			<AuditResults
-				data={results}
-				reportId={reportId}
-				onReset={() => {
-					setStatus("idle");
-					setResults(null);
-					setReportId(null);
-				}}
-			/>
+			<div
+				className="relative isolate w-full rounded-[1.25rem] border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.92)] p-6 shadow-[0_8px_30px_rgb(26,42,64,0.06)] md:p-8"
+				id="run-audit"
+			>
+				<p className="text-[0.65rem] font-bold uppercase tracking-[0.26em] text-brand-accent">
+					Blueprint requested
+				</p>
+				<h2 className="mt-3 font-[family-name:var(--font-display)] text-[1.5rem] font-bold tracking-tight text-brand-charcoal sm:text-[1.75rem]">
+					Our edge servers are on it
+				</h2>
+				<p className="mt-4 max-w-xl text-[15px] leading-[1.75] text-brand-charcoal/75">
+					Blueprint requested. Our edge servers are analyzing your infrastructure. Your
+					architectural report will be in your inbox in 2–3 minutes.
+				</p>
+				<button
+					type="button"
+					onClick={() => {
+						setStatus("idle");
+						setUrl("");
+						setTurnstileToken(null);
+					}}
+					className="mt-8 rounded-xl border border-[rgba(26,42,64,0.15)] bg-white px-5 py-3 text-[0.9rem] font-semibold text-brand-indigo transition-colors hover:border-brand-accent/40"
+				>
+					Audit another URL
+				</button>
+			</div>
 		);
 	}
 
-	/* Bronze token inputs — aligned with SalesforceContactForm SF_FIELD pattern. */
 	const inputClass =
 		"w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.7rem] text-[0.95rem] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] font-[inherit] transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-brand-charcoal/[0.42] focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]";
 
@@ -155,38 +126,25 @@ export function AuditForm() {
 		process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
 	);
 	const isSubmitDisabled =
-		status === "loading" || (!!turnstileSiteKey && !turnstileToken);
+		status === "submitting" || (!!turnstileSiteKey && !turnstileToken);
 
 	return (
 		<div className="relative isolate w-full" id="run-audit">
-			{status === "loading" ? (
-				<div className="absolute inset-0 z-10 overflow-y-auto rounded-[1.25rem] bg-[rgba(6,10,18,0.97)] p-4 backdrop-blur-md md:p-6">
-					<AuditScanProgress
-						activePhase={scanPhase}
-						message={
-							LOADING_MESSAGES[loadingTextIndex] ??
-							LOADING_MESSAGES[0] ??
-							""
-						}
-					/>
-				</div>
-			) : null}
-
 			<form onSubmit={handleSubmit} className="flex flex-col gap-6">
-				<div className="relative pb-6 mb-2 border-b border-white/[0.06]">
+				<div className="relative pb-6 mb-2 border-b border-[rgba(26,42,64,0.1)]">
 					<span
-						className="pointer-events-none absolute left-0 -bottom-px h-px w-[4.5rem] bg-linear-to-r from-[rgb(var(--accent-bronze-rgb)/0.82)] to-transparent"
+						className="pointer-events-none absolute left-0 -bottom-px h-px w-[4.5rem] bg-linear-to-r from-[rgb(var(--brand-accent-rgb)/0.85)] to-transparent"
 						aria-hidden
 					/>
-					<p className="inline-block text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[rgb(var(--accent-bronze-rgb)/0.85)] mb-2">
+					<p className="inline-block text-[0.65rem] font-bold tracking-[0.26em] uppercase text-brand-accent mb-2">
 						Free · Private · No Account Needed
 					</p>
 					<h2 className="font-[family-name:var(--font-display)] text-[1.6rem] font-bold tracking-tight text-brand-charcoal sm:text-[1.85rem]">
 						Get Your Free Report
 					</h2>
 					<p className="mt-3 max-w-xl text-[14px] leading-[1.7] text-brand-charcoal/60">
-						Enter your site below. We score it on speed, SEO, and trust signals
-						in about 60 seconds and send a private report link to your email.
+						Submit your URL — we queue a full lab pass and email a branded architectural
+						blueprint. No waiting on this screen.
 					</p>
 				</div>
 
@@ -194,12 +152,6 @@ export function AuditForm() {
 					<label htmlFor="url" className={labelClass}>
 						Website to scan
 					</label>
-					{/* Phase-3 follow-up: removed the absolute-positioned `https://`
-					    overlay span — it visually overlapped the placeholder
-					    ("ghost" effect). The handler still prepends `https://`
-					    automatically if the user omits it, so we keep
-					    type="text" (type="url" would block bare-domain inputs
-					    with native browser validation before submit). */}
 					<input
 						id="url"
 						name="url"
@@ -213,12 +165,12 @@ export function AuditForm() {
 						autoCorrect="off"
 						autoCapitalize="off"
 						spellCheck={false}
-						className="w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.95rem] font-mono text-[15px] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] shadow-[0_18px_40px_-20px_rgba(0,0,0,0.25)] placeholder:font-normal placeholder:text-brand-charcoal/[0.42] transition-[border-color,box-shadow,background-color] duration-200 focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]"
+						className="w-full rounded-[0.65rem] border border-[rgba(26,42,64,0.12)] bg-white px-[0.95rem] py-[0.95rem] font-mono text-[15px] text-brand-charcoal [caret-color:rgb(var(--brand-accent-rgb)/0.95)] shadow-[0_8px_26px_-18px_rgba(26,42,64,0.06)] placeholder:font-normal placeholder:text-brand-charcoal/[0.42] transition-[border-color,box-shadow,background-color] duration-200 focus:outline-none focus:border-[rgb(var(--brand-accent-rgb)/0.65)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--brand-accent-rgb)/0.2)]"
 					/>
 				</div>
 
 				<fieldset className="border-0 m-0 p-0">
-					<legend className="block w-full text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[rgba(247,244,238,0.58)] mb-2.5 pb-2 border-b border-dashed border-white/[0.06]">
+					<legend className="block w-full text-[0.65rem] font-bold tracking-[0.2em] uppercase text-brand-charcoal/55 mb-2.5 pb-2 border-b border-dashed border-[rgba(26,42,64,0.12)]">
 						Where to send the report
 					</legend>
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -322,8 +274,8 @@ export function AuditForm() {
 						className={`${btnPrimaryAudit} w-full sm:w-auto sm:min-w-[260px]`}
 					>
 						<span className="relative inline-flex items-center justify-center gap-2">
-							{status === "loading" ? "Running audit…" : "Run free audit"}
-							{status !== "loading" && (
+							{status === "submitting" ? "Queueing audit…" : "Run free audit"}
+							{status !== "submitting" && (
 								<span
 									className="transition-transform duration-300 group-hover:translate-x-0.5"
 									aria-hidden
@@ -336,7 +288,7 @@ export function AuditForm() {
 
 					<div className="text-center sm:text-right">
 						<p className="font-mono text-[11px] tracking-tight text-brand-charcoal/45">
-							~60-90s · Private report · Shareable URL
+							Async pipeline · PDF to inbox · Branded blueprint
 						</p>
 					</div>
 				</div>

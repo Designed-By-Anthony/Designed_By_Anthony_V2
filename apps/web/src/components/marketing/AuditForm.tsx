@@ -3,6 +3,7 @@
 import { useState, useId } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { btnPrimaryAudit } from "@/design-system/buttons";
+import { CARD_HAS_TEXT_PAD, SURFACE_CARD_FROST } from "@/design-system/sections";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { businessProfile } from "@/lib/seo";
 import { resolveEffectiveSiteKey } from "@/lib/turnstile";
@@ -83,6 +84,7 @@ export function AuditForm({
 	const isDisabled = turnstileRequired && !turnstileToken;
 
 	return (
+		<div className={`${SURFACE_CARD_FROST} ${CARD_HAS_TEXT_PAD}`}>
 		<form
 			className={FORM}
 			data-audit-form
@@ -208,5 +210,6 @@ export function AuditForm({
 				</p>
 			</div>
 		</form>
+		</div>
 	);
 }

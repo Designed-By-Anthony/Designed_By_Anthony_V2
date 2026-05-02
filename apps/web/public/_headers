@@ -1,0 +1,5 @@
+# Cloudflare Workers Static Assets — see https://opennext.js.org/cloudflare/caching#static-assets-caching
+# Fingerprinted JS/CSS/fonts live under _next/static; long cache avoids stale revalidation fights after deploys.
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

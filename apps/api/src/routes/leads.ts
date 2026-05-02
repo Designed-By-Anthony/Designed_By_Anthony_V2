@@ -1,6 +1,7 @@
 import { Elysia, t } from "elysia";
 import { leads as leadsTable } from "@dba/shared/db/schema";
 import { createD1Client } from "@dba/shared/db/client";
+import { normalizeCreatedAtMs } from "@dba/shared/lib/createdAt";
 import { desc, eq } from "drizzle-orm";
 interface CfEnv {
   // D1Database is a Cloudflare Workers global; use unknown for TS compat outside worker context
@@ -31,7 +32,10 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         .orderBy(desc(leadsTable.created_at));
 
       return {
-        leads: allLeads,
+        leads: allLeads.map((row) => ({
+          ...row,
+          created_at: normalizeCreatedAtMs(row.created_at) ?? row.created_at,
+        })),
       };
     } catch (error) {
       console.error("Error fetching leads:", error);

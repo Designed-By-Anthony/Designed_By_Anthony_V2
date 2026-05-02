@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { Logo } from "@/components/Logo";
+import { formatLeadDashboardDate } from "@dba/shared/lib/createdAt";
 
 interface Lead {
   id: string;
@@ -57,45 +58,64 @@ export default async function AdminLedgerPage() {
 				<h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-brand-indigo">
 					315 Pipeline
 				</h2>
-				<div className="text-bubble is-bordered mt-4 overflow-x-auto">
-					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-brand-charcoal">
+				<div className="mt-4 overflow-x-auto rounded-xl border border-[rgba(26,42,64,0.1)] bg-[#f8f9fa] shadow-[0_8px_28px_-18px_rgba(26,42,64,0.18)]">
+					<table className="w-full border-collapse text-left">
 						<thead>
-							<tr className="border-b border-brand-border">
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+							<tr className="border-b border-[rgba(26,42,64,0.1)]">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Email
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Company
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Source
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Status
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Created
 								</th>
 							</tr>
 						</thead>
-        <tbody>
-          {leadRows.length === 0 ? (
-            <tr>
-              <td colSpan={5} className="py-6 text-brand-charcoal/50">
-                No leads found in pipeline.
-              </td>
-            </tr>
-          ) : (
+						<tbody>
+							{leadRows.length === 0 ? (
+								<tr>
+									<td
+										colSpan={5}
+										className="px-4 py-8 text-center font-[family-name:var(--font-inter)] text-sm text-brand-charcoal/50"
+									>
+										No leads found in pipeline.
+									</td>
+								</tr>
+							) : (
 								leadRows.map((row) => (
-									<tr key={row.id} className="border-b border-brand-border/60">
-										<td className="py-2 pr-4">{row.email}</td>
-										<td className="py-2 pr-4">{row.company_name ?? "—"}</td>
-										<td className="py-2 pr-4">{row.source}</td>
-										<td className="py-2 pr-4">{row.status}</td>
-										<td className="py-2 pr-4 tabular-nums">
-											{row.created_at != null
-												? new Date(row.created_at).toISOString()
-												: "—"}
+									<tr
+										key={row.id}
+										className="border-b border-[rgba(26,42,64,0.1)]"
+									>
+										<td className="px-4 py-3 align-middle font-[family-name:var(--font-inter)] text-[0.875rem] font-normal">
+											<a
+												href={`mailto:${row.email}`}
+												className="text-brand-indigo underline-offset-2 hover:underline"
+											>
+												{row.email}
+											</a>
+										</td>
+										<td className="px-4 py-3 align-middle font-[family-name:var(--font-inter)] text-[0.875rem] font-normal text-brand-charcoal">
+											{row.company_name ?? "—"}
+										</td>
+										<td className="px-4 py-3 align-middle font-[family-name:var(--font-inter)] text-[0.875rem] font-normal text-brand-charcoal">
+											{row.source}
+										</td>
+										<td className="px-4 py-3 align-middle font-[family-name:var(--font-inter)] text-[0.875rem] font-normal">
+											<span className="inline-flex rounded-full bg-[rgb(91_124_153/0.28)] px-3 py-1 text-xs font-medium text-white">
+												{row.status}
+											</span>
+										</td>
+										<td className="px-4 py-3 align-middle font-[family-name:var(--font-inter)] text-[0.875rem] font-normal tabular-nums text-brand-charcoal/85">
+											{formatLeadDashboardDate(row.created_at)}
 										</td>
 									</tr>
 								))
@@ -109,26 +129,26 @@ export default async function AdminLedgerPage() {
 				<h2 className="font-[family-name:var(--font-playfair)] text-xl font-semibold text-brand-indigo">
 					Revenue Ledger
 				</h2>
-				<div className="text-bubble is-bordered mt-4 overflow-x-auto">
-					<table className="w-full border-collapse text-left text-sm font-[family-name:var(--font-inter)] text-brand-charcoal">
+				<div className="mt-4 overflow-x-auto rounded-xl border border-[rgba(26,42,64,0.1)] bg-[#f8f9fa] shadow-[0_8px_28px_-18px_rgba(26,42,64,0.18)]">
+					<table className="w-full border-collapse text-left">
 						<thead>
-							<tr className="border-b border-brand-border">
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+							<tr className="border-b border-[rgba(26,42,64,0.1)]">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Session
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Customer
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Amount (¢)
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Plan
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Status
 								</th>
-								<th className="font-[family-name:var(--font-playfair)] py-2 pr-4 font-semibold text-brand-indigo">
+								<th className="font-[family-name:var(--font-playfair)] px-4 py-3 text-left text-[0.72rem] font-bold uppercase tracking-[0.06em] text-brand-indigo">
 									Created
 								</th>
 							</tr>
@@ -136,7 +156,10 @@ export default async function AdminLedgerPage() {
 						<tbody>
 							{txRows.length === 0 ? (
 								<tr>
-									<td colSpan={6} className="py-6 text-brand-charcoal/50">
+									<td
+										colSpan={6}
+										className="px-4 py-8 text-center font-[family-name:var(--font-inter)] text-sm text-brand-charcoal/50"
+									>
 										No transactions yet.
 									</td>
 								</tr>
@@ -144,21 +167,36 @@ export default async function AdminLedgerPage() {
 								txRows.map((row) => (
 									<tr
 										key={row.stripe_session_id}
-										className="border-b border-brand-border/60"
+										className="border-b border-[rgba(26,42,64,0.1)]"
 									>
-										<td className="max-w-[14rem] truncate py-2 pr-4 font-mono text-xs">
+										<td className="max-w-[14rem] truncate px-4 py-3 font-mono text-xs text-brand-charcoal/80">
 											{row.stripe_session_id}
 										</td>
-										<td className="py-2 pr-4">{row.customer_email ?? "—"}</td>
-										<td className="py-2 pr-4 tabular-nums">
+										<td className="px-4 py-3 font-[family-name:var(--font-inter)] text-[0.875rem] font-normal">
+											{row.customer_email ? (
+												<a
+													href={`mailto:${row.customer_email}`}
+													className="text-brand-indigo underline-offset-2 hover:underline"
+												>
+													{row.customer_email}
+												</a>
+											) : (
+												"—"
+											)}
+										</td>
+										<td className="px-4 py-3 font-[family-name:var(--font-inter)] text-[0.875rem] font-normal tabular-nums text-brand-charcoal">
 											{row.amount_total ?? "—"}
 										</td>
-										<td className="py-2 pr-4">{row.plan_name ?? "—"}</td>
-										<td className="py-2 pr-4">{row.status ?? "—"}</td>
-										<td className="py-2 pr-4 tabular-nums">
-											{row.created_at != null
-												? new Date(row.created_at).toISOString()
-												: "—"}
+										<td className="px-4 py-3 font-[family-name:var(--font-inter)] text-[0.875rem] font-normal text-brand-charcoal">
+											{row.plan_name ?? "—"}
+										</td>
+										<td className="px-4 py-3 font-[family-name:var(--font-inter)] text-[0.875rem] font-normal">
+											<span className="inline-flex rounded-full bg-[rgb(91_124_153/0.28)] px-3 py-1 text-xs font-medium text-white">
+												{row.status ?? "—"}
+											</span>
+										</td>
+										<td className="px-4 py-3 font-[family-name:var(--font-inter)] text-[0.875rem] font-normal tabular-nums text-brand-charcoal/85">
+											{formatLeadDashboardDate(row.created_at)}
 										</td>
 									</tr>
 								))

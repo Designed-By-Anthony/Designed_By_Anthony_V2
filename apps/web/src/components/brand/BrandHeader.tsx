@@ -17,7 +17,7 @@ export type BrandHeaderProps = {
 const navAuditCtaTypography =
 	"font-[family-name:var(--font-inter)] font-semibold uppercase tracking-widest text-[0.68rem]";
 
-const navCtaBase = `inline-flex items-center gap-[0.4rem] rounded-[0.6rem] border border-transparent bg-brand-accent ${navAuditCtaTypography} text-brand-linen no-underline shadow-[0_8px_22px_-10px_rgba(91,124,153,0.35)] transition-[transform,box-shadow,background-color] duration-[200ms] ease-in whitespace-nowrap hover:-translate-y-px hover:bg-[#4a6278] hover:shadow-[0_12px_28px_-10px_rgba(91,124,153,0.32)]`;
+const navCtaBase = `inline-flex items-center gap-[0.4rem] rounded-[0.6rem] border border-brand-accent bg-brand-accent ${navAuditCtaTypography} text-brand-linen no-underline transition-[transform,background-color,border-color] duration-[200ms] ease-in whitespace-nowrap hover:-translate-y-px hover:bg-[#4a6278] hover:border-[#4a6278]`;
 
 const auditCurrentChip = `inline-flex items-center gap-[0.45rem] px-3 py-[0.35rem] rounded-full border border-brand-border bg-brand-linen ${navAuditCtaTypography} text-brand-indigo whitespace-nowrap`;
 
@@ -33,7 +33,7 @@ export function BrandHeader({
 	return (
 		<>
 			<aside
-				className="relative z-[4] bg-brand-surface border-b border-brand-border"
+				className="relative border-b border-[rgba(26,42,64,0.05)] bg-transparent"
 				aria-label="Site notice"
 			>
 				<Link
@@ -53,7 +53,7 @@ export function BrandHeader({
 				</Link>
 			</aside>
 
-			<header className="relative z-[3] bg-brand-background border-b border-brand-border pl-[max(1.25rem,env(safe-area-inset-left,0px))] pr-[max(1.25rem,env(safe-area-inset-right,0px))]">
+			<header className="relative bg-transparent pl-[max(1.25rem,env(safe-area-inset-left,0px))] pr-[max(1.25rem,env(safe-area-inset-right,0px))]">
 				<div className="flex items-center justify-between gap-6 max-w-[80rem] mx-auto pt-8 pb-4">
 					<Link
 						href={SITE_BRAND.homeHref}
@@ -137,8 +137,6 @@ export function BrandHeader({
 						) : null}
 					</div>
 				</div>
-
-				<div className="h-px bg-brand-border" aria-hidden />
 			</header>
 		</>
 	);

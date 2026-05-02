@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { api } from "../../../lib/api";
+import { formatLeadDashboardDate } from "@dba/shared/lib/createdAt";
 import { type Lead, type Transaction } from "@dba/shared/db/schema";
 import { BarChart, Users, DollarSign, TrendingUp } from "lucide-react";
 
@@ -38,7 +39,7 @@ export default async function AnalyticsDashboardPage() {
   // Placeholder data for transactions (would come from real API)
   const totalRevenue = "$12,500"; // Would calculate from transactions
   const averageDealSize = "$1,250"; // Would calculate from transactions
-  const conversionRate = totalLeads > 0 ? Math.round((leadsByStatus["Qualified"] || 0) / totalLeads * 100) : 0;
+  const conversionRate = totalLeads > 0 ? Math.round((leadsByStatus["Provisioning"] || 0) / totalLeads * 100) : 0;
 
   return (
     <main className="mx-auto max-w-7xl px-6 py-12">
@@ -157,7 +158,7 @@ export default async function AnalyticsDashboardPage() {
                     <div className="flex items-center justify-between">
                       <p className="text-white font-medium">{lead.email}</p>
                       <span className="text-white/50 text-sm">
-                        {lead.created_at ? new Date(lead.created_at).toLocaleDateString() : "—"}
+                        {formatLeadDashboardDate(lead.created_at)}
                       </span>
                     </div>
                     <p className="text-white/70 text-sm">

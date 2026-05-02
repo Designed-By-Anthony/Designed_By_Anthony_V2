@@ -4,7 +4,7 @@ import {
 	SECTION_CONTAINER,
 	SECTION_SHELL,
 	SECTION_SHELL_TECHNICAL,
-	SURFACE_CARD_TECHNICAL,
+	SURFACE_CARD_FROST,
 } from "@/design-system/sections";
 import { AuditForm } from "@lh/components/AuditForm";
 import { LighthouseHero } from "@lh/components/LighthouseHero";
@@ -23,7 +23,7 @@ export default function LighthouseHome() {
 						<div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,min(100%,480px))]">
 							<LighthouseHero />
 							<aside
-								className={`${SURFACE_CARD_TECHNICAL} ${CARD_LG_TEXT_PAD}`}
+								className={`${SURFACE_CARD_FROST} ${CARD_LG_TEXT_PAD}`}
 								aria-label="Run your website audit"
 							>
 								<AuditForm />

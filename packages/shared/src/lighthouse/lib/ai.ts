@@ -604,3 +604,48 @@ export function buildFallbackInsight(params: {
 			"<p>The detailed copywriting analysis requires our AI reviewer, which was temporarily unavailable during this audit run. The scores and technical findings above are fully accurate. For a deep dive into your homepage messaging, request a re-run or reply to schedule a walkthrough.</p>",
 	};
 }
+
+const DETONATOR_SUMMARY_TIMEOUT_MS = 25_000;
+
+/**
+ * Short Gemini pass for async PDF / “Architectural Blueprint” emails (PSI JSON only).
+ */
+export async function generatePsiArchitecturalSummary(
+	psiJsonSnippet: string,
+): Promise<string> {
+	const trimmed = psiJsonSnippet.slice(0, 100_000);
+	const ai = createAiClient();
+	const model =
+		process.env.GEMINI_DETONATOR_MODEL?.trim() || FALLBACK_GEMINI_MODEL;
+	const prompt = `Draft a 3-point high-end architectural summary of these web vitals for an infrastructure client. Output plain text only, numbered 1–3, no markdown headings.\n\n${trimmed}`;
+
+	try {
+		const controller = new AbortController();
+		const timeout = setTimeout(
+			() => controller.abort(),
+			DETONATOR_SUMMARY_TIMEOUT_MS,
+		);
+		const result = await ai.models.generateContent({
+			model,
+			contents: [{ role: "user", parts: [{ text: prompt }] }],
+			config: {
+				temperature: 0.45,
+				abortSignal: controller.signal,
+			},
+		});
+		clearTimeout(timeout);
+		const text = result.text?.trim();
+		if (text) return text;
+	} catch (e) {
+		console.warn(
+			"generatePsiArchitecturalSummary failed:",
+			e instanceof Error ? e.message : e,
+		);
+	}
+
+	return [
+		"1. Lab signals suggest tightening perceived performance and interactivity budgets.",
+		"2. Validate accessibility and SEO categories against your production crawl profile.",
+		"3. Prioritize a remediation roadmap with Core Web Vitals as the primary release gate.",
+	].join("\n");
+}

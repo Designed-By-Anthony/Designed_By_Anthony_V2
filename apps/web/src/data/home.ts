@@ -80,12 +80,12 @@ export const processSteps = [
 ];
 
 export const homeFooterCta = {
-	eyebrow: "Free site audit",
+	eyebrow: "Free Site Audit",
 	title: "Curious how your site is really doing?",
 	description:
 		"Drop your URL and you'll get a straight report — Core Web Vitals, on-page SEO, crawl checks, and an AI-prioritized fix list. No signup, no pitch deck.",
 	primaryHref: "/lighthouse",
-	primaryLabel: "Let's build something great.",
+	primaryLabel: "Let's Build Something Great",
 	secondaryHref: "/contact",
 	secondaryLabel: "Or open the contact form",
 	note: "A reply from Anthony usually comes within one business day.",

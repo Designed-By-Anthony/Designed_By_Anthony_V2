@@ -30,6 +30,13 @@
         "queue": "pdf-gen-queue",
         "binding": "PDF_GEN_QUEUE"
       }
+    ],
+    "consumers": [
+      {
+        "queue": "pdf-gen-queue",
+        "max_batch_size": 1,
+        "max_retries": 5
+      }
     ]
   }
 }

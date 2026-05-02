@@ -52,6 +52,10 @@ export const SURFACE_CARD_EDITORIAL = `surface-card ${SURFACE_CARD_BASE} bg-bran
 
 export const SURFACE_CARD_TECHNICAL = `surface-card ${SURFACE_CARD_BASE} bg-brand-surface border-brand-border shadow-[0_20px_48px_-28px_rgba(26,42,64,0.12)]`;
 
+/** Frosted linen panel — grid/texture shows through; soft indigo ambient shadow */
+export const SURFACE_CARD_FROST =
+	"surface-card relative overflow-hidden rounded-[var(--radius-card-lg)] border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.7)] backdrop-blur-md [-webkit-backdrop-filter:blur(12px)] shadow-[0_8px_30px_rgb(26,42,64,0.04)] transition-[transform,box-shadow,border-color] duration-[350ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-[0_12px_36px_-22px_rgba(26,42,64,0.07)] motion-safe:hover:border-[rgba(26,42,64,0.14)]";
+
 export const SURFACE_CARD_PROOF = `surface-card ${SURFACE_CARD_BASE} bg-brand-surface border-[rgba(34,197,94,0.28)]`;
 
 export const CARD_HAS_TEXT_PAD =

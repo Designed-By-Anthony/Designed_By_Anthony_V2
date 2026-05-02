@@ -3,6 +3,7 @@
 import { useState, useId } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { btnPrimaryAudit } from "@/design-system/buttons";
+import { CARD_HAS_TEXT_PAD, SURFACE_CARD_FROST } from "@/design-system/sections";
 import { businessProfile } from "@/lib/seo";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { resolveEffectiveSiteKey } from "@/lib/turnstile";
@@ -105,19 +106,22 @@ export function LighthouseAuditForm({
 
   if (submitSuccess) {
     return (
-      <div className="text-center py-6">
-        <p className={STATUS}>Thanks — we received your audit request.</p>
-        <p className={PRIVACY}>
-          Questions?{" "}
-          <a href={`mailto:${businessProfile.email}`}>
-            {businessProfile.email}
-          </a>
-        </p>
+      <div className={`${SURFACE_CARD_FROST} ${CARD_HAS_TEXT_PAD}`}>
+        <div className="py-2 text-center">
+          <p className={STATUS}>Thanks — we received your audit request.</p>
+          <p className={PRIVACY}>
+            Questions?{" "}
+            <a href={`mailto:${businessProfile.email}`}>
+              {businessProfile.email}
+            </a>
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
+    <div className={`${SURFACE_CARD_FROST} ${CARD_HAS_TEXT_PAD}`}>
     <form
       onSubmit={handleSubmit}
       className={FORM}
@@ -217,5 +221,6 @@ export function LighthouseAuditForm({
         )}
       </div>
     </form>
+    </div>
   );
 }

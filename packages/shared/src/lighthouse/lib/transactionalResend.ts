@@ -13,6 +13,13 @@ export function isResendConfigured(): boolean {
 	return Boolean(process.env.RESEND_API_KEY?.trim());
 }
 
+export type SendTransactionalEmailAttachment = {
+	filename: string;
+	/** Raw bytes as Base64 (no data: URI prefix). */
+	contentBase64: string;
+	contentType?: string;
+};
+
 export type SendTransactionalEmailInput = {
 	to: string | string[];
 	subject: string;
@@ -20,6 +27,7 @@ export type SendTransactionalEmailInput = {
 	text?: string;
 	replyTo?: string;
 	headers?: Record<string, string>;
+	attachments?: SendTransactionalEmailAttachment[];
 };
 
 /**
@@ -51,6 +59,13 @@ export async function sendTransactionalEmail(
 		},
 	};
 	if (input.text) body.text = input.text;
+	if (input.attachments?.length) {
+		body.attachments = input.attachments.map((a) => ({
+			filename: a.filename,
+			content: a.contentBase64,
+			...(a.contentType ? { content_type: a.contentType } : {}),
+		}));
+	}
 
 	const res = await fetch(RESEND_API, {
 		method: "POST",

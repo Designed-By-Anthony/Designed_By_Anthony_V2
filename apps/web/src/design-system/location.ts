@@ -1,8 +1,6 @@
-/** Rome HQ + regional positioning — footer, schema copy, and narrative hooks. */
-export const HQ_ADDRESS_LINE = "7749 Kilbourn Rd, Rome, NY";
-
-/** Footer copyright continuation after © YEAR ANTHONY. */
-export const FOOTER_LOCATION_TAGLINE = `${HQ_ADDRESS_LINE} | High-Performance Infrastructure for the 315.`;
+/** Footer line after © YEAR ANTHONY. — regional only (no street address). */
+export const FOOTER_LOCATION_TAGLINE =
+	"High-Performance Infrastructure for the 315.";
 
 /** Local hook — hero, schema slogan, marketing lines. */
 export const COPPER_CITY_HOOK =

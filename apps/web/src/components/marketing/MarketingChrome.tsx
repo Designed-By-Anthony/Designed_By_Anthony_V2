@@ -114,7 +114,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 			</Script>
 
 			<div id="reading-progress-bar" aria-hidden="true" />
-			<div className="site-chrome-sticky sticky top-0 z-[100] shadow-[0_12px_32px_rgba(3,7,18,0.34)]">
+			<div className="site-chrome-sticky header-container sticky top-0 z-50 border-b border-[rgba(26,42,64,0.05)] bg-[rgba(248,249,250,0.9)] backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]">
 				<BrandHeader />
 			</div>
 
