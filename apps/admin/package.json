@@ -28,17 +28,17 @@
     "next": "16.2.4",
     "react": "19.2.5",
     "react-dom": "19.2.5",
-    "zod": "^4.4.0"
+    "zod": "^4.4.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260429.1",
-    "@opennextjs/cloudflare": "^1.19.4",
+    "@cloudflare/workers-types": "^4.20260503.1",
+    "@opennextjs/cloudflare": "^1.19.5",
     "@tailwindcss/postcss": "^4.2.4",
     "@types/node": "^24",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
-    "wrangler": "^4.86.0"
+    "wrangler": "^4.87.0"
   }
 }
