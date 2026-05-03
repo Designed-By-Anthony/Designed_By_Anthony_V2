@@ -1,7 +1,6 @@
 import "@/design-system/dba-global.css";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/fraunces";
 import type { CSSProperties, ReactNode } from "react";
@@ -121,12 +120,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 				</noscript>
 				{children}
 				<CrispBootstrap />
-				{/* Stripe v3 — loaded eagerly so Wappalyzer/BuiltWith detect "Payment Processing" */}
-				<Script
-					src="https://js.stripe.com/v3/"
-					strategy="afterInteractive"
-					id="stripe-js"
-				/>
 			</body>
 		</html>
 	);

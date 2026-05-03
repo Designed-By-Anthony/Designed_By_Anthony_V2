@@ -44,12 +44,12 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=(self)",
           },
           {
-            key: "X-Powered-By",
-            value: "Next.js, Cloudflare OpenNext, Elysia.js, D1 Database",
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000; includeSubDomains; preload",
           },
           {
-            key: "X-Built-By",
-            value: "Designed By Anthony V2 Framework",
+            key: "Cross-Origin-Opener-Policy",
+            value: "same-origin",
           },
         ],
       },

@@ -69,18 +69,16 @@ export function FirstVisitSplash() {
                 aria-label="Close splash"
             />
 
-            {/* Modal — canonical glass surface (Phase 4 SEV-1 Linear/Stripe pivot).
-                4% → 1% white gradient, micro-border at white/8, frosted blur,
-                inset top-highlight is the new accent (replaces the heavy bronze line). */}
-            <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-white/[0.08] bg-linear-to-b from-white/[0.04] to-white/[0.01] backdrop-blur-2xl p-8 md:p-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_32px_80px_-32px_rgba(0,0,0,0.6)]">
-                {/* Sleek Close Button */}
+            {/* Modal — on-brand cream surface, matches the rest of the marketing site. */}
+            <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.96)] p-8 md:p-10 shadow-[0_32px_80px_-32px_rgba(26,42,64,0.35)]">
+                {/* Close Button — inline override of the dark splash-close-btn defaults */}
                 <button
                     type="button"
                     onClick={handleClose}
-                    className="splash-close-btn"
                     aria-label="Close"
+                    className="absolute top-5 right-5 z-50 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[rgba(26,42,64,0.12)] bg-white text-brand-charcoal/60 transition-[background-color,color,transform,border-color] duration-200 hover:scale-105 hover:border-[rgba(26,42,64,0.22)] hover:bg-white hover:text-brand-charcoal"
                 >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-[1.1rem] w-[1.1rem]">
                         <path d="M18 6L6 18M6 6l12 12"></path>
                     </svg>
                 </button>
@@ -110,7 +108,7 @@ export function FirstVisitSplash() {
                     <button
                         type="button"
                         onClick={handleClose}
-                        className="flex-1 sm:flex-none rounded-xl border border-white/10 bg-white/5 px-6 py-2.5 text-[0.95rem] font-medium text-brand-charcoal/80 transition hover:bg-white/10"
+                        className="flex-1 sm:flex-none rounded-xl border border-[rgba(26,42,64,0.15)] bg-white px-6 py-2.5 text-[0.95rem] font-medium text-brand-charcoal/80 transition-colors hover:border-brand-accent/40 hover:text-brand-charcoal"
                     >
                         Explore the site
                     </button>
