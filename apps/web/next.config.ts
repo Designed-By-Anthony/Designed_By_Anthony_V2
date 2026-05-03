@@ -18,6 +18,9 @@ const CSP = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: process.cwd(),
+  },
   async headers() {
     return [
       {

@@ -134,6 +134,7 @@ export function AuditForm() {
 				onSubmit={handleSubmit}
 				className={isQueued ? "hidden" : "flex flex-col gap-6"}
 				aria-hidden={isQueued}
+			>
 				<div className="relative pb-6 mb-2 border-b border-[rgba(26,42,64,0.1)]">
 					<span
 						className="pointer-events-none absolute left-0 -bottom-px h-px w-[4.5rem] bg-linear-to-r from-[rgb(var(--brand-accent-rgb)/0.85)] to-transparent"

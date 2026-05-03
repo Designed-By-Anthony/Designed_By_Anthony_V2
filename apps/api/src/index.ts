@@ -64,7 +64,10 @@ type WorkerStore = { env?: unknown; ctx?: ExecutionContext };
 
 export default {
 	async fetch(request: Request, env: unknown, ctx: ExecutionContext) {
-		(app as unknown as { store: WorkerStore }).store = { env, ctx };
+		Object.assign((app as unknown as { store: WorkerStore }).store, {
+			env,
+			ctx,
+		});
 
 		// 1. SLEDGEHAMMER CORS PREFLIGHT
 		if (request.method === "OPTIONS") {
