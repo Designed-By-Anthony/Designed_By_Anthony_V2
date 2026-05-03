@@ -8,7 +8,7 @@ import {
   SITE_HEADER_NAV_LINKS,
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
-import { TranslatedNavLinks, TranslatedLink } from "./TranslatedNavLinks";
+import { TranslatedLink, TranslatedNavLinks } from "./TranslatedNavLinks";
 
 export type BrandHeaderProps = {
   currentSection?: "audit";
@@ -102,12 +102,11 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 {SITE_AUDIT_CTA.shortLabel}
               </span>
             ) : (
-              <Link
+              <TranslatedLink
                 href={SITE_AUDIT_CTA.href}
+                label={SITE_AUDIT_CTA.shortLabel}
                 className={`${navCtaBase} px-[0.75rem] py-[0.38rem]`}
-              >
-                {SITE_AUDIT_CTA.shortLabel}
-              </Link>
+              />
             )}
             {includeHamburger ? (
               <button

@@ -46,12 +46,14 @@ export function LanguageProvider({
   children: ReactNode;
   initialLang?: SupportedLang;
 }) {
-  const [lang, setLangState] = useState<SupportedLang>(() => {
-    if (typeof document !== "undefined") {
-      return readCookie();
-    }
-    return initialLang ?? "en";
-  });
+  const [lang, setLangState] = useState<SupportedLang>(initialLang ?? "en");
+
+  /* Sync from cookie on mount (client-only, intentionally runs once) */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: mount-only effect reads the cookie once
+  useEffect(() => {
+    const stored = readCookie();
+    if (stored !== lang) setLangState(stored);
+  }, []);
 
   /* Update <html lang> when language changes */
   useEffect(() => {
