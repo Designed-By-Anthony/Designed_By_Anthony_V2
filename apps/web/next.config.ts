@@ -18,8 +18,10 @@ const CSP = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
-  turbopack: {
-    root: process.cwd(),
+  experimental: {
+    turbo: {
+      root: "../../",
+    },
   },
   async headers() {
     return [
