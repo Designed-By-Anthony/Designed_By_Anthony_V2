@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+const monorepoRoot = new URL("../../", `file://${process.cwd()}/`).pathname;
 
 const CSP = [
   "default-src 'self'",
@@ -18,11 +19,10 @@ const CSP = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
-  experimental: {
-    turbo: {
-      root: "../../",
-    },
+  turbopack: {
+    root: monorepoRoot,
   },
+  outputFileTracingRoot: monorepoRoot,
   async headers() {
     return [
       {
