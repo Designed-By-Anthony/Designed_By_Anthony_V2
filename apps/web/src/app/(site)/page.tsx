@@ -13,9 +13,9 @@ import {
   type SchemaValue,
 } from "@/lib/seo";
 
-const HOME_TITLE = "ANTHONY. | Digital Infrastructure Architect";
+const HOME_TITLE = "ANTHONY. | Custom Websites for Service Businesses in Central NY";
 const HOME_DESCRIPTION =
-  "Bespoke digital estates and high-performance infrastructure for the 315 and beyond.";
+  "Fast, mobile-friendly websites that rank higher on Google. Built for contractors, home services, and local businesses in Utica, Rome, Syracuse, and Central New York.";
 
 export const revalidate = 86400;
 
@@ -23,7 +23,7 @@ const HOME_OG_IMAGE = {
   url: "/images/og-site-premium.png",
   width: 2400,
   height: 1260,
-  alt: "ANTHONY. — Digital infrastructure architect",
+  alt: "ANTHONY. — Custom websites for service businesses",
   type: "image/png",
 } as const;
 
@@ -49,41 +49,42 @@ export const metadata: Metadata = {
 const homeServiceSchema = buildItemListSchema({
   name: "Core Services",
   description:
-    "ANTHONY. provides custom websites, local SEO, managed hosting, and website rescue for service businesses.",
+    "ANTHONY. builds custom websites, handles local SEO, provides managed hosting, and rescues outdated sites for service businesses.",
   path: "/",
   items: [
     {
       name: "Custom Web Design",
       url: "/services/custom-web-design",
-      description: "Custom websites built for trust, clarity, speed, and conversion.",
+      description:
+        "Custom websites designed to look great, load fast, and turn visitors into customers.",
     },
     {
       name: "Local SEO and Search Visibility",
       url: "/services/local-seo",
-      description:
-        "Technical and on-page SEO that helps service businesses show up more clearly in local search.",
+      description: "Local SEO that helps your business show up when customers search on Google.",
     },
     {
       name: "Managed Hosting and VIP Support",
       url: "/services/managed-hosting",
       description:
-        "Managed hosting and support that keeps your site fast, current, and easy to trust.",
+        "Managed hosting and support that keeps your website fast, secure, and always online.",
     },
     {
       name: "Website Rescues and Mobile Optimization",
       url: "/services/website-rescue",
       description:
-        "Website rebuilds for older sites that need better mobile usability and stronger conversion flow.",
+        "Website rebuilds for older sites that need better mobile experience and more customer inquiries.",
     },
     {
       name: "Google Workspace Setup",
       url: "/services/workspace-setup",
-      description: "Professional business email and workspace administration setup.",
+      description: "Professional business email and Google Workspace setup for your team.",
     },
     {
-      name: "Custom Google AI Chatbots & Forms",
+      name: "Smart Forms & Chat Tools",
       url: "/services/ai-automation",
-      description: "Automated chatbots and smart forms for hands-free lead capture.",
+      description:
+        "Automated chat and smart forms that capture leads and answer customer questions.",
     },
   ],
 });

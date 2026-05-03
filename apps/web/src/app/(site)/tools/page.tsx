@@ -6,21 +6,21 @@ import { ToolsPage } from "./ToolsPage";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-  title: "Tools — Micro SaaS for Local Service Businesses",
+  title: "Tools — Business Software for Local Service Companies",
   description:
-    "Six purpose-built tools for freelancers and small web agencies: website health reports, AI review response, client portals, local SEO dashboards, testimonial collection, and AI social content. Founding member pricing available.",
+    "Six tools built for small businesses: website reports, review management, client portals, SEO dashboards, testimonial collection, and social media content. Founding member pricing available.",
   openGraph: {
-    title: "Tools — Micro SaaS Store | ANTHONY.",
+    title: "Business Tools | ANTHONY.",
     description:
-      "Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more. Founding member pricing available.",
+      "Simple tools for local service businesses. Website reports, review management, client portals, and more. Founding member pricing available.",
     url: "https://designedbyanthony.com/tools",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tools — Micro SaaS Store | ANTHONY.",
+    title: "Business Tools | ANTHONY.",
     description:
-      "Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more.",
+      "Simple tools for local service businesses. Website reports, review management, client portals, and more.",
   },
   alternates: { canonical: "/tools" },
 };

@@ -12,9 +12,9 @@ import { BESPOKE_CONFIG_DESCRIPTION } from "@/lib/offers";
 import { CheckoutTimeline } from "./CheckoutTimeline";
 
 export const metadata: Metadata = {
-  title: "Payment Received — Your Build Is Starting",
+  title: "Payment Received — Your Project Is Starting",
   description:
-    "Your payment was received. Your environment is being provisioned — access is granted 24-48 hours after our design sync to ensure brand mapping meets the ANTHONY. standard.",
+    "Your payment was received. We are setting up your project now. Expect access within 24–48 hours after we sync on your brand and business details.",
   robots: { index: false, follow: false },
 };
 
@@ -49,7 +49,7 @@ export default function CheckoutSuccessPage() {
             Payment received
           </p>
           <h1 className="m-0 font-[family-name:var(--font-display)] text-[clamp(1.75rem,4vw,2.6rem)] font-bold leading-[1.12] tracking-[-0.032em] text-brand-indigo">
-            Your environment is being provisioned.
+            Your project is being set up.
           </h1>
           <p className="m-0 text-[1rem] leading-[1.78] text-brand-charcoal/75">
             {BESPOKE_CONFIG_DESCRIPTION}
@@ -62,7 +62,7 @@ export default function CheckoutSuccessPage() {
         {/* Actions */}
         <div className="flex flex-wrap justify-center gap-3 mt-2">
           <Link href="/contact" className={btnPrimary}>
-            Let&apos;s build something great.
+            Questions? Contact us.
           </Link>
           <Link href="/" className={btnOutline}>
             Back to Home

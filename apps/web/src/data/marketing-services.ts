@@ -9,43 +9,43 @@ export const MARKETING_SERVICES = [
     name: "Custom Web Design",
     path: "/services/custom-web-design",
     description:
-      "Strategic website design combining brand aesthetics with conversion-focused architecture. Engineered for performance, built for results.",
+      "Custom websites designed to look great, load fast, and turn visitors into customers. Built from scratch for your business.",
   },
   {
-    name: "Website Recovery & Performance",
+    name: "Website Rescue & Rebuild",
     path: "/services/website-rescue",
     description:
-      "Comprehensive site remediation addressing technical debt, mobile experience, and conversion optimization. Restore performance, reclaim rankings.",
+      "Fix a slow, outdated, or broken website. We rebuild for speed, mobile friendliness, and better Google rankings.",
   },
   {
-    name: "Enterprise Hosting & Support",
+    name: "Managed Hosting & Support",
     path: "/services/managed-hosting",
     description:
-      "Premium managed infrastructure on Cloudflare's edge network with dedicated technical support. Enterprise-grade security, global performance, zero maintenance overhead.",
+      "Fast, secure website hosting with hands-on support. We handle updates, security, and backups so you do not have to think about it.",
   },
   {
-    name: "Local SEO & Search Strategy",
+    name: "Local SEO & Google Rankings",
     path: "/services/local-seo",
     description:
-      "Data-driven local search optimization and Google Business Profile management. Strategic entity alignment for service-area businesses seeking market dominance.",
+      "Help your business show up when local customers search on Google. We optimize your website, manage your Google Business Profile, and track your rankings.",
   },
   {
-    name: "Local Marketing Intelligence",
+    name: "Google Business Profile Management",
     path: "/services/google-business-profile",
     description:
-      "Comprehensive local presence management integrating reputation systems, citation networks, and AI-powered visibility optimization. Full-funnel reporting included.",
+      "Get more calls from Google Maps and local search. We manage your reviews, keep your business info accurate everywhere, and send you monthly reports.",
   },
   {
-    name: "Business Systems Integration",
+    name: "Google Workspace & Email Setup",
     path: "/services/workspace-setup",
     description:
-      "Enterprise workspace architecture and business system integration. Seamless email, collaboration, and workflow automation deployment.",
+      "Professional business email, calendars, and file sharing set up and ready to use. We handle the technical setup so your team can start working.",
   },
   {
-    name: "Micro SaaS Development",
+    name: "Custom Business Tools",
     path: "/services/micro-saas",
     description:
-      "Bespoke web applications and marketing automation systems for scaling businesses. From custom CRMs to lead generation platforms — engineered for growth.",
+      "Custom web apps and automation tools built for your business. From client portals to lead capture systems — built to save you time and grow your revenue.",
   },
 ] as const;
 

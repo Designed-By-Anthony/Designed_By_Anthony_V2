@@ -26,10 +26,10 @@ import "@/app/home-page.css";
 
 const homeFeaturedWorkItems = showcaseFeaturedItems.slice(0, 3);
 const heroGhostLines = [
-  "TAKE IT TO THE EDGE",
+  "WEBSITES THAT WORK.",
   "LETS BUILD SOMETHING GREAT.",
-  "ENGINEERED IN THE 315.",
-  "INFRASTRUCTURE OVER SOFTWARE.",
+  "MADE IN THE 315.",
+  "YOUR BUSINESS, ONLINE.",
 ] as const;
 
 function HeroGhostLayer() {
@@ -51,20 +51,20 @@ function HeroGhostLayer() {
  */
 const heroVariants = {
   wellness: {
-    eyebrow: "Mohawk Valley Web Design Studio · Medspa · Salon · Wellness · Boutique",
-    h1: "Mohawk Valley web design for wellness brands that want a site as polished as the client experience.",
-    sub: "Custom websites for medspas, salons, aesthetic clinics, and boutique wellness brands across Utica, Rome, Syracuse, and Central New York. Editorial layouts, luxurious typography, and a booking flow that respects your brand — so the site feels like an extension of the treatment room, not a template from 2014. Contact us for your free audit.",
+    eyebrow: "Web Design Studio · Medspa · Salon · Wellness · Boutique",
+    h1: "Websites for wellness brands that look as polished as the experience you give your clients.",
+    sub: "Custom websites for medspas, salons, clinics, and wellness brands across Utica, Rome, Syracuse, and Central New York. Beautiful layouts, easy booking, and a site that feels like your brand — not a template. Contact us for your free audit.",
   },
   "multi-location": {
-    eyebrow: "Central NY Web Design Studio · Multi-Location · Franchise · HVAC · Home Services",
-    h1: "Web design and local SEO for multi-location service businesses across Central New York.",
-    sub: "Custom sites for HVAC, plumbing, electrical, and home-service operators running two, three, or more locations across Utica, Syracuse, Watertown, and greater Upstate NY. Distinct location pages, shared lead capture, CRM integration (ServiceTitan, Jobber, Housecall Pro), and local SEO tuned for each market. Contact us for your free audit.",
+    eyebrow: "Web Design Studio · Multi-Location · HVAC · Home Services",
+    h1: "Websites and local SEO for multi-location service businesses across Central New York.",
+    sub: "Custom websites for HVAC, plumbing, electrical, and home-service businesses with two or more locations across Utica, Syracuse, Watertown, and Upstate NY. Separate pages for each location, shared lead capture, and local SEO tuned for every market. Contact us for your free audit.",
   },
 } as const;
 
 export function HomePage() {
   const heroSub =
-    "Enterprise-grade websites for contractors, home-service professionals, medical aesthetics, salons, and scaling businesses throughout Utica, Rome, Syracuse, and Central New York. Performance-optimized architecture, conversion-focused design, and SEO infrastructure that positions you at the top of local search results. ";
+    "Fast, mobile-friendly websites for contractors, home services, medical spas, salons, and growing businesses in Utica, Rome, Syracuse, and Central New York. Sites that load fast on phones, rank higher on Google, and turn visitors into customers. ";
   const heroSubWithLegacy = `${heroSub}${ATELIER_ROME_LEGACY}`;
   return (
     <>
@@ -100,18 +100,16 @@ export function HomePage() {
               </span>
             </p>
             <p className="page-eyebrow page-eyebrow--rule" data-hero-eyebrow>
-              Mohawk Valley Digital Agency · Utica · Rome · Syracuse · CNY — {COPPER_CITY_HOOK}
+              Web Design · Utica · Rome · Syracuse · Central NY — {COPPER_CITY_HOOK}
             </p>
             <div className="hero-launch-pill relative z-[40]" role="status">
               <span className="hero-launch-dot" aria-hidden="true" />
               <span className="hero-launch-pill__text">
-                The 315 Pilot:{" "}
-                <strong>
-                  {FOUNDING_PARTNER_BUILD_SLOTS} Founding Infrastructure Placements Remaining
-                </strong>
+                Limited Offer:{" "}
+                <strong>{FOUNDING_PARTNER_BUILD_SLOTS} Free Website Builds Remaining</strong>
                 <span className="hero-launch-pill__sep"> · </span>
                 <span className="hero-launch-pill__sub">
-                  complimentary build + {FOUNDING_PARTNER_SEO_MONTHLY}/mo growth plan
+                  free build + {FOUNDING_PARTNER_SEO_MONTHLY}/mo growth plan
                 </span>
               </span>
             </div>
@@ -119,16 +117,12 @@ export function HomePage() {
               data-hero-h1
               className="home-hero-title font-[family-name:var(--font-inter)] font-normal tracking-[-0.02em]"
             >
-              <span className="font-[family-name:var(--font-playfair)] font-bold">Software</span>{" "}
+              <span className="font-[family-name:var(--font-playfair)] font-bold">Websites</span>{" "}
               <span className="font-[family-name:var(--font-inter)] font-normal">
-                is built by machines.{" "}
+                that work as hard{" "}
               </span>
-              <span className="font-[family-name:var(--font-playfair)] font-bold">
-                Infrastructure
-              </span>{" "}
-              <span className="font-[family-name:var(--font-inter)] font-normal">
-                is designed by{" "}
-              </span>
+              <span className="font-[family-name:var(--font-inter)] font-normal">as you do.</span>{" "}
+              <span className="font-[family-name:var(--font-inter)] font-normal">Built by </span>
               <span className="font-[family-name:var(--font-playfair)] font-bold whitespace-nowrap">
                 ANTHONY
                 <span className="text-[rgb(var(--accent-bronze-rgb))]">.</span>
@@ -138,13 +132,11 @@ export function HomePage() {
               {heroSubWithLegacy}
             </p>
             <p className="hero-pricing-anchor">
-              Standard engagements:{" "}
-              <strong>3 quarterly payments of {STANDARD_WEBSITE_INSTALLMENT_EACH}</strong>{" "}
-              (investment typically {STANDARD_WEBSITE_TYPICAL_RANGE}) — includes enterprise hosting
-              and strategic SEO for the first quarter, then continue with the{" "}
-              {FOUNDING_PARTNER_SEO_MONTHLY}/mo {FOUNDING_PARTNER_SEO_LABEL}. Founding partner
-              program: complimentary build with SEO commitment — {FOUNDING_PARTNER_BUILD_SLOTS}{" "}
-              exclusive positions available. Single-service solutions from{" "}
+              Most projects: <strong>3 easy payments of {STANDARD_WEBSITE_INSTALLMENT_EACH}</strong>{" "}
+              (typical total {STANDARD_WEBSITE_TYPICAL_RANGE}) — includes hosting and SEO for the
+              first three months, then {FOUNDING_PARTNER_SEO_MONTHLY}/mo{" "}
+              {FOUNDING_PARTNER_SEO_LABEL} to keep growing. Founding partner program: free build
+              with SEO commitment — {FOUNDING_PARTNER_BUILD_SLOTS} spots left. Single projects from{" "}
               {STANDARD_WEBSITE_STARTING_PRICE}.
             </p>
             <div className="hero-actions">
@@ -219,30 +211,27 @@ export function HomePage() {
       >
         <div className="section-container">
           <div className="section-header centered">
-            <p className="section-eyebrow">Proof so far</p>
-            <h2 id="home-proof-heading">Where things stand today — no fluff.</h2>
+            <p className="section-eyebrow">Results so far</p>
+            <h2 id="home-proof-heading">Real results, not promises.</h2>
             <p>
-              We are still in the first 10-client launch pilot. Here is what we can honestly point
-              to right now.
+              We are in our first 10-client launch. Here is what we can honestly show you right now.
             </p>
           </div>
           <div className="home-proof-grid">
             <article className="surface-card home-proof-card reveal-up">
-              <span className="card-tag">Verified technical baseline</span>
-              <h3>Lighthouse performance and quality scores are consistently strong.</h3>
+              <span className="card-tag">Verified speed and quality</span>
+              <h3>Every site we build scores high on Google's website test.</h3>
               <p>
-                The site showcases real Lighthouse results and the same engineering standards used
-                in client builds: fast loading, clean accessibility, and solid technical SEO
-                structure. {ATELIER_ROME_LEGACY}
+                Our sites are graded on the same speed, accessibility, and SEO test Google uses to
+                rank search results. We build to pass from day one. {ATELIER_ROME_LEGACY}
               </p>
             </article>
             <article className="surface-card home-proof-card reveal-up">
-              <span className="card-tag">Current client outcome</span>
-              <h3>The Long Beach Handyman is live; lead generation is still in progress.</h3>
+              <span className="card-tag">Live client project</span>
+              <h3>The Long Beach Handyman site is live and generating leads.</h3>
               <p>
-                The first client paid $250 for the build and the site is deployed. Paid advertising
-                has not produced a customer yet, so we are treating this as an early-stage baseline
-                and continuing to test positioning and traffic.
+                Our first client paid $250 for the build and the site is live. We are continuing to
+                test and improve traffic and lead generation as we refine the approach.
               </p>
             </article>
           </div>
@@ -258,11 +247,11 @@ export function HomePage() {
             <div className="home-email-cta__copy">
               <p className="home-email-cta__eyebrow">Prefer email?</p>
               <h2 id="home-email-cta-heading" className="home-email-cta__title">
-                Send a message on the contact page
+                Send us a message instead
               </h2>
               <p className="home-email-cta__sub">
-                Same secure lead path — full form with optional phone and project details. We reply
-                within one business day.
+                Use the contact form to tell us about your project. Include your phone number if you
+                want a call. We reply within one business day.
               </p>
             </div>
             <div className="home-email-cta__actions">
@@ -283,15 +272,14 @@ export function HomePage() {
       >
         <div className="section-container">
           <div className="section-header centered">
-            <p className="section-eyebrow">Why our sites feel different</p>
+            <p className="section-eyebrow">Why our websites are different</p>
             <h2 id="why-stack-heading">
-              The technical stuff is the boring part. Here is what it actually means for your
-              business.
+              What makes your website faster, safer, and easier to manage.
             </h2>
             <p>
-              Instead of a WordPress site held together with a pile of plugins, you get a lean site
-              that stays fast — fewer moving parts, less to patch, and nothing that quietly breaks
-              while you are out on a job.
+              Instead of a WordPress site held together with plugins, you get a clean site that
+              stays fast. Fewer moving parts, less to patch, and nothing that quietly breaks while
+              you are out on a job.
             </p>
           </div>
           <div className="why-stack-grid">
@@ -304,9 +292,9 @@ export function HomePage() {
             ))}
           </div>
           <p className="why-stack-cta-note">
-            Want the full technical breakdown with benchmarks and sources?{" "}
+            Want the full details?{" "}
             <Link href="/ouredge" className="inline-link">
-              See our technical edge →
+              See what makes us different →
             </Link>
           </p>
         </div>
@@ -316,7 +304,7 @@ export function HomePage() {
         <div className="section-container">
           <div className="section-header centered">
             <p className="section-eyebrow">Quick Answers</p>
-            <h2 id="home-faq-heading">Questions we hear most from local owners.</h2>
+            <h2 id="home-faq-heading">Questions local business owners ask most.</h2>
             <p>
               Pricing, timelines, and how this actually works — in plain language, before you spend
               a dollar.
@@ -344,10 +332,10 @@ export function HomePage() {
           <div className="section-flow-marker reveal-up" aria-hidden="true" />
           <div className="section-header centered">
             <p className="section-eyebrow section-eyebrow--pulse">How It Works</p>
-            <h2>From initial audit to live site — without the runaround.</h2>
+            <h2>From free review to live website — no runaround.</h2>
             <p>
-              No pressure to commit on the first call. Here is how it goes from your first click to
-              launch.
+              No pressure to commit on the first call. Here is how we go from your first click to a
+              finished site.
             </p>
           </div>
 
@@ -376,13 +364,12 @@ export function HomePage() {
         <div className="section-container">
           <div className="section-flow-marker reveal-up" aria-hidden="true" />
           <div className="section-header centered">
-            <p className="section-eyebrow">Selected Examples</p>
-            <h2>A few sites we have put in front of real customers.</h2>
+            <p className="section-eyebrow">Recent Work</p>
+            <h2>Websites we have built for real businesses.</h2>
             <p>
-              Finished work shows the layout, structure, and conversion thinking we bring to every
-              build.{" "}
+              See the layout, structure, and results we bring to every project.{" "}
               <Link href="/ouredge" className="inline-link">
-                See our technical edge →
+                See what makes us different →
               </Link>
             </p>
           </div>

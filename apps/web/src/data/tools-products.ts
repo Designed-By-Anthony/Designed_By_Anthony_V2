@@ -119,7 +119,7 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
     name: "SiteScan",
     tagline: "Website Health Reports",
     description:
-      "Automated performance, SEO, and accessibility audits with actionable fix-lists and branded PDF exports.",
+      "Automatic website checkups that tell you exactly what to fix. Get speed, SEO, and accessibility scores with easy-to-read reports you can share.",
     icon: "search",
     category: "SEO & Performance",
     tiers: [
@@ -170,9 +170,9 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
   {
     slug: "reviewpilot",
     name: "ReviewPilot",
-    tagline: "AI Review Response",
+    tagline: "Review Response Tool",
     description:
-      "Respond to Google, Yelp, and Facebook reviews in seconds with AI-crafted replies that sound like you.",
+      "Reply to Google, Yelp, and Facebook reviews in seconds. The tool writes responses that sound like you — just review and post.",
     icon: "bot",
     category: "Reputation",
     tiers: [
@@ -225,7 +225,7 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
     name: "ClientHub",
     tagline: "Client Portal",
     description:
-      "A branded portal for file sharing, project updates, invoicing, and scheduling — so clients never ask 'where are we?'",
+      "Give your clients one place to check project updates, share files, pay invoices, and book meetings. No more back-and-forth emails.",
     icon: "folder",
     category: "Client Management",
     tiers: [
@@ -278,7 +278,7 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
     name: "LocalRank",
     tagline: "Local SEO Dashboard",
     description:
-      "Track keyword rankings, Google Business Profile metrics, and local pack positions across all your locations.",
+      "See where you rank on Google, track your Business Profile, and watch your local search position across every location.",
     icon: "mapPin",
     category: "SEO & Performance",
     tiers: [
@@ -331,7 +331,7 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
     name: "TestiFlow",
     tagline: "Testimonial Collector",
     description:
-      "Collect, manage, and showcase text and video testimonials with embeddable widgets that convert visitors into buyers.",
+      "Collect reviews from happy customers and show them on your website. Text and video testimonials that help turn visitors into buyers.",
     icon: "star",
     category: "Social Proof",
     tiers: [
@@ -382,9 +382,9 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
   {
     slug: "contentmill",
     name: "ContentMill",
-    tagline: "AI Social Content",
+    tagline: "Social Media Content Tool",
     description:
-      "Generate on-brand social posts, schedule across platforms, and track engagement — all powered by AI that knows your voice.",
+      "Create social media posts in your brand voice, schedule them across platforms, and see what gets engagement — without spending hours writing.",
     icon: "pen",
     category: "Content & Social",
     tiers: [

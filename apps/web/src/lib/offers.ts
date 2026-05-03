@@ -1,13 +1,13 @@
 /** Line item shown on all pricing tiers: custom brand-config window before launch. */
-export const BESPOKE_CONFIG_LABEL = "Bespoke Brand Integration (24-48h config)";
+export const BESPOKE_CONFIG_LABEL = "Custom Brand Setup (24-48h)";
 
 /** Stripe session / onboarding copy — describes the provisioning delay. */
 export const BESPOKE_CONFIG_DESCRIPTION =
-  "Access is granted 24-48 hours after our design sync to ensure brand mapping meets the ANTHONY. standard.";
+  "We set up your account within 24–48 hours after a quick call to learn your brand, colors, and business details.";
 
 /** Spanish translation of the provisioning message — used on /es and in the checkout success page. */
 export const BESPOKE_CONFIG_DESCRIPTION_ES =
-  "El acceso se concede entre 24 y 48 horas después de nuestra sincronización de diseño para garantizar que el mapeo de marca cumpla el estándar ANTHONY.";
+  "Configuramos su cuenta en 24 a 48 horas después de una llamada rápida para conocer su marca, colores y datos del negocio.";
 
 export const STANDARD_WEBSITE_STARTING_PRICE = "$999";
 /**
@@ -48,9 +48,9 @@ export const FOUNDING_PARTNER_SEO_MONTHLY = "$149";
 export const FOUNDING_PARTNER_SEO_LABEL = "Growth Plan";
 
 /** Shown on pricing, hero, and FAQs — installment frame + what happens after month three. */
-export const PUBLIC_STANDARD_PAYMENT_PLAN = `3 easy payments of ${STANDARD_WEBSITE_INSTALLMENT_EACH} at launch for most standard rebuilds (typical all-in scope lands in the ${STANDARD_WEBSITE_TYPICAL_RANGE} band).`;
+export const PUBLIC_STANDARD_PAYMENT_PLAN = `3 easy payments of ${STANDARD_WEBSITE_INSTALLMENT_EACH} for most projects (total usually lands in the ${STANDARD_WEBSITE_TYPICAL_RANGE} range).`;
 
-export const PUBLIC_LAUNCH_BUNDLE_COPY = `For the first ${PUBLIC_LAUNCH_BUNDLE_MONTHS} months we host, secure, and actively tune the site with core local SEO — then, if you want to keep momentum, you roll into the ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL}.`;
+export const PUBLIC_LAUNCH_BUNDLE_COPY = `The first ${PUBLIC_LAUNCH_BUNDLE_MONTHS} months of hosting, security, and local SEO are included. After that, continue with the ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL} to keep growing.`;
 
 /** Legacy single-line copy for anywhere that still expects one sentence (FAQ, process). */
 export const PUBLIC_PAYMENT_STRUCTURE_COPY = `${PUBLIC_STANDARD_PAYMENT_PLAN} ${PUBLIC_LAUNCH_BUNDLE_COPY}`;
