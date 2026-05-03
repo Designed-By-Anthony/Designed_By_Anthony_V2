@@ -9,6 +9,7 @@ import {
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { T } from "./TranslatedText";
 
 const BUILT_WITH = [
   { label: "Next.js", href: "https://nextjs.org" },
@@ -50,7 +51,7 @@ export function BrandFooter({ buildTag, poweredBy }: BrandFooterProps) {
                 href={link.href}
                 className="text-[0.78rem] text-brand-charcoal/55 no-underline transition-colors duration-[180ms] ease-in whitespace-nowrap hover:text-brand-indigo"
               >
-                {link.label}
+                <T k={link.label} />
               </Link>
             ))}
           </nav>
@@ -78,7 +79,7 @@ export function BrandFooter({ buildTag, poweredBy }: BrandFooterProps) {
                   href={link.href}
                   className="text-brand-charcoal/55 no-underline transition-colors duration-[180ms] ease-in hover:text-brand-indigo"
                 >
-                  {link.label}
+                  <T k={link.label} />
                 </Link>
               </span>
             ))}

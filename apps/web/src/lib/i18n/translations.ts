@@ -67,8 +67,6 @@ const es: Record<string, string> = {
   Privacy: "Privacidad",
   Terms: "Términos",
   Cookies: "Cookies",
-  "View site in English": "Ver sitio en inglés",
-  "Ver el sitio en español": "Ver el sitio en español",
   "Custom websites for Central NY service businesses.":
     "Sitios web personalizados para negocios de servicio en el centro de NY.",
 

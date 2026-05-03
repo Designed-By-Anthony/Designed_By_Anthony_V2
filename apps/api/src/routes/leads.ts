@@ -179,7 +179,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         company: t.String(),
         website: t.String({ format: "uri" }),
         sourceId: t.Optional(t.String()),
-        lang: t.Optional(t.String()),
+        lang: t.Optional(t.Literal("es")),
       }),
     }
   );

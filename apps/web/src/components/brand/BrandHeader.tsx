@@ -9,6 +9,7 @@ import {
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
 import { TranslatedLink, TranslatedNavLinks } from "./TranslatedNavLinks";
+import { T } from "./TranslatedText";
 
 export type BrandHeaderProps = {
   currentSection?: "audit";
@@ -40,12 +41,20 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
         >
           <span className={bannerDot} aria-hidden />
           <span>
-            <span className="text-brand-charcoal">{SITE_BANNER.label}</span>
+            <span className="text-brand-charcoal">
+              <T k={SITE_BANNER.label} />
+            </span>
             <span className="text-brand-charcoal/35 mx-[0.05em]" aria-hidden>
               {" — "}
             </span>
             <span className="italic text-brand-charcoal/65 max-[36rem]:hidden">
-              {isAudit ? SITE_BANNER.currentCta : `${SITE_BANNER.cta} →`}
+              {isAudit ? (
+                <T k={SITE_BANNER.currentCta} />
+              ) : (
+                <>
+                  <T k={SITE_BANNER.cta} /> →
+                </>
+              )}
             </span>
           </span>
         </Link>
@@ -80,7 +89,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                   className="inline-block w-[0.35rem] h-[0.35rem] rounded-full bg-[#15803d] shadow-[0_0_6px_1px_rgba(21,128,61,0.35)] animate-[dba-pulse-dot_2s_ease-in-out_infinite]"
                   aria-hidden
                 />
-                {SITE_AUDIT_CTA.shortLabel}
+                <T k={SITE_AUDIT_CTA.shortLabel} />
               </span>
             ) : (
               <TranslatedLink
@@ -99,7 +108,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                   className="inline-block w-[0.35rem] h-[0.35rem] rounded-full bg-[#15803d] shadow-[0_0_6px_1px_rgba(21,128,61,0.35)] animate-[dba-pulse-dot_2s_ease-in-out_infinite]"
                   aria-hidden
                 />
-                {SITE_AUDIT_CTA.shortLabel}
+                <T k={SITE_AUDIT_CTA.shortLabel} />
               </span>
             ) : (
               <TranslatedLink

@@ -230,6 +230,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
                 href: businessProfile.telephoneHref,
                 label: "Call",
                 detail: businessProfile.telephone.replace("+1-", ""),
+                translateDetail: false,
                 as: "a" as const,
                 external: false,
               },
@@ -237,6 +238,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
                 href: mailtoContactHref,
                 label: "Email",
                 detail: businessProfile.email,
+                translateDetail: false,
                 as: "a" as const,
                 external: false,
               },
@@ -244,6 +246,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
                 href: "/contact",
                 label: "Contact",
                 detail: "Form / message",
+                translateDetail: true,
                 as: "link" as const,
                 external: false,
               },
@@ -252,12 +255,12 @@ window.__dbaRevokeAnalyticsConsent = function () {
                 "flex flex-col items-center gap-[0.45rem] py-2 px-1 rounded-[0.65rem] no-underline text-brand-charcoal text-center transition-[background,transform] duration-200 ease-out min-w-0 hover:bg-white active:scale-[0.98] focus-visible:outline focus-visible:outline-[2px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-2";
               const labelEl = (
                 <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.06em] text-brand-accent">
-                  {action.label}
+                  <T k={action.label} />
                 </span>
               );
               const detailEl = (
                 <span className="text-[0.72rem] font-semibold text-brand-charcoal [word-break:break-word] leading-[1.25] max-[380px]:text-[0.65rem]">
-                  {action.detail}
+                  {action.translateDetail ? <T k={action.detail} /> : action.detail}
                 </span>
               );
               if (action.as === "link") {
