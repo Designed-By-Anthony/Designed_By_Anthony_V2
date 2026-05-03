@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/fraunces";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { CSSProperties, ReactNode } from "react";
 import { CrispBootstrap } from "@/components/CrispBootstrap";
 import { JsonLd } from "@/components/JsonLd";
@@ -118,7 +119,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             title="GTM-NoScript"
           />
         </noscript>
-        <LanguageProvider>{children}</LanguageProvider>
+        <ClerkProvider
+          allowedRedirectOrigins={["https://designedbyanthony.online", "http://localhost:3001"]}
+        >
+          <LanguageProvider>{children}</LanguageProvider>
+        </ClerkProvider>
         <CrispBootstrap />
       </body>
     </html>

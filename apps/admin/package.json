@@ -19,6 +19,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.3.0",
     "@dba/api": "workspace:*",
     "@dba/shared": "workspace:*",
     "@elysiajs/eden": "^1.4.9",
