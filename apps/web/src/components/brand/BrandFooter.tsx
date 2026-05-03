@@ -8,6 +8,7 @@ import {
   SITE_LEGAL_LINKS,
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const BUILT_WITH = [
   { label: "Next.js", href: "https://nextjs.org" },
@@ -55,27 +56,7 @@ export function BrandFooter({ buildTag, poweredBy }: BrandFooterProps) {
           </nav>
 
           {/* Language switcher */}
-          <div className="flex items-center gap-[0.3rem] shrink-0">
-            <a
-              href="/"
-              hrefLang="en"
-              aria-label="View site in English"
-              className="rounded-full border border-brand-border bg-card px-[0.45rem] py-[0.18rem] text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-brand-indigo no-underline transition-colors duration-[180ms] ease-in hover:border-brand-accent hover:text-brand-accent"
-            >
-              EN
-            </a>
-            <span className="text-[0.6rem] text-brand-charcoal/25" aria-hidden>
-              |
-            </span>
-            <a
-              href="/es"
-              hrefLang="es"
-              aria-label="Ver el sitio en español"
-              className="rounded-full border border-transparent px-[0.45rem] py-[0.18rem] text-[0.68rem] font-semibold uppercase tracking-[0.1em] text-brand-charcoal/50 no-underline transition-colors duration-[180ms] ease-in hover:border-brand-accent hover:text-brand-accent"
-            >
-              ES
-            </a>
-          </div>
+          <LanguageSwitcher />
 
           {/* Legal + copyright */}
           <div className="ml-auto flex flex-wrap items-center gap-x-[0.55rem] gap-y-[0.35rem] text-[0.7rem] text-brand-charcoal/45 max-sm:ml-0">

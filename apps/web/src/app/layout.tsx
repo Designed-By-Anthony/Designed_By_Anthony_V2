@@ -6,6 +6,7 @@ import "@fontsource-variable/fraunces";
 import type { CSSProperties, ReactNode } from "react";
 import { CrispBootstrap } from "@/components/CrispBootstrap";
 import { JsonLd } from "@/components/JsonLd";
+import { LanguageProvider } from "@/lib/i18n";
 
 /** Mobile-first: correct scaling on phones/tablets; safe areas for notched devices. */
 export const viewport: Viewport = {
@@ -117,7 +118,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             title="GTM-NoScript"
           />
         </noscript>
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         <CrispBootstrap />
       </body>
     </html>

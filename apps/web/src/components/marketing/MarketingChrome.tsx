@@ -4,6 +4,7 @@ import Script from "next/script";
 import type { ReactNode } from "react";
 import { BrandFooter } from "@/components/brand/BrandFooter";
 import { BrandHeader } from "@/components/brand/BrandHeader";
+import { T } from "@/components/brand/TranslatedText";
 import { Logo } from "@/components/ui/Logo";
 import {
   SITE_AUDIT_CTA,
@@ -138,20 +139,20 @@ window.__dbaRevokeAnalyticsConsent = function () {
             >
               {SITE_HEADER_NAV_LINKS.map((link) => (
                 <Link key={link.href} href={link.href}>
-                  {link.label}
+                  <T k={link.label} />
                 </Link>
               ))}
               <Link
                 href={SITE_CONTACT_LINK.href}
                 className="!mt-2 !bg-transparent !border !border-brand-border !text-brand-charcoal/85 !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-none hover:!border-brand-accent hover:!text-brand-indigo"
               >
-                {SITE_CONTACT_LINK.label}
+                <T k={SITE_CONTACT_LINK.label} />
               </Link>
               <Link
                 href={SITE_AUDIT_CTA.href}
                 className="!mt-4 !bg-brand-accent !border !border-brand-accent !text-brand-linen !rounded-full !px-10 !py-4 !text-base !tracking-[0.06em] !shadow-[0_10px_28px_-12px_rgb(var(--brand-accent-rgb)/0.45)] hover:!border-[var(--accent-bronze-dark)] hover:!bg-[var(--accent-bronze-dark)]"
               >
-                {SITE_AUDIT_CTA.label}
+                <T k={SITE_AUDIT_CTA.label} />
               </Link>
             </nav>
           </div>
@@ -180,7 +181,9 @@ window.__dbaRevokeAnalyticsConsent = function () {
           aria-controls="reachOutModal"
           aria-expanded="false"
         >
-          <span>Get in touch</span>
+          <span>
+            <T k="Get in touch" />
+          </span>
         </button>
       </div>
 
@@ -206,7 +209,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
             id="reachOutModalTitle"
             className="m-0 mb-[0.45rem] text-[1.35rem] font-extrabold tracking-[-0.02em] text-brand-indigo font-[family-name:var(--font-display)]"
           >
-            Say hello
+            <T k="Say hello" />
           </h2>
           <p className="m-0 mb-[1.1rem] text-[0.92rem] leading-[1.5] text-brand-charcoal/75">
             Start with a free site audit — or just call / email.
@@ -216,7 +219,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
             className="flex items-center justify-center gap-2 w-full py-[0.95rem] px-[1.1rem] mb-[1.15rem] rounded-full border border-brand-accent bg-brand-accent text-brand-linen text-base font-extrabold font-[family-name:var(--font-display)] no-underline tracking-[0.02em] shadow-[0_18px_36px_-20px_rgb(var(--brand-accent-rgb)/0.45)] transition-[transform,box-shadow,border-color,background] duration-200 ease-out hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:-translate-y-px active:scale-[0.99]"
             data-reach-out-close
           >
-            Audit My Site
+            <T k="Audit My Site" />
           </Link>
           <section
             className="grid grid-cols-3 gap-[0.65rem] border-t border-brand-border bg-brand-linen -mx-[1.35rem] -mb-[1.15rem] p-[1rem_1rem_1.1rem] rounded-b-2xl max-[420px]:grid-cols-1"

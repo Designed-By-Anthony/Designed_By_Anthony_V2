@@ -8,6 +8,7 @@ import {
   SITE_HEADER_NAV_LINKS,
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
+import { TranslatedNavLinks, TranslatedLink } from "./TranslatedNavLinks";
 
 export type BrandHeaderProps = {
   currentSection?: "audit";
@@ -64,21 +65,15 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
           </Link>
 
           <nav className="hidden min-[960px]:flex items-center gap-5" aria-label="Main navigation">
-            {SITE_HEADER_NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
+            <TranslatedNavLinks
+              links={SITE_HEADER_NAV_LINKS}
+              className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
+            />
+            <TranslatedLink
               href={SITE_CONTACT_LINK.href}
+              label={SITE_CONTACT_LINK.label}
               className="nav-contact-link text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
-            >
-              {SITE_CONTACT_LINK.label}
-            </Link>
+            />
             {isAudit ? (
               <span className={auditCurrentChip} aria-current="page">
                 <span
@@ -88,13 +83,12 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 {SITE_AUDIT_CTA.shortLabel}
               </span>
             ) : (
-              <Link
+              <TranslatedLink
                 href={SITE_AUDIT_CTA.href}
+                label={SITE_AUDIT_CTA.shortLabel}
                 className={`${navCtaBase} px-[1rem] py-[0.5rem]`}
                 id="nav-audit-btn"
-              >
-                {SITE_AUDIT_CTA.shortLabel}
-              </Link>
+              />
             )}
           </nav>
 
