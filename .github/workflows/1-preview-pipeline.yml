@@ -77,13 +77,13 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Build & Deploy Web Preview
-        run: cd apps/web && bun run build && bunx wrangler deploy --env preview
+        run: cd apps/web && bun run build:next && opennextjs-cloudflare build && bunx wrangler deploy --env preview
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Build & Deploy Admin Preview
-        run: cd apps/admin && bun run build && bunx wrangler deploy --env preview
+        run: cd apps/admin && bun run build:next && opennextjs-cloudflare build && bunx wrangler deploy --env preview
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
