@@ -1,4 +1,4 @@
 export type {
-	AuditAiInsight,
-	AuditData,
+  AuditAiInsight,
+  AuditData,
 } from "../../../../packages/shared/src/lighthouse/auditReport";

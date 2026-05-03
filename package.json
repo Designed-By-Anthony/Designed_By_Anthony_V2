@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "packageManager": "bun@1.3.13",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "turbo run dev --parallel",
     "dev:web": "turbo run dev --filter=@dba/web",

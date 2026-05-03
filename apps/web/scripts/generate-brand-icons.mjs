@@ -14,57 +14,56 @@ const iconSvgPath = path.join(webPublic, "icon.svg");
 const faviconSvgPath = path.join(webPublic, "favicon.svg");
 
 function readMasterSvg() {
-	if (!fs.existsSync(iconSvgPath)) {
-		throw new Error(`Missing ${iconSvgPath}`);
-	}
-	const svg = fs.readFileSync(iconSvgPath);
-	fs.writeFileSync(faviconSvgPath, svg);
-	return svg;
+  if (!fs.existsSync(iconSvgPath)) {
+    throw new Error(`Missing ${iconSvgPath}`);
+  }
+  const svg = fs.readFileSync(iconSvgPath);
+  fs.writeFileSync(faviconSvgPath, svg);
+  return svg;
 }
 
 async function toPng(svgBuffer, size) {
-	return sharp(svgBuffer).resize(size, size).png().toBuffer();
+  return sharp(svgBuffer).resize(size, size).png().toBuffer();
 }
 
 async function main() {
-	const svg = readMasterSvg();
+  const svg = readMasterSvg();
 
-	const buf16 = await toPng(svg, 16);
-	const buf32 = await toPng(svg, 32);
-	const ico = await pngToIco([buf16, buf32]);
+  const buf16 = await toPng(svg, 16);
+  const buf32 = await toPng(svg, 32);
+  const ico = await pngToIco([buf16, buf32]);
 
-	for (const dir of [webPublic, adminPublic]) {
-		fs.mkdirSync(dir, { recursive: true });
-	}
+  for (const dir of [webPublic, adminPublic]) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 
-	fs.writeFileSync(path.join(webPublic, "favicon.ico"), ico);
-	fs.writeFileSync(path.join(adminPublic, "favicon.ico"), ico);
+  fs.writeFileSync(path.join(webPublic, "favicon.ico"), ico);
+  fs.writeFileSync(path.join(adminPublic, "favicon.ico"), ico);
 
-	fs.writeFileSync(path.join(webPublic, "favicon.png"), buf32);
-	fs.writeFileSync(path.join(adminPublic, "favicon.png"), buf32);
+  fs.writeFileSync(path.join(webPublic, "favicon.png"), buf32);
+  fs.writeFileSync(path.join(adminPublic, "favicon.png"), buf32);
 
-	const buf180 = await toPng(svg, 180);
-	fs.writeFileSync(path.join(webPublic, "apple-touch-icon.png"), buf180);
-	fs.writeFileSync(path.join(adminPublic, "apple-touch-icon.png"), buf180);
-	fs.writeFileSync(path.join(webPublic, "apple-touch-icon-180.png"), buf180);
-	fs.writeFileSync(path.join(adminPublic, "apple-touch-icon-180.png"), buf180);
+  const buf180 = await toPng(svg, 180);
+  fs.writeFileSync(path.join(webPublic, "apple-touch-icon.png"), buf180);
+  fs.writeFileSync(path.join(adminPublic, "apple-touch-icon.png"), buf180);
+  fs.writeFileSync(path.join(webPublic, "apple-touch-icon-180.png"), buf180);
+  fs.writeFileSync(path.join(adminPublic, "apple-touch-icon-180.png"), buf180);
 
-	for (const size of [48, 192, 512]) {
-		const buf = await toPng(svg, size);
-		const name = `site-icon-${size}.png`;
-		fs.writeFileSync(path.join(webPublic, name), buf);
-		fs.writeFileSync(path.join(adminPublic, name), buf);
-	}
+  for (const size of [48, 192, 512]) {
+    const buf = await toPng(svg, size);
+    const name = `site-icon-${size}.png`;
+    fs.writeFileSync(path.join(webPublic, name), buf);
+    fs.writeFileSync(path.join(adminPublic, name), buf);
+  }
 
-	fs.copyFileSync(iconSvgPath, path.join(adminPublic, "icon.svg"));
-	fs.copyFileSync(iconSvgPath, path.join(adminPublic, "favicon.svg"));
+  fs.copyFileSync(iconSvgPath, path.join(adminPublic, "icon.svg"));
+  fs.copyFileSync(iconSvgPath, path.join(adminPublic, "favicon.svg"));
 
-	console.log(
-		"Wrote favicon.ico, PNGs, synced favicon.svg from icon.svg, copied SVGs to apps/admin/public.",
-	);
+  console.log(
+    "Wrote favicon.ico, PNGs, synced favicon.svg from icon.svg, copied SVGs to apps/admin/public."
+  );
 }
 
-main().catch((err) => {
-	console.error(err);
-	process.exit(1);
+main().catch((_err) => {
+  process.exit(1);
 });

@@ -29,18 +29,17 @@
  */
 
 const slateBtn =
-	"btn relative inline-flex items-center justify-center gap-[0.45rem] px-[1.8rem] py-[0.96rem] rounded-full overflow-hidden cursor-pointer no-underline font-[family-name:var(--font-inter)] font-semibold text-[0.95rem] tracking-normal leading-none text-[#F8F9FA] bg-[#5B7C99] border border-transparent shadow-[0_8px_30px_rgb(26,42,64,0.04)] transition-[transform,box-shadow,background-color,border-color] duration-[300ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:bg-[#1A2A40] hover:shadow-[0_10px_34px_-20px_rgba(26,42,64,0.12)] active:scale-[0.98] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(91,124,153,0.45)] focus-visible:outline-offset-[3px] disabled:opacity-[0.72] disabled:cursor-not-allowed";
+  "btn relative inline-flex items-center justify-center gap-[0.45rem] px-[1.8rem] py-[0.96rem] rounded-full overflow-hidden cursor-pointer no-underline font-[family-name:var(--font-inter)] font-semibold text-[0.95rem] tracking-normal leading-none text-[#F8F9FA] bg-[#5B7C99] border border-transparent shadow-[0_8px_30px_rgb(26,42,64,0.04)] transition-[transform,box-shadow,background-color,border-color] duration-[300ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:bg-[#1A2A40] hover:shadow-[0_10px_34px_-20px_rgba(26,42,64,0.12)] active:scale-[0.98] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(91,124,153,0.45)] focus-visible:outline-offset-[3px] disabled:opacity-[0.72] disabled:cursor-not-allowed";
 
 export const btnChrome = slateBtn;
 
 export const btnPrimarySans =
-	"font-[family-name:var(--font-inter)] uppercase tracking-widest text-[0.82rem]";
+  "font-[family-name:var(--font-inter)] uppercase tracking-widest text-[0.82rem]";
 
 export const btnUiSans =
-	"font-[family-name:var(--font-inter)] font-medium tracking-normal text-[0.95rem]";
+  "font-[family-name:var(--font-inter)] font-medium tracking-normal text-[0.95rem]";
 
-export const btnSerif =
-	"font-[family-name:var(--font-playfair)] text-[0.95rem] tracking-[0.01em]";
+export const btnSerif = "font-[family-name:var(--font-playfair)] text-[0.95rem] tracking-[0.01em]";
 
 export const btnBase = `${btnChrome} ${btnUiSans}`;
 
@@ -68,4 +67,4 @@ export const btnPremiumPrimary = "btn-premium-primary";
 export const btnSm = "!px-[1.2rem] !py-[0.65rem] !text-[0.82rem]";
 
 export const stackBadge =
-	"inline-flex items-center px-[0.52rem] py-[0.18rem] rounded-full border border-brand-border bg-brand-linen text-[0.62rem] font-medium tracking-[0.01em] text-brand-charcoal/70 no-underline whitespace-nowrap transition-[color,border-color,background-color] duration-[180ms] ease-in hover:text-brand-indigo hover:border-brand-indigo/25 hover:bg-brand-surface";
+  "inline-flex items-center px-[0.52rem] py-[0.18rem] rounded-full border border-brand-border bg-brand-linen text-[0.62rem] font-medium tracking-[0.01em] text-brand-charcoal/70 no-underline whitespace-nowrap transition-[color,border-color,background-color] duration-[180ms] ease-in hover:text-brand-indigo hover:border-brand-indigo/25 hover:bg-brand-surface";

@@ -1,7 +1,7 @@
-import { Elysia, t } from "elysia";
-import { leads, tryInsertLead, tryInsertTransaction } from "@dba/shared/lib/d1Leads";
 import { createD1Client } from "@dba/shared/db/client";
+import { leads, tryInsertLead, tryInsertTransaction } from "@dba/shared/lib/d1Leads";
 import { eq } from "drizzle-orm";
+import { Elysia, t } from "elysia";
 import Stripe from "stripe";
 
 interface CfEnv {
@@ -19,20 +19,20 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
     const stripeWebhookSecret = cfEnv.STRIPE_WEBHOOK_SECRET;
 
     if (!stripeSecretKey || !stripeWebhookSecret) {
-      return new Response(
-        JSON.stringify({ error: "Missing Stripe configuration" }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
-      );
+      return new Response(JSON.stringify({ error: "Missing Stripe configuration" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const stripe = new Stripe(stripeSecretKey, { apiVersion: "2024-06-20" });
 
     const sig = headers["stripe-signature"];
     if (!sig) {
-      return new Response(
-        JSON.stringify({ error: "Missing stripe-signature header" }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
-      );
+      return new Response(JSON.stringify({ error: "Missing stripe-signature header" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     let event: Stripe.Event;
@@ -43,7 +43,7 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
         JSON.stringify({
           error: `Webhook Error: ${err instanceof Error ? err.message : "Unknown error"}`,
         }),
-        { status: 400, headers: { "Content-Type": "application/json" } },
+        { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
 
@@ -131,7 +131,7 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
     headers: t.Object({
       "stripe-signature": t.String(),
     }),
-  },
+  }
 );
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -140,13 +140,13 @@ async function persistIdempotencyKey(
   db: D1Database | undefined,
   key: string,
   responseBody: string,
-  statusCode: number,
+  statusCode: number
 ): Promise<void> {
   if (!db) return;
   try {
     await db
       .prepare(
-        "INSERT OR IGNORE INTO idempotency_keys (key, response_body, status_code) VALUES (?, ?, ?)",
+        "INSERT OR IGNORE INTO idempotency_keys (key, response_body, status_code) VALUES (?, ?, ?)"
       )
       .bind(key, responseBody, statusCode)
       .run();

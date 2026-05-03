@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import type { ReactNode } from "react";
 
-
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -56,10 +55,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="min-h-dvh bg-brand-linen text-brand-charcoal antialiased">
-        {children}
-      </body>
+      <body className="min-h-dvh bg-brand-linen text-brand-charcoal antialiased">{children}</body>
     </html>
   );
 }
-

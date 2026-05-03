@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,21 +16,11 @@ gsap.registerPlugin(ScrollTrigger);
  *   <section ref={ref}>...</section>
  */
 export function useGsapReveal<T extends HTMLElement = HTMLElement>(
-  options: {
-    stagger?: number;
-    duration?: number;
-    yOffset?: number;
-    selector?: string;
-  } = {}
+  options: { stagger?: number; duration?: number; yOffset?: number; selector?: string } = {}
 ) {
   const ref = useRef<T>(null);
 
-  const {
-    stagger = 0.05,
-    duration = 0.7,
-    yOffset = 32,
-    selector = ":scope > *",
-  } = options;
+  const { stagger = 0.05, duration = 0.7, yOffset = 32, selector = ":scope > *" } = options;
 
   useEffect(() => {
     const container = ref.current;

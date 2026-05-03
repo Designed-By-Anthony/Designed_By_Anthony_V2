@@ -1,85 +1,79 @@
 import { escapeHtml } from "./validation";
 
 export type AuditSummaryEmailParams = {
-	firstName: string;
-	url: string;
-	reportId: string | null;
-	trustScore: number;
-	performance: number | null;
-	accessibility: number | null;
-	bestPractices: number | null;
-	seo: number | null;
-	psiNote?: string | null;
-	reportPublicBase: string;
+  firstName: string;
+  url: string;
+  reportId: string | null;
+  trustScore: number;
+  performance: number | null;
+  accessibility: number | null;
+  bestPractices: number | null;
+  seo: number | null;
+  psiNote?: string | null;
+  reportPublicBase: string;
 };
 
 function scoreLine(label: string, value: number | null): string {
-	if (value == null) return `${label}: not available (partial report)`;
-	return `${label}: ${value}/100`;
+  if (value == null) return `${label}: not available (partial report)`;
+  return `${label}: ${value}/100`;
 }
 
 /**
  * Plain-text + branded HTML summary for "Email summary" from the results screen.
  */
 export function buildAuditSummaryEmail(params: AuditSummaryEmailParams): {
-	subject: string;
-	text: string;
-	html: string;
+  subject: string;
+  text: string;
+  html: string;
 } {
-	const displayDomain = (() => {
-		try {
-			return new URL(params.url).hostname.replace(/^www\./, "");
-		} catch {
-			return params.url;
-		}
-	})();
+  const displayDomain = (() => {
+    try {
+      return new URL(params.url).hostname.replace(/^www\./, "");
+    } catch {
+      return params.url;
+    }
+  })();
 
-	const subject = `Your site report is ready — ${displayDomain}`;
-	const base = params.reportPublicBase.replace(/\/$/, "");
-	const reportPath = params.reportId
-		? `${base}/report/${params.reportId}`
-		: `${base}/lighthouse`;
-	const printPath = params.reportId
-		? `${base}/lighthouse/report/${params.reportId}/print`
-		: null;
+  const subject = `Your site report is ready — ${displayDomain}`;
+  const base = params.reportPublicBase.replace(/\/$/, "");
+  const reportPath = params.reportId ? `${base}/report/${params.reportId}` : `${base}/lighthouse`;
+  const printPath = params.reportId ? `${base}/lighthouse/report/${params.reportId}/print` : null;
 
-	const greeting = params.firstName.trim()
-		? `Hi ${params.firstName.trim()},`
-		: "Hi,";
+  const greeting = params.firstName.trim() ? `Hi ${params.firstName.trim()},` : "Hi,";
 
-	const lines = [
-		greeting,
-		"",
-		`We finished a scan for ${params.url}.`,
-		"",
-		scoreLine("Trust score", params.trustScore),
-		scoreLine("Performance", params.performance),
-		scoreLine("Accessibility", params.accessibility),
-		scoreLine("Best practices", params.bestPractices),
-		scoreLine("SEO", params.seo),
-		"",
-		params.psiNote ? `Note: ${params.psiNote}` : "",
-		params.psiNote ? "" : "",
-		`View or print the full report: ${reportPath}`,
-		printPath ? `Print-optimized page: ${printPath}` : "",
-		"",
-		"— ANTHONY.",
-	].filter(Boolean);
+  const lines = [
+    greeting,
+    "",
+    `We finished a scan for ${params.url}.`,
+    "",
+    scoreLine("Trust score", params.trustScore),
+    scoreLine("Performance", params.performance),
+    scoreLine("Accessibility", params.accessibility),
+    scoreLine("Best practices", params.bestPractices),
+    scoreLine("SEO", params.seo),
+    "",
+    params.psiNote ? `Note: ${params.psiNote}` : "",
+    params.psiNote ? "" : "",
+    `View or print the full report: ${reportPath}`,
+    printPath ? `Print-optimized page: ${printPath}` : "",
+    "",
+    "— ANTHONY.",
+  ].filter(Boolean);
 
-	const safeUrl = escapeHtml(params.url);
-	const safeNote = params.psiNote ? escapeHtml(params.psiNote) : "";
-	const safeReport = escapeHtml(reportPath);
-	const safePrint = printPath ? escapeHtml(printPath) : "";
+  const safeUrl = escapeHtml(params.url);
+  const safeNote = params.psiNote ? escapeHtml(params.psiNote) : "";
+  const safeReport = escapeHtml(reportPath);
+  const safePrint = printPath ? escapeHtml(printPath) : "";
 
-	const row = (label: string, value: number | null) => {
-		const v =
-			value == null
-				? '<span style="color:#9d8870;font-weight:500;">—</span>'
-				: `<span style="font-size:22px;font-weight:700;color:#171008;letter-spacing:-0.02em;">${value}</span><span style="font-size:12px;color:#8b6a38;font-weight:600;">/100</span>`;
-		return `<tr><td style="padding:14px 0;border-bottom:1px solid #e8dcc6;font-size:13px;font-weight:600;color:#6f6658;text-transform:uppercase;letter-spacing:0.06em;">${escapeHtml(label)}</td><td style="padding:14px 0;border-bottom:1px solid #e8dcc6;text-align:right;">${v}</td></tr>`;
-	};
+  const row = (label: string, value: number | null) => {
+    const v =
+      value == null
+        ? '<span style="color:#9d8870;font-weight:500;">—</span>'
+        : `<span style="font-size:22px;font-weight:700;color:#171008;letter-spacing:-0.02em;">${value}</span><span style="font-size:12px;color:#8b6a38;font-weight:600;">/100</span>`;
+    return `<tr><td style="padding:14px 0;border-bottom:1px solid #e8dcc6;font-size:13px;font-weight:600;color:#6f6658;text-transform:uppercase;letter-spacing:0.06em;">${escapeHtml(label)}</td><td style="padding:14px 0;border-bottom:1px solid #e8dcc6;text-align:right;">${v}</td></tr>`;
+  };
 
-	const html = `
+  const html = `
 <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;margin:0 auto;background:#f7f3ea;">
   <tr><td style="padding:28px 24px 8px;">
     <p style="margin:0 0 4px;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#8b6a38;">ANTHONY.</p>
@@ -109,5 +103,5 @@ export function buildAuditSummaryEmail(params: AuditSummaryEmailParams): {
   </td></tr>
 </table>`.trim();
 
-	return { subject, text: lines.join("\n"), html };
+  return { subject, text: lines.join("\n"), html };
 }

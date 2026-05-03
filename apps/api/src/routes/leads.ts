@@ -1,8 +1,9 @@
-import { Elysia, t } from "elysia";
-import { leads as leadsTable } from "@dba/shared/db/schema";
 import { createD1Client } from "@dba/shared/db/client";
+import { leads as leadsTable } from "@dba/shared/db/schema";
 import { normalizeCreatedAtMs } from "@dba/shared/lib/createdAt";
 import { desc, eq } from "drizzle-orm";
+import { Elysia, t } from "elysia";
+
 interface CfEnv {
   // D1Database is a Cloudflare Workers global; use unknown for TS compat outside worker context
   DB?: unknown;
@@ -25,11 +26,8 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         };
       }
 
-      const db = createD1Client(d1 as any);
-      const allLeads = await db
-        .select()
-        .from(leadsTable)
-        .orderBy(desc(leadsTable.created_at));
+      const db = createD1Client(d1 as D1Database);
+      const allLeads = await db.select().from(leadsTable).orderBy(desc(leadsTable.created_at));
 
       return {
         leads: allLeads.map((row) => ({
@@ -37,8 +35,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           created_at: normalizeCreatedAtMs(row.created_at) ?? row.created_at,
         })),
       };
-    } catch (error) {
-      console.error("Error fetching leads:", error);
+    } catch (_error) {
       return {
         error: "Failed to fetch leads",
         leads: [],
@@ -61,18 +58,14 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           };
         }
 
-        const db = createD1Client(d1 as any);
-        const result = await db
-          .delete(leadsTable)
-          .where(eq(leadsTable.id, params.id))
-          .returning();
+        const db = createD1Client(d1 as D1Database);
+        const result = await db.delete(leadsTable).where(eq(leadsTable.id, params.id)).returning();
 
         return {
           success: result.length > 0,
           deletedId: params.id,
         };
-      } catch (error) {
-        console.error("Error deleting lead:", error);
+      } catch (_error) {
         return {
           error: "Failed to delete lead",
           success: false,
@@ -83,17 +76,21 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
       params: t.Object({
         id: t.String(),
       }),
-    },
+    }
   )
   .post(
     "",
+    // biome-ignore lint/suspicious/noExplicitAny: Elysia handler context inferred at runtime
     async ({ body, set, store, request }: any) => {
       const ctx = store.ctx;
       const env = (store as { env?: CfEnv }).env;
       set.headers["Cache-Control"] = "no-store";
 
       // Rate limiting: 5 requests per IP per hour for leads
-      const clientIp = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "unknown";
+      const clientIp =
+        request.headers.get("cf-connecting-ip") ||
+        request.headers.get("x-forwarded-for") ||
+        "unknown";
       const rateLimitKey = `leads:${clientIp}`;
       const retryAfterSeconds = checkLocalRateLimit(rateLimitKey, 5, 3600000); // 5 requests per hour
       if (retryAfterSeconds) {
@@ -115,7 +112,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           };
         }
 
-        const db = createD1Client(d1 as any);
+        const db = createD1Client(d1 as D1Database);
 
         // Ensure website field has https:// prepended if missing
         let website = body.website;
@@ -144,8 +141,8 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
               email: body.email,
               company: body.company,
               website: website,
-              source: body.sourceId || "Contact_Form"
-            }
+              source: body.sourceId || "Contact_Form",
+            },
           };
 
           ctx.waitUntil(
@@ -155,9 +152,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(slackPayload),
-            }).catch(error => {
-              console.error("Slack webhook failed in background:", error);
-            })
+            }).catch((_error) => {})
           );
         }
 
@@ -166,8 +161,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           success: result.length > 0,
           lead: result[0],
         };
-      } catch (error) {
-        console.error("Error creating lead:", error);
+      } catch (_error) {
         return {
           error: "Failed to create lead",
           success: false,
@@ -181,5 +175,5 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         website: t.String({ format: "uri" }),
         sourceId: t.Optional(t.String()),
       }),
-    },
+    }
   );

@@ -35,7 +35,7 @@ export const AdobePdfPayloadSchema = z.object({
             action: z.string(),
             impact: z.enum(["high", "medium", "low"]),
             effort: z.enum(["high", "medium", "low"]),
-          }),
+          })
         ),
         copywritingAnalysis: z.string(),
       })
@@ -66,7 +66,14 @@ export const AdobePdfPayloadSchema = z.object({
 export type AdobePdfPayload = z.infer<typeof AdobePdfPayloadSchema>;
 
 // Map AuditData to Adobe's expected payload structure
-export function buildAdobePayload(data: AuditData, reportId: string, leadEmail: string, leadName: string, company: string, location?: string): AdobePdfPayload {
+export function buildAdobePayload(
+  data: AuditData,
+  reportId: string,
+  leadEmail: string,
+  leadName: string,
+  company: string,
+  location?: string
+): AdobePdfPayload {
   return AdobePdfPayloadSchema.parse({
     audit: {
       url: data.url,
@@ -100,12 +107,19 @@ export function buildAdobePayload(data: AuditData, reportId: string, leadEmail: 
 
 // ── OAuth2 Client Credentials Flow ─────────────────────────────────────
 
-export async function getAccessToken(clientId: string, clientSecret: string, orgId: string): Promise<string> {
+export async function getAccessToken(
+  clientId: string,
+  clientSecret: string,
+  _orgId: string
+): Promise<string> {
   const params = new URLSearchParams();
   params.append("grant_type", "client_credentials");
   params.append("client_id", clientId);
   params.append("client_secret", clientSecret);
-  params.append("scope", "openid,AdobeID,read_organizations,additional_info.projectedProductContext");
+  params.append(
+    "scope",
+    "openid,AdobeID,read_organizations,additional_info.projectedProductContext"
+  );
 
   const res = await fetch(ADOBE_IMS_TOKEN_URL, {
     method: "POST",
@@ -124,7 +138,10 @@ export async function getAccessToken(clientId: string, clientSecret: string, org
 
 // ── Adobe PDF Services Operations ────────────────────────────────────
 
-export async function createUploadUrl(accessToken: string, accountId: string): Promise<{ uploadUri: string; assetId: string }> {
+export async function createUploadUrl(
+  accessToken: string,
+  _accountId: string
+): Promise<{ uploadUri: string; assetId: string }> {
   const res = await fetch(`${ADOBE_PDF_SERVICES_API}/assets`, {
     method: "POST",
     headers: {
@@ -144,9 +161,9 @@ export async function createUploadUrl(accessToken: string, accountId: string): P
 
 export async function startDocumentGenerationJob(
   accessToken: string,
-  accountId: string,
+  _accountId: string,
   assetId: string,
-  outputFormat: "pdf" = "pdf",
+  outputFormat: "pdf" = "pdf"
 ): Promise<{ jobId: string; pollingUrl: string }> {
   const res = await fetch(`${ADOBE_PDF_SERVICES_API}/operations/document-generation`, {
     method: "POST",
@@ -170,7 +187,10 @@ export async function startDocumentGenerationJob(
   return { jobId: json.id, pollingUrl: json._links.self.href };
 }
 
-export async function pollJobStatus(pollingUrl: string, accessToken: string): Promise<{ status: string; resultUrl?: string }> {
+export async function pollJobStatus(
+  pollingUrl: string,
+  accessToken: string
+): Promise<{ status: string; resultUrl?: string }> {
   const res = await fetch(pollingUrl, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
@@ -209,7 +229,7 @@ export async function generatePdfWithAdobe(
   clientId: string,
   clientSecret: string,
   orgId: string,
-  accountId: string,
+  accountId: string
 ): Promise<AdobePdfResult> {
   const accessToken = await getAccessToken(clientId, clientSecret, orgId);
   const { uploadUri, assetId } = await createUploadUrl(accessToken, accountId);

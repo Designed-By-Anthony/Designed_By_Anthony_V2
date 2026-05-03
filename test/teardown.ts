@@ -5,12 +5,12 @@
  * - Generates test reports
  */
 async function globalTeardown() {
-  console.log('🧹 Tearing down Playwright test environment...');
+  console.log("🧹 Tearing down Playwright test environment...");
 
   // Clean up environment variables
   delete process.env.PLAYWRIGHT_TEST_SETUP_COMPLETE;
 
-  console.log('✅ Test environment cleaned up');
+  console.log("✅ Test environment cleaned up");
 }
 
 export default globalTeardown;

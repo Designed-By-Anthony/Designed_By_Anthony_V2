@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
+import { BarChart, DollarSign, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
-import { Users, BarChart, TrendingUp, DollarSign } from "lucide-react";
 
 export default function DashboardHomePage() {
   return (
@@ -14,7 +14,7 @@ export default function DashboardHomePage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Link 
+        <Link
           href="/dashboard/leads"
           className="rounded-lg bg-white/5 p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
         >
@@ -29,7 +29,7 @@ export default function DashboardHomePage() {
           </div>
         </Link>
 
-        <Link 
+        <Link
           href="/dashboard/analytics"
           className="rounded-lg bg-white/5 p-8 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all"
         >

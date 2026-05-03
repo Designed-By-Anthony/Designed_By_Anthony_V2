@@ -1,12 +1,15 @@
-import { Elysia, t } from "elysia";
 import { db } from "@dba/shared/lighthouse/lib/report-store";
 import { isValidReportId } from "@dba/shared/lighthouse/lib/reportId";
+import { Elysia, t } from "elysia";
 
 // Mock the Cloudflare Workers environment for non-Worker environments
-const env = typeof process !== "undefined" && process.env ? process.env : {
-  PDF_GEN_QUEUE: undefined,
-  DB: undefined,
-};
+const env =
+  typeof process !== "undefined" && process.env
+    ? process.env
+    : {
+        PDF_GEN_QUEUE: undefined,
+        DB: undefined,
+      };
 
 const workerBindings = env as unknown as {
   PDF_GEN_QUEUE?: Queue;
@@ -71,31 +74,30 @@ export const reportPdfRoute = new Elysia({ aot: false })
         company: t.String(),
         location: t.Optional(t.String()),
       }),
-    },
+    }
   )
-  .get(
-    "/api/pdf/status/:jobId",
-    async ({ params }) => {
-      const { jobId } = params;
-      // Query D1 for job status
-      const stmt = workerBindings.DB?.prepare("SELECT status, r2_url FROM pdf_documents WHERE id = ?");
-      const result = await stmt?.bind(jobId).first<{ status?: string; r2_url?: string }>();
+  .get("/api/pdf/status/:jobId", async ({ params }) => {
+    const { jobId } = params;
+    // Query D1 for job status
+    const stmt = workerBindings.DB?.prepare(
+      "SELECT status, r2_url FROM pdf_documents WHERE id = ?"
+    );
+    const result = await stmt?.bind(jobId).first<{ status?: string; r2_url?: string }>();
 
-      if (!result) {
-        return { status: "pending", message: "Your report is being generated..." };
-      }
+    if (!result) {
+      return { status: "pending", message: "Your report is being generated..." };
+    }
 
-      if (result.status === "completed" && result.r2_url) {
-        return {
-          status: "completed",
-          downloadUrl: result.r2_url,
-          message: "Your report is ready!",
-        };
-      }
+    if (result.status === "completed" && result.r2_url) {
+      return {
+        status: "completed",
+        downloadUrl: result.r2_url,
+        message: "Your report is ready!",
+      };
+    }
 
-      return { status: "processing", message: "Still working on your report..." };
-    },
-  );
+    return { status: "processing", message: "Still working on your report..." };
+  });
 
 // Export handler for Cloudflare Workers
 export default {

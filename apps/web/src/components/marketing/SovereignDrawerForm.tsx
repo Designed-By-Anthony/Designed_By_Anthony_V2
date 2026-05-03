@@ -2,10 +2,7 @@
 
 import { useId, useRef, useState } from "react";
 import { btnPrimary, btnSm } from "@/design-system/buttons";
-import {
-  descriptionAlreadyHasRegionPrefix,
-  regionTagFromPhone,
-} from "@/lib/leadRegion";
+import { descriptionAlreadyHasRegionPrefix, regionTagFromPhone } from "@/lib/leadRegion";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { normalizeWebsiteForApi } from "@/lib/websiteNormalize";
 
@@ -24,7 +21,13 @@ const SF_DRAWER_ACTIONS =
  * No client-side captcha: the previous reCAPTCHA v2 widget required
  * Salesforce-side validation that was silently dropping leads.
  */
-export function SovereignDrawerForm({ onSuccess, sourceId }: { onSuccess?: () => void; sourceId?: string }) {
+export function SovereignDrawerForm({
+  onSuccess,
+  sourceId,
+}: {
+  onSuccess?: () => void;
+  sourceId?: string;
+}) {
   const formId = useId();
   const phoneRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -71,8 +74,7 @@ export function SovereignDrawerForm({ onSuccess, sourceId }: { onSuccess?: () =>
       }
 
       onSuccess?.();
-    } catch (error) {
-      console.error("Form submission error:", error);
+    } catch (_error) {
       setSubmitError("Failed to submit form. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -80,10 +82,7 @@ export function SovereignDrawerForm({ onSuccess, sourceId }: { onSuccess?: () =>
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={SF_DRAWER_FORM}
-    >
+    <form onSubmit={handleSubmit} className={SF_DRAWER_FORM}>
       <div className={SF_DRAWER_GRID}>
         <div className={SF_DRAWER_FIELD}>
           <label htmlFor={`${formId}-first_name`}>First Name</label>
@@ -154,18 +153,12 @@ export function SovereignDrawerForm({ onSuccess, sourceId }: { onSuccess?: () =>
       </div>
 
       <div className={SF_DRAWER_ACTIONS}>
-        <button
-          type="submit"
-          className={`${btnPrimary} ${btnSm}`}
-          disabled={isSubmitting}
-        >
+        <button type="submit" className={`${btnPrimary} ${btnSm}`} disabled={isSubmitting}>
           {isSubmitting ? "Sending..." : "Let's build something great."}
         </button>
       </div>
 
-      {submitError && (
-        <p className="mt-3 text-sm text-red-400">{submitError}</p>
-      )}
+      {submitError && <p className="mt-3 text-sm text-red-400">{submitError}</p>}
     </form>
   );
 }

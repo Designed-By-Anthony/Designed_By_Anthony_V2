@@ -82,8 +82,7 @@ export interface SendViaGmailOptions {
 // ── Web-standard JWT + OAuth2 helpers (no googleapis dependency) ──────────
 
 function base64url(data: ArrayBuffer | Uint8Array): string {
-  const bytes =
-    data instanceof Uint8Array ? data : new Uint8Array(data);
+  const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
   let binary = "";
   for (const byte of bytes) {
     binary += String.fromCharCode(byte);
@@ -121,7 +120,7 @@ async function getAccessToken(
   clientEmail: string,
   privateKeyPem: string,
   scope: string,
-  subject: string,
+  subject: string
 ): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
 
@@ -135,8 +134,8 @@ async function getAccessToken(
         aud: "https://oauth2.googleapis.com/token",
         iat: now,
         exp: now + 3600,
-      }),
-    ),
+      })
+    )
   );
 
   const signingInput = `${header}.${claims}`;
@@ -147,14 +146,14 @@ async function getAccessToken(
     keyDer,
     { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
     false,
-    ["sign"],
+    ["sign"]
   );
 
   const signingInputBytes = encodeUtf8(signingInput);
   const signature = await crypto.subtle.sign(
     "RSASSA-PKCS1-v1_5",
     cryptoKey,
-    signingInputBytes.buffer as ArrayBuffer,
+    signingInputBytes.buffer as ArrayBuffer
   );
 
   const jwt = `${signingInput}.${base64url(signature)}`;
@@ -191,7 +190,7 @@ export async function sendViaGmail(
   to: string,
   subject: string,
   html: string,
-  options: SendViaGmailOptions = {},
+  options: SendViaGmailOptions = {}
 ): Promise<void> {
   const recipient = normalizeEmail(to);
   if (!recipient) {
@@ -200,11 +199,7 @@ export async function sendViaGmail(
 
   const replyTo = options.replyTo ? normalizeEmail(options.replyTo) : null;
   const bcc =
-    options.bcc === null
-      ? null
-      : options.bcc
-        ? normalizeEmail(options.bcc)
-        : GMAIL_SENDER;
+    options.bcc === null ? null : options.bcc ? normalizeEmail(options.bcc) : GMAIL_SENDER;
 
   if (isGmailTestMode()) {
     const store = getGmailStore();
@@ -235,20 +230,17 @@ export async function sendViaGmail(
     key.client_email,
     key.private_key,
     "https://www.googleapis.com/auth/gmail.send",
-    GMAIL_SENDER,
+    GMAIL_SENDER
   );
 
   // RFC 2047 encode the subject for non-ASCII safety
   const encodedSubject = `=?UTF-8?B?${btoa(
     encodeURIComponent(sanitizeHeaderValue(subject)).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-      String.fromCharCode(parseInt(p1, 16)),
-    ),
+      String.fromCharCode(parseInt(p1, 16))
+    )
   )}?=`;
 
-  const messageParts: string[] = [
-    `From: Anthony <${GMAIL_SENDER}>`,
-    `To: ${recipient}`,
-  ];
+  const messageParts: string[] = [`From: Anthony <${GMAIL_SENDER}>`, `To: ${recipient}`];
   if (bcc) {
     messageParts.push(`Bcc: ${bcc}`);
   }
@@ -260,22 +252,19 @@ export async function sendViaGmail(
     "MIME-Version: 1.0",
     'Content-Type: text/html; charset="UTF-8"',
     "",
-    html,
+    html
   );
 
   const raw = base64url(encodeUtf8(messageParts.join("\r\n")));
 
-  const sendRes = await fetch(
-    "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ raw }),
+  const sendRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({ raw }),
+  });
 
   if (!sendRes.ok) {
     const body = await sendRes.text();
@@ -283,7 +272,6 @@ export async function sendViaGmail(
   }
 
   if (process.env.NODE_ENV === "development") {
-    console.info(`Email sent to ${recipient} via Gmail REST API`);
   }
 }
 
@@ -333,9 +321,7 @@ export function buildReceiptEmail(params: {
   })();
   const subject = `Your site audit for ${displayDomain}`;
   const safePartial =
-    partialReportNote != null && partialReportNote.length > 0
-      ? escapeHtml(partialReportNote)
-      : "";
+    partialReportNote != null && partialReportNote.length > 0 ? escapeHtml(partialReportNote) : "";
 
   const html = `
   <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #111; line-height: 1.6; font-size: 15px; max-width: 560px;">
@@ -407,9 +393,7 @@ export function buildInternalLeadAlert(params: {
     ? `🔔 New Audit Lead: ${params.company} (${params.projectCode})`
     : `🔔 New Contact Lead: ${params.name}`;
 
-  const reportLink = isAudit
-    ? `https://designedbyanthony.com/report/${params.projectCode}`
-    : "";
+  const reportLink = isAudit ? `https://designedbyanthony.com/report/${params.projectCode}` : "";
 
   let scoresBlock = "";
   if (isAudit) {
