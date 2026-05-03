@@ -6,7 +6,6 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { btnPrimaryAudit } from "@/design-system/buttons";
 import { buildPublicApiUrl } from "@/lib/publicApi";
-import { resolveEffectiveSiteKey } from "@/lib/turnstile";
 
 export function AuditForm() {
 	const [url, setUrl] = useState("");
@@ -85,11 +84,28 @@ export function AuditForm() {
 		}
 	};
 
-	if (status === "queued") {
-		return (
+	const isQueued = status === "queued";
+
+	const inputClass =
+		"w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.7rem] text-[0.95rem] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] font-[inherit] transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-brand-charcoal/[0.42] focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]";
+
+	const labelClass =
+		"mb-1.5 block text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-[var(--text-cream)]";
+
+	const turnstileSiteKey = "0x4AAAAAAC-uJDM-azoxzB3k";
+	const isSubmitDisabled =
+		status === "submitting" || (!!turnstileSiteKey && !turnstileToken);
+
+	return (
+		<div className="relative isolate w-full" id="run-audit">
 			<div
-				className="relative isolate w-full rounded-[1.25rem] border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.92)] p-6 shadow-[0_8px_30px_rgb(26,42,64,0.06)] md:p-8"
-				id="run-audit"
+				className={
+					isQueued
+						? "block rounded-[1.25rem] border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.92)] p-6 shadow-[0_8px_30px_rgb(26,42,64,0.06)] md:p-8"
+						: "hidden"
+				}
+				role="status"
+				aria-live="polite"
 			>
 				<p className="text-[0.65rem] font-bold uppercase tracking-[0.26em] text-brand-accent">
 					Blueprint requested
@@ -113,24 +129,11 @@ export function AuditForm() {
 					Audit another URL
 				</button>
 			</div>
-		);
-	}
 
-	const inputClass =
-		"w-full rounded-[0.65rem] border border-[rgb(var(--accent-bronze-rgb)/0.32)] bg-white px-[0.95rem] py-[0.7rem] text-[0.95rem] text-brand-charcoal [caret-color:rgb(var(--accent-bronze-rgb)/0.95)] font-[inherit] transition-[border-color,box-shadow,background-color] duration-200 placeholder:text-brand-charcoal/[0.42] focus:outline-none focus:border-[rgb(var(--accent-bronze-rgb)/0.7)] focus:bg-white focus:shadow-[0_0_0_3px_rgb(var(--accent-bronze-rgb)/0.18)]";
-
-	const labelClass =
-		"mb-1.5 block text-[0.8rem] font-semibold uppercase tracking-[0.08em] text-[var(--text-cream)]";
-
-	const turnstileSiteKey = resolveEffectiveSiteKey(
-		process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
-	);
-	const isSubmitDisabled =
-		status === "submitting" || (!!turnstileSiteKey && !turnstileToken);
-
-	return (
-		<div className="relative isolate w-full" id="run-audit">
-			<form onSubmit={handleSubmit} className="flex flex-col gap-6">
+			<form
+				onSubmit={handleSubmit}
+				className={isQueued ? "hidden" : "flex flex-col gap-6"}
+				aria-hidden={isQueued}
 				<div className="relative pb-6 mb-2 border-b border-[rgba(26,42,64,0.1)]">
 					<span
 						className="pointer-events-none absolute left-0 -bottom-px h-px w-[4.5rem] bg-linear-to-r from-[rgb(var(--brand-accent-rgb)/0.85)] to-transparent"

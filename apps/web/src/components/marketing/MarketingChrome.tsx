@@ -11,6 +11,7 @@ import {
 	SITE_HEADER_NAV_LINKS,
 } from "@/design-system/site-config";
 import { businessProfile } from "@/lib/seo";
+import { CookieBanner } from "./CookieBanner";
 import { FooterCta, type FooterCtaProps } from "./FooterCta";
 import { PageLifecycle } from "./PageLifecycle";
 
@@ -26,11 +27,6 @@ const siteScriptVersion =
 
 /* ── Shared chrome utility classes (Linen / Indigo / Slate, inline Tailwind v4) ── */
 
-/* Cookie consent — slate primary, linen outline */
-const cookieBtnBase =
-	"inline-flex items-center justify-center gap-[0.45rem] rounded-full font-[family-name:var(--font-display)] font-bold text-[0.78rem] tracking-[0.01em] leading-none cursor-pointer transition-[transform,box-shadow,border-color,background,color] duration-[350ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgb(var(--brand-accent-rgb)/0.45)] focus-visible:outline-offset-[3px] active:scale-[0.97] py-[0.55rem] px-[1.1rem]";
-const cookieBtnPrimary = `${cookieBtnBase} text-brand-linen border border-brand-accent bg-brand-accent shadow-[0_14px_28px_-16px_rgb(var(--brand-accent-rgb)/0.55)] hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)]`;
-const cookieBtnOutline = `${cookieBtnBase} text-brand-charcoal bg-brand-linen border border-brand-border hover:-translate-y-px hover:border-brand-accent hover:bg-white hover:text-brand-indigo`;
 
 export function MarketingChrome({
 	children,
@@ -50,19 +46,6 @@ export function MarketingChrome({
 	return (
 		<>
 			<PageLifecycle />
-			<Script id="trusted-types-inline" strategy="beforeInteractive">
-				{`
-(function () {
-  if (!window.trustedTypes || !window.trustedTypes.createPolicy) return;
-  try {
-    window.trustedTypes.createPolicy('default', {
-      createHTML: function (s) { return s; },
-      createScript: function (s) { return s; },
-      createScriptURL: function (s) { return s; },
-    });
-  } catch (_) {}
-})();`}
-			</Script>
 			<Script id="dba-ga-consent" strategy="beforeInteractive">
 				{`
 window.dataLayer = window.dataLayer || [];
@@ -305,106 +288,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
 				</div>
 			</dialog>
 
-			<div
-				id="cookie-consent-root"
-				className="fixed left-0 right-0 bottom-0 z-[100] px-5 py-4 [padding-bottom:max(1rem,env(safe-area-inset-bottom))] pointer-events-none print:hidden transform-gpu"
-				hidden
-				role="dialog"
-				aria-modal="true"
-				aria-labelledby="cookie-consent-title"
-				aria-describedby="cookie-consent-desc"
-			>
-				<div data-cookie-card className="pointer-events-auto mx-auto max-w-[44rem] rounded-[1.4rem] border border-brand-border/40 bg-brand-linen/90 backdrop-blur-[16px] px-6 py-5 shadow-[0_-16px_48px_-20px_rgba(26,42,64,0.18)] [-webkit-backdrop-filter:blur(16px)] transform-gpu will-change-transform">
-					<p
-						id="cookie-consent-title"
-						className="m-0 mb-2 text-base font-bold tracking-[-0.01em] text-brand-indigo"
-					>
-						Cookies and analytics
-					</p>
-					<p
-						id="cookie-consent-desc"
-						className="m-0 mb-4 text-[0.875rem] leading-[1.6] text-brand-charcoal [&_a]:text-brand-accent [&_a]:no-underline [&_a]:border-b [&_a]:border-brand-border [&_a]:transition-[border-color,color] [&_a]:duration-200 [&_a:hover]:border-brand-accent [&_a:hover]:text-[var(--accent-bronze-dark)]"
-					>
-						We use essential tools to keep forms secure and the site running. If
-						you are OK with it, we also load Google Analytics 4 to see how
-						traffic moves. Read the <Link href="/cookie">Cookie Policy</Link>{" "}
-						and <Link href="/privacy">Privacy Policy</Link>.
-					</p>
-					<div className="flex flex-wrap items-center gap-3">
-						<button
-							type="button"
-							className={cookieBtnPrimary}
-							id="cookie-consent-accept"
-						>
-							Accept
-						</button>
-						<button
-							type="button"
-							className={cookieBtnOutline}
-							id="cookie-consent-reject"
-						>
-							Decline
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<Script id="cookie-consent-boot" strategy="afterInteractive">
-				{`(function () {
-  if (window.__dbaCookieConsentBootstrapped) return;
-  window.__dbaCookieConsentBootstrapped = true;
-  var key = window.__dbaCookieConsentKey || 'dba_cookie_consent';
-  var root = document.getElementById('cookie-consent-root');
-  var card = root ? root.querySelector('[data-cookie-card]') : null;
-  var accept = document.getElementById('cookie-consent-accept');
-  var reject = document.getElementById('cookie-consent-reject');
-  function hide() { if (root) root.setAttribute('hidden', ''); }
-  function show() {
-    if (root) root.removeAttribute('hidden');
-    var first = document.getElementById('cookie-consent-accept');
-    if (first && typeof first.focus === 'function') {
-      window.requestAnimationFrame(function () { first.focus(); });
-    }
-  }
-  function grantAndLoad() {
-    if (typeof window.__dbaGrantAnalyticsConsent === 'function') window.__dbaGrantAnalyticsConsent();
-    if (typeof window.__dbaLoadAnalytics === 'function') window.__dbaLoadAnalytics();
-  }
-  function revokeAnalytics() {
-    if (typeof window.__dbaRevokeAnalyticsConsent === 'function') window.__dbaRevokeAnalyticsConsent();
-  }
-  function applyStored() {
-    var stored = null;
-    try { stored = localStorage.getItem(key); } catch (e) { stored = null; }
-    if (stored === 'accepted') { grantAndLoad(); hide(); }
-    else if (stored === 'rejected') { revokeAnalytics(); hide(); }
-    else { revokeAnalytics(); show(); }
-  }
-  // Shield: stop any click/pointerdown from bubbling out of the banner card
-  if (card) {
-    card.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
-    card.addEventListener('click', function (e) { e.stopPropagation(); });
-  }
-  // Only Accept/Decline may close the banner
-  if (accept) {
-    accept.addEventListener('click', function () {
-      try { localStorage.setItem(key, 'accepted'); } catch (e) {}
-      grantAndLoad(); hide();
-    });
-  }
-  if (reject) {
-    reject.addEventListener('click', function () {
-      try { localStorage.setItem(key, 'rejected'); } catch (e) {}
-      revokeAnalytics(); hide();
-    });
-  }
-  window.__dbaOpenCookieConsent = function () {
-    try { localStorage.removeItem(key); } catch (e) {}
-    revokeAnalytics(); show();
-  };
-  applyStored();
-})();`}
-			</Script>
+			<CookieBanner />
 
 			<Script id="site-script-lazy-loader" strategy="afterInteractive">
 				{`(function () {

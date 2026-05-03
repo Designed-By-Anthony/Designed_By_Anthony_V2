@@ -60,10 +60,15 @@ export async function generateStaticParams(): Promise<{ path: string[] }[]> {
 export default async function MarketingCatchAllPage({ params }: PageProps) {
 	const { path } = await params;
 	if (!path?.length) notFound();
-	return (
-		<>
-			<MarketingJsonLd path={path} />
-			<MarketingSiteRouter path={path} />
-		</>
-	);
+	try {
+		return (
+			<>
+				<MarketingJsonLd path={path} />
+				<MarketingSiteRouter path={path} />
+			</>
+		);
+	} catch (err) {
+		console.error("[MarketingCatchAllPage] RSC render error for path", path, err);
+		notFound();
+	}
 }

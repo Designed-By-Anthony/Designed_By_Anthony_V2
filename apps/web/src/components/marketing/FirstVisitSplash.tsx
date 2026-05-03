@@ -9,13 +9,34 @@ export function FirstVisitSplash() {
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-        // Check if already shown
-        const hasShown = localStorage.getItem(STORAGE_KEY);
-        if (!hasShown) {
-            // Show after short delay for better UX
-            const timer = setTimeout(() => setIsOpen(true), 1500);
-            return () => clearTimeout(timer);
+        const COOKIE_KEY = "dba_cookie_consent";
+
+        function safeLocalGet(key: string): string | null {
+            try { return localStorage.getItem(key); } catch { return null; }
         }
+
+        function tryShow(): (() => void) | undefined {
+            const hasShown = safeLocalGet(STORAGE_KEY);
+            if (!hasShown) {
+                const t = setTimeout(() => setIsOpen(true), 800);
+                return () => clearTimeout(t);
+            }
+        }
+
+        const cookieStored = safeLocalGet(COOKIE_KEY);
+        const cookieResolved = cookieStored === "accepted" || cookieStored === "rejected";
+
+        if (cookieResolved) {
+            return tryShow();
+        }
+
+        let cleanup: (() => void) | undefined;
+        const handler = () => { cleanup = tryShow(); };
+        window.addEventListener("dba:cookie-resolved", handler, { once: true });
+        return () => {
+            window.removeEventListener("dba:cookie-resolved", handler);
+            cleanup?.();
+        };
     }, []);
 
     const handleClose = () => {

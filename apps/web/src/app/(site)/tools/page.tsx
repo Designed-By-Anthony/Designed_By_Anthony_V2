@@ -26,14 +26,21 @@ export const metadata: Metadata = {
 };
 
 export default function Tools() {
-	const toolsGraph = buildToolsStoreJsonLd();
+	let toolsGraph: ReturnType<typeof buildToolsStoreJsonLd> | null = null;
+	try {
+		toolsGraph = buildToolsStoreJsonLd();
+	} catch (err) {
+		console.error("[Tools] JSON-LD build error:", err);
+	}
 	return (
 		<MarketingChrome>
-			<script
-				type="application/ld+json"
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD data
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(toolsGraph) }}
-			/>
+			{toolsGraph ? (
+				<script
+					type="application/ld+json"
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD data
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(toolsGraph) }}
+				/>
+			) : null}
 			<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 				<ToolsPage />
 			</div>

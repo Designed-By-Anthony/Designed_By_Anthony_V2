@@ -1,0 +1,238 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary "Site notice" [ref=e3]:
+      - 'link "The 315 Pilot: 10 Founding Infrastructure Placements Remainingstart with a free SEO + performance audit →" [ref=e4] [cursor=pointer]':
+        - /url: /lighthouse
+        - generic [ref=e6]: "The 315 Pilot: 10 Founding Infrastructure Placements Remaining — start with a free SEO + performance audit →"
+    - banner [ref=e7]:
+      - generic [ref=e8]:
+        - link "ANTHONY. | Digital Infrastructure Architect" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e10]: ANTHONY.
+        - navigation "Main navigation" [ref=e11]:
+          - link "Our Edge" [ref=e12] [cursor=pointer]:
+            - /url: /ouredge
+          - link "Services" [ref=e13] [cursor=pointer]:
+            - /url: /services
+          - link "Portfolio" [ref=e14] [cursor=pointer]:
+            - /url: /portfolio
+          - link "Pricing" [ref=e15] [cursor=pointer]:
+            - /url: /pricing
+          - link "Service Areas" [ref=e16] [cursor=pointer]:
+            - /url: /service-areas
+          - link "About" [ref=e17] [cursor=pointer]:
+            - /url: /about
+          - link "FAQ" [ref=e18] [cursor=pointer]:
+            - /url: /faq
+          - link "Blog" [ref=e19] [cursor=pointer]:
+            - /url: /blog
+          - link "Tools" [ref=e20] [cursor=pointer]:
+            - /url: /tools
+          - link "Contact" [ref=e21] [cursor=pointer]:
+            - /url: /contact
+          - link "Audit My Site" [ref=e22] [cursor=pointer]:
+            - /url: /lighthouse
+  - generic [ref=e23]:
+    - button "Contact" [ref=e24] [cursor=pointer]:
+      - generic [ref=e25]: ⟩
+      - generic [ref=e26]: Contact
+    - generic [ref=e27]:
+      - main [ref=e28]:
+        - main [ref=e29]:
+          - generic [ref=e32]:
+            - region "Know What's Costing You Customers." [ref=e33]:
+              - generic [ref=e36]: The Diagnostic Bench
+              - heading "Know What's Costing You Customers." [level=1] [ref=e38]
+              - paragraph [ref=e40]: Get a full scored breakdown of your site's speed, SEO gaps, and trust signals — with a prioritized AI fix list. Free, private, and ready in about 60 seconds.
+              - generic [ref=e41]:
+                - generic [ref=e42]:
+                  - generic [ref=e43]: Free
+                  - generic [ref=e44]: Cost
+                - generic [ref=e45]:
+                  - generic [ref=e46]: ~60s
+                  - generic [ref=e47]: Time
+                - generic [ref=e48]:
+                  - generic [ref=e49]: Included
+                  - generic [ref=e50]: AI Fix List
+              - generic [ref=e51]:
+                - generic [ref=e52]:
+                  - generic [ref=e53]:
+                    - paragraph [ref=e54]: Sample audit report
+                    - paragraph [ref=e55]: local-roofing.com
+                  - generic [ref=e56]: Preview
+                - generic [ref=e57]:
+                  - generic [ref=e58]:
+                    - generic [ref=e59]:
+                      - img [ref=e60]
+                      - generic [ref=e63]: "52"
+                    - generic [ref=e64]: Perf
+                  - generic [ref=e65]:
+                    - generic [ref=e66]:
+                      - img [ref=e67]
+                      - generic [ref=e70]: "71"
+                    - generic [ref=e71]: SEO
+                  - generic [ref=e72]:
+                    - generic [ref=e73]:
+                      - img [ref=e74]
+                      - generic [ref=e77]: "65"
+                    - generic [ref=e78]: A11y
+                  - generic [ref=e79]:
+                    - generic [ref=e80]:
+                      - img [ref=e81]
+                      - generic [ref=e84]: "88"
+                    - generic [ref=e85]: Best
+                - generic [ref=e86]:
+                  - generic [ref=e87]:
+                    - generic [ref=e89]:
+                      - generic [ref=e90]: Largest Contentful Paint
+                      - generic [ref=e91]: 4.8 s — well above 2.5 s goal
+                    - generic [ref=e92]: Fix First
+                  - generic [ref=e93]:
+                    - generic [ref=e95]:
+                      - generic [ref=e96]: Meta description missing
+                      - generic [ref=e97]: Not set on /services and /about
+                    - generic [ref=e98]: SEO Gap
+                  - generic [ref=e99]:
+                    - generic [ref=e101]:
+                      - generic [ref=e102]: LocalBusiness schema
+                      - generic [ref=e103]: Not detected on homepage
+                    - generic [ref=e104]: Trust Gap
+                - generic [ref=e107]: Full PageSpeed data · SEO breakdown · AI fix list
+            - complementary "Run your website audit" [ref=e108]:
+              - generic [ref=e110]:
+                - generic [ref=e111]:
+                  - paragraph [ref=e112]: Free · Private · No Account Needed
+                  - heading "Get Your Free Report" [level=2] [ref=e113]
+                  - paragraph [ref=e114]: Submit your URL — we queue a full lab pass and email a branded architectural blueprint. No waiting on this screen.
+                - generic [ref=e115]:
+                  - generic [ref=e116] [cursor=pointer]: Website to scan
+                  - textbox "Website to scan" [ref=e117]:
+                    - /placeholder: https://yoursite.com
+                - group "Where to send the report" [ref=e118]:
+                  - generic [ref=e119]: Where to send the report
+                  - generic [ref=e120]:
+                    - generic [ref=e121]:
+                      - generic [ref=e122] [cursor=pointer]: Your name
+                      - textbox "Your name" [ref=e123]:
+                        - /placeholder: Jane Smith
+                    - generic [ref=e124]:
+                      - generic [ref=e125] [cursor=pointer]: Company
+                      - textbox "Company" [ref=e126]:
+                        - /placeholder: Your business name
+                    - generic [ref=e127]:
+                      - generic [ref=e128] [cursor=pointer]: Email for your report
+                      - textbox "Email for your report" [ref=e129]:
+                        - /placeholder: you@company.com
+                    - generic [ref=e130]:
+                      - generic [ref=e131] [cursor=pointer]: City & state
+                      - textbox "City & state" [ref=e132]:
+                        - /placeholder: e.g. Syracuse, NY
+                - paragraph [ref=e135]: Security check required to proceed
+                - generic [ref=e136]:
+                  - button "Run free audit" [disabled] [ref=e137]:
+                    - generic [ref=e138]:
+                      - text: Run free audit
+                      - generic [ref=e139]: →
+                  - paragraph [ref=e141]: Async pipeline · PDF to inbox · Branded blueprint
+          - region "Five checks. One clear picture of where your site stands." [ref=e144]:
+            - generic [ref=e145]:
+              - generic [ref=e146]:
+                - paragraph [ref=e147]: What the scan covers
+                - heading "Five checks. One clear picture of where your site stands." [level=2] [ref=e148]
+              - paragraph [ref=e149]: Built for local service businesses that need the next move, not a pile of disconnected scores.
+            - list [ref=e150]:
+              - generic [ref=e151]:
+                - generic [ref=e152]: "01"
+                - generic [ref=e153]:
+                  - generic [ref=e154]: Lab performance
+                  - generic [ref=e155]: PageSpeed lab scores, Core Web Vitals, mobile load time, and what's actually slowing your visitors down.
+              - generic [ref=e156]:
+                - generic [ref=e157]: "02"
+                - generic [ref=e158]:
+                  - generic [ref=e159]: Search structure
+                  - generic [ref=e160]: Titles, meta descriptions, structured data, and crawlability — everything Google uses to rank and index your pages.
+              - generic [ref=e161]:
+                - generic [ref=e162]: "03"
+                - generic [ref=e163]:
+                  - generic [ref=e164]: Trust signals
+                  - generic [ref=e165]: Accessibility basics, HTTPS posture, local credibility markers, forms, and calls to action.
+              - generic [ref=e166]:
+                - generic [ref=e167]: "04"
+                - generic [ref=e168]:
+                  - generic [ref=e169]: Local context
+                  - generic [ref=e170]: Google Business and local authority signals that matter for service-area businesses competing in your market.
+              - generic [ref=e171]:
+                - generic [ref=e172]: "05"
+                - generic [ref=e173]:
+                  - generic [ref=e174]: AI fix list
+                  - generic [ref=e175]: Plain-English next steps ranked by business impact — not raw numbers, but specific things to fix this week.
+      - contentinfo [ref=e176]:
+        - generic [ref=e178]:
+          - generic [ref=e179]:
+            - link "ANTHONY. | Digital Infrastructure Architect" [ref=e180] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e181]: ANTHONY.
+            - navigation "Footer navigation" [ref=e182]:
+              - link "Services" [ref=e183] [cursor=pointer]:
+                - /url: /services
+              - link "Pricing" [ref=e184] [cursor=pointer]:
+                - /url: /pricing
+              - link "Portfolio" [ref=e185] [cursor=pointer]:
+                - /url: /portfolio
+              - link "Tools" [ref=e186] [cursor=pointer]:
+                - /url: /tools
+              - link "Blog" [ref=e187] [cursor=pointer]:
+                - /url: /blog
+              - link "Contact" [ref=e188] [cursor=pointer]:
+                - /url: /contact
+            - generic [ref=e189]:
+              - link "View site in English" [ref=e190] [cursor=pointer]:
+                - /url: /
+                - text: EN
+              - generic [ref=e191]: "|"
+              - link "Ver el sitio en español" [ref=e192] [cursor=pointer]:
+                - /url: /es
+                - text: ES
+            - generic [ref=e193]:
+              - paragraph [ref=e194]:
+                - text: © 2026
+                - generic [ref=e195]: ANTHONY. | High-Performance Infrastructure for the 315.
+              - generic [ref=e196]:
+                - generic [ref=e197]: ·
+                - link "Privacy" [ref=e198] [cursor=pointer]:
+                  - /url: /privacy
+              - generic [ref=e199]:
+                - generic [ref=e200]: ·
+                - link "Terms" [ref=e201] [cursor=pointer]:
+                  - /url: /terms
+              - generic [ref=e202]:
+                - generic [ref=e203]: ·
+                - link "Cookies" [ref=e204] [cursor=pointer]:
+                  - /url: /cookie
+          - generic [ref=e205]:
+            - generic [ref=e206]: Built with
+            - link "Next.js" [ref=e207] [cursor=pointer]:
+              - /url: https://nextjs.org
+            - link "React 19" [ref=e208] [cursor=pointer]:
+              - /url: https://react.dev
+            - link "Tailwind v4" [ref=e209] [cursor=pointer]:
+              - /url: https://tailwindcss.com
+            - link "Cloudflare Pages" [ref=e210] [cursor=pointer]:
+              - /url: https://pages.cloudflare.com
+            - link "Cloudflare Workers" [ref=e211] [cursor=pointer]:
+              - /url: https://workers.cloudflare.com
+  - dialog "Cookies and analytics":
+    - generic [ref=e212]:
+      - paragraph [ref=e213]: Cookies and analytics
+      - paragraph [ref=e214]:
+        - text: We use essential tools to keep forms secure and the site running. If you are OK with it, we also load Google Analytics 4 to see how traffic moves. Read the
+        - link "Cookie Policy" [ref=e215] [cursor=pointer]:
+          - /url: /cookie
+        - text: and
+        - link "Privacy Policy" [ref=e216] [cursor=pointer]:
+          - /url: /privacy
+        - text: .
+      - generic [ref=e217]:
+        - button "Accept" [ref=e218] [cursor=pointer]
+        - button "Decline" [ref=e219] [cursor=pointer]
+  - alert [ref=e220]

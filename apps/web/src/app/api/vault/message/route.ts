@@ -24,17 +24,22 @@ export async function POST(req: Request) {
 			? "https://dba-api.anthony-6b4.workers.dev"
 			: "http://localhost:8787");
 
-	const res = await fetch(`${apiBase}/api/vault/message`, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"Cf-Access-Authenticated-User-Email": email,
-		},
-		body: JSON.stringify({
-			message_text: typeof body.message_text === "string" ? body.message_text : "",
-		}),
-		cache: "no-store",
-	});
+	let res: Response;
+	try {
+		res = await fetch(`${apiBase}/api/vault/message`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Cf-Access-Authenticated-User-Email": email,
+			},
+			body: JSON.stringify({
+				message_text: typeof body.message_text === "string" ? body.message_text : "",
+			}),
+			cache: "no-store",
+		});
+	} catch {
+		return NextResponse.json({ error: "Vault API unreachable." }, { status: 503 });
+	}
 
 	const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
 	return NextResponse.json(data, { status: res.status });
