@@ -102,10 +102,10 @@ export function buildInfrastructurePayload(
   const cityLabel = CITY_LABELS[citySlug];
   const industryLabel = INDUSTRY_LABELS[industrySlug];
   const canonicalPath = `/infrastructure/${citySlug}/${industrySlug}`;
-  const h1 = `Digital infrastructure for ${industryLabel} in ${cityLabel}`;
-  const title = `${h1} | ANTHONY.`;
-  const description = `High-performance websites, local SEO, and The Vault CRM for ${industryLabel.toLowerCase()} operators in ${cityLabel} and the 315 — engineered by ANTHONY.`;
-  const lead = `When ${cityLabel} customers search for ${industryLabel.toLowerCase()}, your site has to load instantly, read with authority, and convert. ANTHONY. ships lean Next.js marketing estates, schema-rich pages, and lead routing into The Vault — without WordPress plugin debt.`;
+  const h1 = `Custom websites for ${industryLabel.toLowerCase()} businesses in ${cityLabel}`;
+  const title = `${industryLabel} Web Design in ${cityLabel} | ANTHONY.`;
+  const description = `Fast, mobile-friendly websites and local SEO for ${industryLabel.toLowerCase()} businesses in ${cityLabel}. Built by ANTHONY. — a web design studio in Central New York.`;
+  const lead = `When customers in ${cityLabel} search for ${industryLabel.toLowerCase()}, your website needs to show up, load fast, and make it easy to contact you. We build clean, mobile-friendly websites designed to rank on Google and turn visitors into phone calls.`;
 
   return {
     citySlug,

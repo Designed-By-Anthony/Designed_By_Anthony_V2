@@ -272,15 +272,15 @@ export function ToolsPage() {
             className="inline-block h-[0.35rem] w-[0.35rem] shrink-0 rounded-full bg-brand-accent shadow-[0_0_6px_1px_rgb(var(--brand-accent-rgb)/0.35)]"
             aria-hidden
           />
-          Micro SaaS Store &middot; Pre-orders Open
+          Business Tools &middot; Pre-orders Open
         </p>
         <h1 className="mb-5 font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[1.12] tracking-[-0.03em] text-brand-indigo">
-          Purpose-built tools for local service businesses.
+          Simple tools built for local service businesses.
         </h1>
         <p className="mx-auto max-w-[38rem] text-[clamp(0.95rem,1.8vw,1.1rem)] leading-[1.65] text-brand-charcoal/75">
-          Six focused products — SEO monitoring, AI review responses, client portals, testimonial
-          collection, and more — priced for freelancers and small agencies. No bloat. No enterprise
-          lock-in. Pre-order now to lock in founding member pricing.
+          Six tools — website reports, review management, client portals, testimonial collection,
+          and more — priced for small businesses and freelancers. No bloat. No contracts. Pre-order
+          now to lock in founding member pricing.
         </p>
       </section>
 
@@ -326,12 +326,12 @@ export function ToolsPage() {
       {/* Bottom CTA */}
       <section className="mx-auto mt-8 max-w-[40rem] rounded-[var(--radius-card,1.25rem)] border border-brand-border bg-brand-linen px-[var(--card-pad,1.5rem)] py-10 text-center">
         <h2 className="mb-3 text-[clamp(1.25rem,3vw,1.6rem)] font-bold text-brand-indigo">
-          Stack your tools. Save more.
+          Bundle your tools and save more.
         </h2>
         <p className="text-[0.9rem] leading-[1.65] text-brand-charcoal/75">
-          Use code <strong>{PROMO_FOUNDING.code}</strong> for 50% off your first tool forever, then
-          add <strong>{PROMO_BOGO.code}</strong> to get 50% off your second subscription. Annual
-          billing saves an additional 2 months on every tool.
+          Use code <strong>{PROMO_FOUNDING.code}</strong> for 50% off your first tool forever. Then
+          add <strong>{PROMO_BOGO.code}</strong> to get 50% off a second tool. Annual billing saves
+          2 extra months on every tool.
         </p>
       </section>
     </div>

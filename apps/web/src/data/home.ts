@@ -11,67 +11,67 @@ import {
 
 export const whyStackCards = [
   {
-    tech: "Fast on a phone",
-    plain: "Your pages open almost the moment a customer taps.",
-    why: "When your site feels instant on a phone, fewer people bounce, more people call, and Google ranks you higher — especially when someone is searching from a job site, a driveway, or the front desk.",
+    tech: "Fast on every phone",
+    plain: "Your site opens the moment a customer taps.",
+    why: "When your site loads fast on a phone, fewer people leave, more people call, and Google ranks you higher. That matters when someone is searching from a job site, a parking lot, or the front desk.",
   },
   {
-    tech: "Built for Google",
-    plain: "Google grades websites. We build to the top of that report card.",
-    why: "Google already runs a free test that scores every website on speed, accessibility, and SEO. Every site we ship is tuned for that test from day one — so when someone searches for what you do, you are not fighting your own site to get seen.",
+    tech: "Ranks higher on Google",
+    plain: "Google grades every website. We build yours to pass.",
+    why: "Google scores every website on speed, mobile friendliness, and SEO. We build your site to score well from day one so customers find you when they search for what you do.",
   },
   {
-    tech: "Less to break after launch",
-    plain: "No plugin maze. No weekly updates. No hacks.",
-    why: "Most small-business websites slow down or break because of dozens of plugins drifting out of date. Ours are built to stay quiet: fewer moving parts, almost nothing to maintain, and a lot harder for anyone to hack.",
+    tech: "Stays up, year after year",
+    plain: "No plugin maze. No surprise maintenance bills.",
+    why: "Most small-business sites slow down or break because of dozens of plugins drifting out of date. Our sites have fewer moving parts, almost nothing to maintain, and are a lot harder to hack.",
   },
 ];
 
 export const homeFaqEntries = [
   {
-    question: "How much does a custom website cost in the Mohawk Valley?",
-    answer: `Most Mohawk Valley and Central NY service-business rebuilds land in the ${STANDARD_WEBSITE_TYPICAL_RANGE} total band for a typical 5–10 page site. ${PUBLIC_STANDARD_PAYMENT_PLAN} ${PUBLIC_LAUNCH_BUNDLE_COPY} Simple single-service sites still start at ${STANDARD_WEBSITE_STARTING_PRICE}. Enterprise or multi-location scopes start from ${ENTERPRISE_WEBSITE_STARTING_PRICE}. Founding-partner pilot spots pair a complimentary custom build with a ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL} while any of the ${FOUNDING_PARTNER_BUILD_SLOTS} launch slots remain.`,
+    question: "How much does a custom website cost in Central New York?",
+    answer: `Most Central NY service-business websites land in the ${STANDARD_WEBSITE_TYPICAL_RANGE} range for a 5–10 page site. ${PUBLIC_STANDARD_PAYMENT_PLAN} ${PUBLIC_LAUNCH_BUNDLE_COPY} Simple single-page sites start at ${STANDARD_WEBSITE_STARTING_PRICE}. Larger or multi-location projects start from ${ENTERPRISE_WEBSITE_STARTING_PRICE}. Founding partner spots include a free custom build with a ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL} — ${FOUNDING_PARTNER_BUILD_SLOTS} spots left.`,
   },
   {
     question: "How long does it take to build a service-business website?",
     answer:
-      "Most service-business websites ship in two to four weeks once scope and content are confirmed. Website rescues and single-service landing pages can be faster; multi-location or integration-heavy builds take longer. You see the timeline in writing before any work starts, and nothing launches until you approve it.",
+      "Most websites are live in two to four weeks once we agree on the plan and you send your content. Smaller fixes and single pages can be faster. Bigger projects with multiple locations take longer. You see the timeline in writing before any work starts, and nothing goes live until you approve it.",
   },
   {
     question: "Why not just use WordPress or Wix?",
     answer:
-      "Our sites are built on a leaner, faster stack than WordPress or Wix. Pages open almost instantly on a phone, score at the top of Google’s own website report card by default, and there is no plugin maze to keep patched every week. For a local service business, that means fewer bounced visitors, better Google placement, and fewer things that can break between you and a new customer. We go deeper on the tech on the Our Edge page if you want the full story.",
+      "Our sites load faster than WordPress or Wix, score higher on Google’s own website test, and do not need dozens of plugins patched every week. For a local service business, that means fewer visitors leaving, better search rankings, and fewer things that can break. We explain the details on our Our Edge page if you want the full story.",
   },
   {
     question: "Do you handle local SEO and Google Business Profile too?",
-    answer: `Yes. Every build includes the on-page SEO work needed to rank — clean site structure, proper headings, mobile-friendly layout, and the behind-the-scenes tags Google uses to understand your business. On a standard rebuild, the first three months of hosting, security, and core local SEO are included while we own the stack with you; after that window you can roll into the ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL} for ongoing care, or step up to the full Google Business Profile program for citations, reviews, posts, and ranking maps. No long contracts.`,
+    answer: `Yes. Every website includes the SEO work you need to rank — clean structure, proper headings, mobile-friendly pages, and the tags Google reads to understand your business. The first three months of hosting, security, and local SEO are included. After that you can continue on the ${FOUNDING_PARTNER_SEO_MONTHLY}/mo ${FOUNDING_PARTNER_SEO_LABEL} , or add the full Google Business Profile program for reviews, posts, and map rankings. No long-term contracts.`,
   },
   {
-    question: "Do you only work with Mohawk Valley businesses?",
+    question: "Do you only work with businesses in Central New York?",
     answer:
-      "Headquartered in the Mohawk Valley (Utica / Rome / Clinton / New Hartford), with active clients across Syracuse, the North Country, and greater Central New York. Service-area pages are available for each market, and remote engagements outside Upstate NY are welcome when the fit is right.",
+      "Based in Rome, NY, with clients across Utica, Syracuse, Watertown, and greater Central New York. We also take remote projects outside Upstate NY when the fit is right.",
   },
   {
     question: "What happens when I request the free audit?",
     answer:
-      "You share your website address and Anthony runs a manual review grading your site on speed, accessibility, best practices, and SEO. He replies within one business day with the clearest fixes and whether a rebuild is actually worth it for your business (sometimes it is not).",
+      "Send us your website address. Anthony reviews your site by hand, checking speed, mobile friendliness, and SEO. He replies within one business day with the most important fixes and an honest opinion on whether a rebuild is worth it.",
   },
   {
     question: "Do I actually own my website when it is done?",
-    answer: `Yes — the source code, design assets, and content are yours. We hand over everything at launch. Most agencies keep the code hostage and your site disappears the moment you stop paying. Here, the ${FOUNDING_PARTNER_SEO_MONTHLY}/month ${FOUNDING_PARTNER_SEO_LABEL} covers hosting, security, and ongoing SEO — not permission to keep your own site online. If you ever leave, you take your site with you.`,
+    answer: `Yes. The code, the design, and the content are all yours. We hand over everything at launch. Most agencies keep the code and your site disappears when you stop paying them. The ${FOUNDING_PARTNER_SEO_MONTHLY}/month ${FOUNDING_PARTNER_SEO_LABEL} covers hosting, security, and SEO — not permission to keep your own site. If you ever leave, you take your site with you.`,
   },
 ];
 
 export const processSteps = [
   {
-    title: "Contact us for your free audit",
+    title: "Send us your website for a free review",
     description:
-      "Send us your URL. You get a manual review of performance, accessibility, best practices, and SEO — no pitch deck, no commitment.",
+      "Share your URL and we review your site by hand — speed, mobile friendliness, SEO, and more. No sales pitch, no commitment.",
   },
   {
     title: "Anthony reviews and follows up",
     description:
-      "Anthony reviews your site and sends a practical summary of the clearest fixes and the likely gains. If a rebuild makes sense, the quote is based on what was actually found.",
+      "Anthony sends you a clear summary of the biggest fixes and what they could do for your business. If a rebuild makes sense, the quote is based on what he actually found.",
   },
   {
     title: "You see the site before it goes live",
@@ -80,13 +80,13 @@ export const processSteps = [
 ];
 
 export const homeFooterCta = {
-  eyebrow: "Free Site Audit",
-  title: "Curious how your site is really doing?",
+  eyebrow: "Free Website Review",
+  title: "Curious how your website is really doing?",
   description:
-    "Drop your URL and you'll get a straight report — Core Web Vitals, on-page SEO, crawl checks, and an AI-prioritized fix list. No signup, no pitch deck.",
+    "Send us your URL and get an honest report on speed, mobile friendliness, and SEO. No sign-up, no sales pitch.",
   primaryHref: "/lighthouse",
-  primaryLabel: "Let's Build Something Great",
+  primaryLabel: "Get Your Free Review",
   secondaryHref: "/contact",
-  secondaryLabel: "Or open the contact form",
-  note: "A reply from Anthony usually comes within one business day.",
+  secondaryLabel: "Or send us a message",
+  note: "Anthony usually replies within one business day.",
 };
