@@ -6,7 +6,7 @@
   "type": "module",
   "engines": {
     "bun": ">=1.1.0",
-    "node": ">=24.11.0"
+    "node": ">=22"
   },
   "scripts": {
     "dev": "next dev --port 3100 --webpack",
