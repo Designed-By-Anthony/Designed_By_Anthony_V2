@@ -9,7 +9,7 @@
     "node": ">=24.11.0"
   },
   "scripts": {
-    "dev": "next dev --port 3100",
+    "dev": "next dev --port 3100 --webpack",
     "build": "bun run build:next",
     "build:next": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
     "build:worker": "NODE_OPTIONS=\"--max-old-space-size=4096\" opennextjs-cloudflare build",
