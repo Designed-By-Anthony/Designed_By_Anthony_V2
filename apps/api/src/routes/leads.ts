@@ -120,6 +120,9 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           website = `https://${website}`;
         }
 
+        // Build metadata JSON when the visitor has a non-default language
+        const metadata = body.lang ? JSON.stringify({ lang: body.lang }) : undefined;
+
         // First: Execute the D1 insertion
         const result = await db
           .insert(leadsTable)
@@ -129,6 +132,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
             company_name: body.company,
             source: "Contact_Form" as const,
             status: "New" as const,
+            metadata,
             created_at: Date.now(),
           })
           .returning();
@@ -136,12 +140,13 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         // Second: Pass the Slack webhook fetch call into background execution
         if (process.env.SLACK_WEBHOOK_URL) {
           const slackPayload = {
-            text: `New lead created: ${body.email} from ${body.company}`,
+            text: `New lead created: ${body.email} from ${body.company}${body.lang ? ` [${body.lang}]` : ""}`,
             lead: {
               email: body.email,
               company: body.company,
               website: website,
               source: body.sourceId || "Contact_Form",
+              ...(body.lang ? { lang: body.lang } : {}),
             },
           };
 
@@ -174,6 +179,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         company: t.String(),
         website: t.String({ format: "uri" }),
         sourceId: t.Optional(t.String()),
+        lang: t.Optional(t.Literal("es")),
       }),
     }
   );

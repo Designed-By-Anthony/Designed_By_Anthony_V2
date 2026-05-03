@@ -8,6 +8,8 @@ import {
   SITE_HEADER_NAV_LINKS,
   SITE_WORDMARK_ALT,
 } from "@/design-system/site-config";
+import { TranslatedLink, TranslatedNavLinks } from "./TranslatedNavLinks";
+import { T } from "./TranslatedText";
 
 export type BrandHeaderProps = {
   currentSection?: "audit";
@@ -39,12 +41,20 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
         >
           <span className={bannerDot} aria-hidden />
           <span>
-            <span className="text-brand-charcoal">{SITE_BANNER.label}</span>
+            <span className="text-brand-charcoal">
+              <T k={SITE_BANNER.label} />
+            </span>
             <span className="text-brand-charcoal/35 mx-[0.05em]" aria-hidden>
               {" — "}
             </span>
             <span className="italic text-brand-charcoal/65 max-[36rem]:hidden">
-              {isAudit ? SITE_BANNER.currentCta : `${SITE_BANNER.cta} →`}
+              {isAudit ? (
+                <T k={SITE_BANNER.currentCta} />
+              ) : (
+                <>
+                  <T k={SITE_BANNER.cta} /> →
+                </>
+              )}
             </span>
           </span>
         </Link>
@@ -64,37 +74,30 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
           </Link>
 
           <nav className="hidden min-[960px]:flex items-center gap-5" aria-label="Main navigation">
-            {SITE_HEADER_NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
+            <TranslatedNavLinks
+              links={SITE_HEADER_NAV_LINKS}
+              className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
+            />
+            <TranslatedLink
               href={SITE_CONTACT_LINK.href}
+              label={SITE_CONTACT_LINK.label}
               className="nav-contact-link text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
-            >
-              {SITE_CONTACT_LINK.label}
-            </Link>
+            />
             {isAudit ? (
               <span className={auditCurrentChip} aria-current="page">
                 <span
                   className="inline-block w-[0.35rem] h-[0.35rem] rounded-full bg-[#15803d] shadow-[0_0_6px_1px_rgba(21,128,61,0.35)] animate-[dba-pulse-dot_2s_ease-in-out_infinite]"
                   aria-hidden
                 />
-                {SITE_AUDIT_CTA.shortLabel}
+                <T k={SITE_AUDIT_CTA.shortLabel} />
               </span>
             ) : (
-              <Link
+              <TranslatedLink
                 href={SITE_AUDIT_CTA.href}
+                label={SITE_AUDIT_CTA.shortLabel}
                 className={`${navCtaBase} px-[1rem] py-[0.5rem]`}
                 id="nav-audit-btn"
-              >
-                {SITE_AUDIT_CTA.shortLabel}
-              </Link>
+              />
             )}
           </nav>
 
@@ -105,15 +108,14 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                   className="inline-block w-[0.35rem] h-[0.35rem] rounded-full bg-[#15803d] shadow-[0_0_6px_1px_rgba(21,128,61,0.35)] animate-[dba-pulse-dot_2s_ease-in-out_infinite]"
                   aria-hidden
                 />
-                {SITE_AUDIT_CTA.shortLabel}
+                <T k={SITE_AUDIT_CTA.shortLabel} />
               </span>
             ) : (
-              <Link
+              <TranslatedLink
                 href={SITE_AUDIT_CTA.href}
+                label={SITE_AUDIT_CTA.shortLabel}
                 className={`${navCtaBase} px-[0.75rem] py-[0.38rem]`}
-              >
-                {SITE_AUDIT_CTA.shortLabel}
-              </Link>
+              />
             )}
             {includeHamburger ? (
               <button

@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState } from "react";
 import { btnPrimary } from "@/design-system/buttons";
+import { useLanguage } from "@/lib/i18n";
 import { descriptionAlreadyHasRegionPrefix, regionTagFromPhone } from "@/lib/leadRegion";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { normalizeWebsiteForApi } from "@/lib/websiteNormalize";
@@ -28,6 +29,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const { lang, t } = useLanguage();
 
   const injectRegionPrefix = () => {
     const phone = phoneRef.current?.value ?? "";
@@ -53,6 +55,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
       company: formData.get("first_name") as string,
       website: normalizeWebsiteForApi(urlRaw),
       sourceId: sourceId,
+      lang: lang !== "en" ? lang : undefined,
     };
 
     try {
@@ -80,9 +83,9 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
     return (
       <div className="text-center py-8">
         <h3 className="text-xl font-semibold text-brand-charcoal mb-2">
-          Thank you for your interest!
+          {t("Thank you for your interest!")}
         </h3>
-        <p className="text-brand-charcoal/80">We'll be in touch within one business day.</p>
+        <p className="text-brand-charcoal/80">{t("We'll be in touch within one business day.")}</p>
       </div>
     );
   }
@@ -91,7 +94,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
     <form onSubmit={handleSubmit} className={SF_FORM}>
       <div className={SF_GRID}>
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>First Name</label>
+          <label htmlFor={`${formId}-first_name`}>{t("First Name")}</label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -103,7 +106,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-email`}>Email</label>
+          <label htmlFor={`${formId}-email`}>{t("Email")}</label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -115,7 +118,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-phone`}>Phone</label>
+          <label htmlFor={`${formId}-phone`}>{t("Phone")}</label>
           <input
             id={`${formId}-phone`}
             ref={phoneRef}
@@ -127,7 +130,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-url`}>Website</label>
+          <label htmlFor={`${formId}-url`}>{t("Website")}</label>
           <input
             id={`${formId}-url`}
             maxLength={80}
@@ -146,13 +149,13 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={`${SF_FIELD} ${SF_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>Message</label>
+          <label htmlFor={`${formId}-description`}>{t("Message")}</label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}
             name="description"
             rows={4}
-            placeholder="Tell us what you're looking for..."
+            placeholder={t("Tell us what you're looking for...")}
             required
           />
         </div>
@@ -160,13 +163,15 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
 
       <div className={SF_ACTIONS}>
         <button type="submit" className={btnPrimary} disabled={isSubmitting}>
-          {isSubmitting ? "Sending..." : "Let's build something great."}
+          {isSubmitting ? t("Sending...") : t("Let's build something great.")}
         </button>
       </div>
 
-      {submitError && <p className="mt-3 text-sm text-red-400">{submitError}</p>}
+      {submitError && (
+        <p className="mt-3 text-sm text-red-400">{t("Failed to submit form. Please try again.")}</p>
+      )}
 
-      <p className={SF_PRIVACY}>We reply within one business day.</p>
+      <p className={SF_PRIVACY}>{t("We reply within one business day.")}</p>
     </form>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/ui/Logo";
+import { useLanguage } from "@/lib/i18n";
 import { businessProfile } from "@/lib/seo";
 import { SovereignDrawerForm } from "./SovereignDrawerForm";
 
@@ -66,6 +67,7 @@ export function SiteContactDrawer() {
   const tabRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setHydrated(true);
@@ -118,7 +120,7 @@ export function SiteContactDrawer() {
       <button
         type="button"
         className={BACKDROP}
-        aria-label="Close contact drawer"
+        aria-label={t("Close contact drawer")}
         tabIndex={-1}
         aria-hidden={!open}
         onClick={close}
@@ -134,14 +136,14 @@ export function SiteContactDrawer() {
         <span className={TAB_CHEVRON} aria-hidden="true">
           {open ? "⟨" : "⟩"}
         </span>
-        <span className={TAB_LABEL}>Contact</span>
+        <span className={TAB_LABEL}>{t("Contact")}</span>
       </button>
       <aside
         id={panelId}
         className={RAIL_DRAWER}
         role="dialog"
         aria-modal={open}
-        aria-label="Contact form"
+        aria-label={t("Contact form")}
         aria-hidden={!open}
         data-nav-rail
       >
@@ -153,13 +155,15 @@ export function SiteContactDrawer() {
             type="button"
             className={CLOSE_BTN}
             onClick={close}
-            aria-label="Close contact drawer"
+            aria-label={t("Close contact drawer")}
           >
             ×
           </button>
         </div>
         <div className={INNER}>
-          <p className={LEAD}>Send a quick message — we reply within one business day.</p>
+          <p className={LEAD}>
+            {t("Send a quick message \u2014 we reply within one business day.")}
+          </p>
           <ContactDrawerForm onSuccess={close} />
           <div className="site-quick-rail__divider" />
           <a
@@ -168,7 +172,7 @@ export function SiteContactDrawer() {
             onClick={close}
           >
             <span className={RAIL_TEXT}>
-              <strong className={RAIL_TEXT_TITLE}>Or call now</strong>
+              <strong className={RAIL_TEXT_TITLE}>{t("Or call now")}</strong>
               <span className={RAIL_TEXT_SUB}>{businessProfile.telephone.replace("+1-", "")}</span>
             </span>
           </a>

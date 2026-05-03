@@ -2,6 +2,7 @@
 
 import { useId, useRef, useState } from "react";
 import { btnPrimary, btnSm } from "@/design-system/buttons";
+import { useLanguage } from "@/lib/i18n";
 import { descriptionAlreadyHasRegionPrefix, regionTagFromPhone } from "@/lib/leadRegion";
 import { buildPublicApiUrl } from "@/lib/publicApi";
 import { normalizeWebsiteForApi } from "@/lib/websiteNormalize";
@@ -33,6 +34,7 @@ export function SovereignDrawerForm({
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const { lang, t } = useLanguage();
 
   const injectRegionPrefix = () => {
     const phone = phoneRef.current?.value ?? "";
@@ -58,6 +60,7 @@ export function SovereignDrawerForm({
       company: formData.get("first_name") as string,
       website: normalizeWebsiteForApi(urlRaw),
       sourceId: sourceId,
+      lang: lang !== "en" ? lang : undefined,
     };
 
     try {
@@ -85,7 +88,7 @@ export function SovereignDrawerForm({
     <form onSubmit={handleSubmit} className={SF_DRAWER_FORM}>
       <div className={SF_DRAWER_GRID}>
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>First Name</label>
+          <label htmlFor={`${formId}-first_name`}>{t("First Name")}</label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -97,7 +100,7 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-email`}>Email</label>
+          <label htmlFor={`${formId}-email`}>{t("Email")}</label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -109,7 +112,7 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-phone`}>Phone</label>
+          <label htmlFor={`${formId}-phone`}>{t("Phone")}</label>
           <input
             id={`${formId}-phone`}
             ref={phoneRef}
@@ -121,7 +124,7 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-url`}>Website</label>
+          <label htmlFor={`${formId}-url`}>{t("Website")}</label>
           <input
             id={`${formId}-url`}
             maxLength={80}
@@ -140,13 +143,13 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={`${SF_DRAWER_FIELD} ${SF_DRAWER_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>Message</label>
+          <label htmlFor={`${formId}-description`}>{t("Message")}</label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}
             name="description"
             rows={3}
-            placeholder="How can we help?"
+            placeholder={t("How can we help?")}
             required
           />
         </div>
@@ -154,11 +157,13 @@ export function SovereignDrawerForm({
 
       <div className={SF_DRAWER_ACTIONS}>
         <button type="submit" className={`${btnPrimary} ${btnSm}`} disabled={isSubmitting}>
-          {isSubmitting ? "Sending..." : "Let's build something great."}
+          {isSubmitting ? t("Sending...") : t("Let's build something great.")}
         </button>
       </div>
 
-      {submitError && <p className="mt-3 text-sm text-red-400">{submitError}</p>}
+      {submitError && (
+        <p className="mt-3 text-sm text-red-400">{t("Failed to submit form. Please try again.")}</p>
+      )}
     </form>
   );
 }
