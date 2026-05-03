@@ -81,8 +81,7 @@ function renderEmail(lead: PublicLeadIngestBody): {
 
 export const leadEmailRoute = new Elysia({ aot: false }).post(
 	"/api/lead-email",
-	async ({ request, set }) => {
-		const rawBody: unknown = await request.json().catch(() => null);
+	async ({ body: rawBody, request, set }) => {
 		if (rawBody == null || typeof rawBody !== "object") {
 			set.status = 400;
 			return { errors: [{ message: "Invalid request body." }] };

@@ -1400,27 +1400,25 @@ a.marketing-service-card:hover {
 }
 
 .comparison-column--them {
-	border-color: rgba(239, 68, 68, 0.22);
-	background: linear-gradient(
-		165deg,
-		rgba(14, 18, 28, 0.97) 0%,
-		rgba(20, 16, 18, 0.93) 100%
-	);
+	border-color: rgba(190, 50, 50, 0.28);
+	background:
+		radial-gradient(
+			circle at top left,
+			rgba(190, 50, 50, 0.05),
+			transparent 45%
+		),
+		var(--brand-surface);
 }
 
 .comparison-column--us {
-	border-color: rgba(34, 197, 94, 0.22);
+	border-color: rgba(34, 120, 70, 0.32);
 	background:
 		radial-gradient(
 			circle at top right,
-			rgba(34, 197, 94, 0.06),
-			transparent 40%
+			rgba(34, 120, 70, 0.06),
+			transparent 45%
 		),
-		linear-gradient(
-			165deg,
-			rgba(14, 18, 28, 0.97) 0%,
-			rgba(16, 20, 24, 0.93) 100%
-		);
+		var(--brand-surface);
 }
 
 .comparison-label {
@@ -1435,15 +1433,15 @@ a.marketing-service-card:hover {
 }
 
 .comparison-column--them .comparison-label {
-	color: #fca5a5;
-	background: rgba(239, 68, 68, 0.1);
-	border: 1px solid rgba(239, 68, 68, 0.22);
+	color: #b91c1c;
+	background: rgba(190, 50, 50, 0.08);
+	border: 1px solid rgba(190, 50, 50, 0.28);
 }
 
 .comparison-column--us .comparison-label {
-	color: #86efac;
-	background: rgba(34, 197, 94, 0.1);
-	border: 1px solid rgba(34, 197, 94, 0.22);
+	color: #15803d;
+	background: rgba(34, 120, 70, 0.08);
+	border: 1px solid rgba(34, 120, 70, 0.32);
 }
 
 .comparison-list {
@@ -1451,16 +1449,16 @@ a.marketing-service-card:hover {
 	padding: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
+	gap: 0.55rem;
 }
 
 .comparison-list li {
 	display: flex;
 	align-items: flex-start;
-	gap: 0.5rem;
-	font-size: 0.9rem;
-	color: var(--text-gray);
-	line-height: 1.5;
+	gap: 0.6rem;
+	font-size: 0.92rem;
+	color: var(--text-cream);
+	line-height: 1.55;
 }
 
 .comparison-list li::before {
@@ -1468,16 +1466,18 @@ a.marketing-service-card:hover {
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
-	margin-top: 0.42rem;
+	margin-top: 0.5rem;
 	flex-shrink: 0;
 }
 
 .comparison-column--them .comparison-list li::before {
-	background: rgba(239, 68, 68, 0.65);
+	background: #b91c1c;
+	box-shadow: 0 0 0 3px rgba(190, 50, 50, 0.12);
 }
 
 .comparison-column--us .comparison-list li::before {
-	background: rgba(34, 197, 94, 0.65);
+	background: #15803d;
+	box-shadow: 0 0 0 3px rgba(34, 120, 70, 0.14);
 }
 
 /* ── Service Areas: Region Cards ── */

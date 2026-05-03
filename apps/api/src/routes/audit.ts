@@ -19,7 +19,7 @@ interface CfEnv {
 
 export const auditRoute = new Elysia({ aot: false }).post(
 	"/api/audit",
-	async ({ request, set, store }) => {
+	async ({ body: rawBody, request, set, store }) => {
 		set.headers["Cache-Control"] = "no-store";
 
 		const clientIp =
@@ -36,13 +36,11 @@ export const auditRoute = new Elysia({ aot: false }).post(
 			};
 		}
 
-		let body: Record<string, unknown>;
-		try {
-			body = await request.json();
-		} catch {
+		if (!rawBody || typeof rawBody !== "object") {
 			set.status = 400;
 			return { error: "Invalid request body." };
 		}
+		const body = rawBody as Record<string, unknown>;
 
 		const url = normalizeHttpUrl(body.url);
 		const email = normalizeEmail(body.email);

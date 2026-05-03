@@ -26,7 +26,7 @@ const bodySchema = z.object({
 
 export const auditEmailSummaryRoute = new Elysia({ aot: false }).post(
 	"/api/audit/email-summary",
-	async ({ request, set }) => {
+	async ({ body: raw, request, set }) => {
 		set.headers["Cache-Control"] = "no-store";
 
 		try {
@@ -41,10 +41,7 @@ export const auditEmailSummaryRoute = new Elysia({ aot: false }).post(
 				return { error: "Too many email requests. Please try again later." };
 			}
 
-			let raw: unknown;
-			try {
-				raw = await request.json();
-			} catch {
+			if (raw == null || typeof raw !== "object") {
 				set.status = 400;
 				return { error: "Invalid JSON body." };
 			}
