@@ -4,9 +4,32 @@
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-02",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "routes": [
+    {
+      "pattern": "admin.designedbyanthony.com",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_API_URL": "https://api.designedbyanthony.com"
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS",
     "run_worker_first": false
+  },
+  "env": {
+    "preview": {
+      "name": "dba-admin-preview",
+      "routes": [
+        {
+          "pattern": "preview.admin.designedbyanthony.com",
+          "custom_domain": true
+        }
+      ],
+      "vars": {
+        "NEXT_PUBLIC_API_URL": "https://preview.api.designedbyanthony.com"
+      }
+    }
   }
 }

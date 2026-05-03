@@ -19,5 +19,19 @@
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
+  },
+  "env": {
+    "preview": {
+      "name": "dba-web-preview",
+      "routes": [
+        {
+          "pattern": "preview.designedbyanthony.com",
+          "custom_domain": true
+        }
+      ],
+      "vars": {
+        "NEXT_PUBLIC_API_URL": "https://preview.api.designedbyanthony.com"
+      }
+    }
   }
 }

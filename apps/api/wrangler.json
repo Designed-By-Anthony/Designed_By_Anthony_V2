@@ -3,6 +3,12 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-05-02",
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "api.designedbyanthony.com",
+      "custom_domain": true
+    }
+  ],
   "d1_databases": [
     {
       "binding": "DB",
@@ -39,5 +45,26 @@
   },
   "vars": {
     "CF_PAGES_BRANCH": "main"
+  },
+  "env": {
+    "preview": {
+      "name": "dba-api-preview",
+      "routes": [
+        {
+          "pattern": "preview.api.designedbyanthony.com",
+          "custom_domain": true
+        }
+      ],
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "dba-preview-db",
+          "database_id": "5bb266d2-bc50-4077-a8ef-dc21450b8e1f"
+        }
+      ],
+      "vars": {
+        "CF_PAGES_BRANCH": "main"
+      }
+    }
   }
 }
