@@ -3,11 +3,11 @@ export const BESPOKE_CONFIG_LABEL = "Bespoke Brand Integration (24-48h config)";
 
 /** Stripe session / onboarding copy — describes the provisioning delay. */
 export const BESPOKE_CONFIG_DESCRIPTION =
-	"Access is granted 24-48 hours after our design sync to ensure brand mapping meets the ANTHONY. standard.";
+  "Access is granted 24-48 hours after our design sync to ensure brand mapping meets the ANTHONY. standard.";
 
 /** Spanish translation of the provisioning message — used on /es and in the checkout success page. */
 export const BESPOKE_CONFIG_DESCRIPTION_ES =
-	"El acceso se concede entre 24 y 48 horas después de nuestra sincronización de diseño para garantizar que el mapeo de marca cumpla el estándar ANTHONY.";
+  "El acceso se concede entre 24 y 48 horas después de nuestra sincronización de diseño para garantizar que el mapeo de marca cumpla el estándar ANTHONY.";
 
 export const STANDARD_WEBSITE_STARTING_PRICE = "$999";
 /**
@@ -29,8 +29,7 @@ export const ENTERPRISE_WEBSITE_STARTING_PRICE = "$6,000";
 export const FACEBOOK_PRIVATE_WEBSITE_PRICE = "$500";
 
 export const PUBLIC_SITE_SOCIAL_IMAGE = "/images/og-site-premium.png";
-export const FACEBOOK_OFFER_SOCIAL_IMAGE =
-	"/images/og-facebook-offer-premium.png";
+export const FACEBOOK_OFFER_SOCIAL_IMAGE = "/images/og-facebook-offer-premium.png";
 
 export const PRIVATE_FACEBOOK_LABEL = "Private Facebook Offer";
 

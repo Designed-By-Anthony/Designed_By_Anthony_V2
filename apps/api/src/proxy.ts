@@ -22,10 +22,7 @@ export interface ProxyOptions {
 export function createProxy({ target, stripPrefix = "" }: ProxyOptions) {
   return new Elysia({ name: "edge-proxy" }).all(`${stripPrefix}/*`, async ({ request }) => {
     const url = new URL(request.url);
-    const targetUrl = new URL(
-      url.pathname.replace(stripPrefix, "") + url.search,
-      target
-    );
+    const targetUrl = new URL(url.pathname.replace(stripPrefix, "") + url.search, target);
 
     // Forward the original request — clone headers, strip host
     const forwardHeaders = new Headers(request.headers);

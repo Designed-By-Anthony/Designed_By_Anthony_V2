@@ -1,5 +1,5 @@
 /* Permanent linen canvas — wins over any layered body backgrounds. */
 html,
 body {
-	background-color: #f8f9fa !important;
+  background-color: #f8f9fa;
 }

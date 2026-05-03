@@ -4,15 +4,15 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export function PageLifecycle() {
-	const pathname = usePathname();
+  const pathname = usePathname();
 
-	useEffect(() => {
-		window.dispatchEvent(
-			new CustomEvent("dba:page-ready", {
-				detail: { pathname },
-			}),
-		);
-	}, [pathname]);
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("dba:page-ready", {
+        detail: { pathname },
+      })
+    );
+  }, [pathname]);
 
-	return null;
+  return null;
 }

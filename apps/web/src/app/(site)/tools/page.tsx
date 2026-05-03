@@ -6,44 +6,42 @@ import { ToolsPage } from "./ToolsPage";
 export const revalidate = 86400;
 
 export const metadata: Metadata = {
-	title: "Tools — Micro SaaS for Local Service Businesses",
-	description:
-		"Six purpose-built tools for freelancers and small web agencies: website health reports, AI review response, client portals, local SEO dashboards, testimonial collection, and AI social content. Founding member pricing available.",
-	openGraph: {
-		title: "Tools — Micro SaaS Store | ANTHONY.",
-		description:
-			"Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more. Founding member pricing available.",
-		url: "https://designedbyanthony.com/tools",
-		type: "website",
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: "Tools — Micro SaaS Store | ANTHONY.",
-		description:
-			"Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more.",
-	},
-	alternates: { canonical: "/tools" },
+  title: "Tools — Micro SaaS for Local Service Businesses",
+  description:
+    "Six purpose-built tools for freelancers and small web agencies: website health reports, AI review response, client portals, local SEO dashboards, testimonial collection, and AI social content. Founding member pricing available.",
+  openGraph: {
+    title: "Tools — Micro SaaS Store | ANTHONY.",
+    description:
+      "Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more. Founding member pricing available.",
+    url: "https://designedbyanthony.com/tools",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tools — Micro SaaS Store | ANTHONY.",
+    description:
+      "Purpose-built tools for local service businesses. SEO monitoring, AI review response, client portals, and more.",
+  },
+  alternates: { canonical: "/tools" },
 };
 
 export default function Tools() {
-	let toolsGraph: ReturnType<typeof buildToolsStoreJsonLd> | null = null;
-	try {
-		toolsGraph = buildToolsStoreJsonLd();
-	} catch (err) {
-		console.error("[Tools] JSON-LD build error:", err);
-	}
-	return (
-		<MarketingChrome>
-			{toolsGraph ? (
-				<script
-					type="application/ld+json"
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD data
-					dangerouslySetInnerHTML={{ __html: JSON.stringify(toolsGraph) }}
-				/>
-			) : null}
-			<div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-				<ToolsPage />
-			</div>
-		</MarketingChrome>
-	);
+  let toolsGraph: ReturnType<typeof buildToolsStoreJsonLd> | null = null;
+  try {
+    toolsGraph = buildToolsStoreJsonLd();
+  } catch (_err) {}
+  return (
+    <MarketingChrome>
+      {toolsGraph ? (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD data
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(toolsGraph) }}
+        />
+      ) : null}
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <ToolsPage />
+      </div>
+    </MarketingChrome>
+  );
 }

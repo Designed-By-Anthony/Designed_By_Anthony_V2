@@ -1,5 +1,5 @@
-import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { relations } from "drizzle-orm";
+import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 export const leadSourceEnum = ["Audit_Form", "Contact_Form"] as const;
 export type LeadSource = (typeof leadSourceEnum)[number];
@@ -14,17 +14,10 @@ export const leadStatusEnum = [
 ] as const;
 export type LeadStatus = (typeof leadStatusEnum)[number];
 
-export const auditStatusEnum = [
-  "New",
-  "Reviewed",
-  "Published"
-] as const;
+export const auditStatusEnum = ["New", "Reviewed", "Published"] as const;
 export type AuditStatus = (typeof auditStatusEnum)[number];
 
-export const seoMetadataStatusEnum = [
-  "Draft",
-  "Published"
-] as const;
+export const seoMetadataStatusEnum = ["Draft", "Published"] as const;
 export type SeoMetadataStatus = (typeof seoMetadataStatusEnum)[number];
 
 export const leads = sqliteTable(
@@ -37,7 +30,9 @@ export const leads = sqliteTable(
     status: text("status", { enum: leadStatusEnum }).notNull().default("New"),
     turnstile_passed: integer("turnstile_passed"),
     metadata: text("metadata"),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
   },
   (t) => [
     uniqueIndex("leads_email_unique").on(t.email),
@@ -56,7 +51,9 @@ export const transactions = sqliteTable(
     plan_name: text("plan_name"),
     status: text("status"),
     lead_id: text("lead_id").references(() => leads.id),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
   },
   (t) => [
     index("transactions_email_idx").on(t.customer_email),
@@ -64,29 +61,27 @@ export const transactions = sqliteTable(
   ]
 );
 
-export const audits = sqliteTable(
-  "audits",
-  {
-    id: text("id").primaryKey(),
-    lead_id: text("lead_id").notNull(),
-    content: text("content").notNull(),
-    status: text("status", { enum: auditStatusEnum }).notNull().default("New"),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
-  }
-);
+export const audits = sqliteTable("audits", {
+  id: text("id").primaryKey(),
+  lead_id: text("lead_id").notNull(),
+  content: text("content").notNull(),
+  status: text("status", { enum: auditStatusEnum }).notNull().default("New"),
+  created_at: integer("created_at")
+    .notNull()
+    .$defaultFn(() => Date.now()),
+});
 
-export const seo_metadata = sqliteTable(
-  "seo_metadata",
-  {
-    id: text("id").primaryKey(),
-    page_url: text("page_url").notNull().unique(),
-    title: text("title").notNull(),
-    description: text("description"),
-    keywords: text("keywords"),
-    status: text("status", { enum: seoMetadataStatusEnum }).notNull().default("Draft"),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
-  }
-);
+export const seo_metadata = sqliteTable("seo_metadata", {
+  id: text("id").primaryKey(),
+  page_url: text("page_url").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description"),
+  keywords: text("keywords"),
+  status: text("status", { enum: seoMetadataStatusEnum }).notNull().default("Draft"),
+  created_at: integer("created_at")
+    .notNull()
+    .$defaultFn(() => Date.now()),
+});
 
 /** SSOT for Cloudflare Access group membership */
 export const clients = sqliteTable(
@@ -95,9 +90,11 @@ export const clients = sqliteTable(
     id: text("id").primaryKey(),
     email: text("email").notNull(),
     company_name: text("company_name"),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
   },
-  (t) => [uniqueIndex("clients_email_unique").on(t.email)],
+  (t) => [uniqueIndex("clients_email_unique").on(t.email)]
 );
 
 export const projects = sqliteTable(
@@ -110,11 +107,11 @@ export const projects = sqliteTable(
     staging_url: text("staging_url"),
     edge_ranking: integer("edge_ranking"),
     last_audit_json: text("last_audit_json"),
-    updated_at: integer("updated_at").notNull().$defaultFn(() => Date.now()),
+    updated_at: integer("updated_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
   },
-  (t) => [
-    index("projects_client_id_idx").on(t.client_id),
-  ],
+  (t) => [index("projects_client_id_idx").on(t.client_id)]
 );
 
 /** Client → operator notes from the Vault “Direct Line” */
@@ -126,9 +123,11 @@ export const vault_messages = sqliteTable(
       .notNull()
       .references(() => clients.id),
     message_text: text("message_text").notNull(),
-    created_at: integer("created_at").notNull().$defaultFn(() => Date.now()),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
   },
-  (t) => [index("vault_messages_client_id_idx").on(t.client_id)],
+  (t) => [index("vault_messages_client_id_idx").on(t.client_id)]
 );
 
 // Type exports for schema tables

@@ -1,5 +1,5 @@
-import { defineConfig, devices } from '@playwright/test';
-import path from 'node:path';
+import path from "node:path";
+import { defineConfig, devices } from "@playwright/test";
 
 /** Run `bun run test` from the monorepo root (Playwright loads this config via CJS interop). */
 const repoRoot = process.cwd();
@@ -28,74 +28,65 @@ export default defineConfig({
   workers: 1,
   fullyParallel: false,
 
-  testDir: './apps',
+  testDir: "./apps",
 
-  testMatch: [
-    '**/tests/e2e/**/*.spec.ts',
-    '**/tests/security/**/*.spec.ts'
-  ],
+  testMatch: ["**/tests/e2e/**/*.spec.ts", "**/tests/security/**/*.spec.ts"],
 
   projects: [
     {
-      name: 'fortress',
-      testMatch: [
-        '**/tests/e2e/**/*.spec.ts',
-        '**/tests/security/**/*.spec.ts',
-      ],
+      name: "fortress",
+      testMatch: ["**/tests/e2e/**/*.spec.ts", "**/tests/security/**/*.spec.ts"],
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         viewport: { width: 1920, height: 1080 },
-        trace: 'on-first-retry',
+        trace: "on-first-retry",
       },
     },
   ],
 
   retries: process.env.CI ? 2 : 0,
 
-  reporter: [
-    ['list'],
-    ['html', { open: 'never' }]
-  ],
+  reporter: [["list"], ["html", { open: "never" }]],
 
   webServer: skipWebServer
     ? undefined
     : [
         {
-          name: 'web',
-          command: 'bun run dev',
-          cwd: path.join(repoRoot, 'apps/web'),
-          url: 'http://localhost:3000',
+          name: "web",
+          command: "bun run dev",
+          cwd: path.join(repoRoot, "apps/web"),
+          url: "http://localhost:3000",
           reuseExistingServer: !process.env.CI,
           timeout: 240000,
-          stdout: 'pipe',
-          stderr: 'pipe',
+          stdout: "pipe",
+          stderr: "pipe",
         },
         {
-          name: 'admin',
-          command: 'bun run dev',
-          cwd: path.join(repoRoot, 'apps/admin'),
-          url: 'http://localhost:3100',
+          name: "admin",
+          command: "bun run dev",
+          cwd: path.join(repoRoot, "apps/admin"),
+          url: "http://localhost:3100",
           reuseExistingServer: !process.env.CI,
           timeout: 240000,
-          stdout: 'pipe',
-          stderr: 'pipe',
+          stdout: "pipe",
+          stderr: "pipe",
         },
         {
-          name: 'api',
-          command: 'bun run dev',
-          cwd: path.join(repoRoot, 'apps/api'),
-          url: 'http://localhost:8787/health',
+          name: "api",
+          command: "bun run dev",
+          cwd: path.join(repoRoot, "apps/api"),
+          url: "http://localhost:8787/health",
           reuseExistingServer: !process.env.CI,
           timeout: 240000,
-          stdout: 'pipe',
-          stderr: 'pipe',
+          stdout: "pipe",
+          stderr: "pipe",
         },
       ],
 
   use: {
-    baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8787',
+    baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787",
     extraHTTPHeaders: {
-      'Accept': 'application/json',
+      Accept: "application/json",
     },
     ignoreHTTPSErrors: true,
     ...(zapProxyServer
@@ -107,8 +98,8 @@ export default defineConfig({
       : {}),
   },
 
-  outputDir: 'test-results/',
+  outputDir: "test-results/",
 
-  globalSetup: './test/setup.ts',
-  globalTeardown: './test/teardown.ts',
+  globalSetup: "./test/setup.ts",
+  globalTeardown: "./test/teardown.ts",
 });

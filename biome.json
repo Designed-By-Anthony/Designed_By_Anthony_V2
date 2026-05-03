@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.14/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["**/node_modules/**", "**/.next/**", "**/dist/**", "**/.vercel/**"]
+    "includes": ["**", "!**/node_modules", "!**/.next", "!**/dist", "!**/.vercel"]
   },
   "formatter": {
     "enabled": true,
@@ -24,7 +24,11 @@
         "noUnusedVariables": "error"
       },
       "suspicious": {
-        "noConsoleLog": "warn"
+        "noConsole": { "level": "warn", "options": { "allow": ["log"] } },
+        "noArrayIndexKey": "warn"
+      },
+      "style": {
+        "noDescendingSpecificity": "warn"
       }
     }
   },

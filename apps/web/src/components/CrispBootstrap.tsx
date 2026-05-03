@@ -5,11 +5,11 @@ import Script from "next/script";
 const DEFAULT_WEBSITE_ID = "427bf1d5-f2a9-408b-8cc6-0efc6489c676";
 
 declare global {
-	interface Window {
-		$crisp?: unknown[];
-		CRISP_WEBSITE_ID?: string;
-		CRISP_RUNTIME_CONFIG?: { locale?: string };
-	}
+  interface Window {
+    $crisp?: unknown[];
+    CRISP_WEBSITE_ID?: string;
+    CRISP_RUNTIME_CONFIG?: { locale?: string };
+  }
 }
 
 /**
@@ -26,19 +26,14 @@ declare global {
  * the chrome — this is intentional.
  */
 export function CrispBootstrap() {
-	const websiteId =
-		process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID?.trim() || DEFAULT_WEBSITE_ID;
+  const websiteId = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID?.trim() || DEFAULT_WEBSITE_ID;
 
-	return (
-		<>
-			<Script id="crisp-config" strategy="lazyOnload">
-				{`window.$crisp=window.$crisp||[];window.CRISP_WEBSITE_ID="${websiteId}";window.CRISP_RUNTIME_CONFIG=Object.assign({locale:"en"},window.CRISP_RUNTIME_CONFIG||{});`}
-			</Script>
-			<Script
-				src="https://client.crisp.chat/l.js"
-				strategy="lazyOnload"
-				id="crisp-client-script"
-			/>
-		</>
-	);
+  return (
+    <>
+      <Script id="crisp-config" strategy="lazyOnload">
+        {`window.$crisp=window.$crisp||[];window.CRISP_WEBSITE_ID="${websiteId}";window.CRISP_RUNTIME_CONFIG=Object.assign({locale:"en"},window.CRISP_RUNTIME_CONFIG||{});`}
+      </Script>
+      <Script src="https://client.crisp.chat/l.js" strategy="lazyOnload" id="crisp-client-script" />
+    </>
+  );
 }

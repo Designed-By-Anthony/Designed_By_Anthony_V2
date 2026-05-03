@@ -17,10 +17,10 @@ async function fetchLocationMetadata(slug: string): Promise<SeoMetadata | null> 
   try {
     const response = await fetch(
       `https://api.designedbyanthony.com/api/seo/metadata?page_url=/locations/${encodeURIComponent(slug)}`,
-      { next: { revalidate: 86400 } },
+      { next: { revalidate: 86400 } }
     );
     if (!response.ok) return null;
-    const data = await response.json() as Record<string, unknown>;
+    const data = (await response.json()) as Record<string, unknown>;
     if (typeof data.title !== "string" || !data.title) return null;
     return {
       title: data.title,
@@ -32,7 +32,11 @@ async function fetchLocationMetadata(slug: string): Promise<SeoMetadata | null> 
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const metadata = await fetchLocationMetadata(slug);
 

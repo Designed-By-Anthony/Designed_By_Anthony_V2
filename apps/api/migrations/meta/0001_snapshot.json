@@ -114,30 +114,22 @@
       "indexes": {
         "leads_email_unique": {
           "name": "leads_email_unique",
-          "columns": [
-            "email"
-          ],
+          "columns": ["email"],
           "isUnique": true
         },
         "leads_status_idx": {
           "name": "leads_status_idx",
-          "columns": [
-            "status"
-          ],
+          "columns": ["status"],
           "isUnique": false
         },
         "leads_source_idx": {
           "name": "leads_source_idx",
-          "columns": [
-            "source"
-          ],
+          "columns": ["source"],
           "isUnique": false
         },
         "leads_created_at_idx": {
           "name": "leads_created_at_idx",
-          "columns": [
-            "created_at"
-          ],
+          "columns": ["created_at"],
           "isUnique": false
         }
       },
@@ -203,9 +195,7 @@
       "indexes": {
         "seo_metadata_page_url_unique": {
           "name": "seo_metadata_page_url_unique",
-          "columns": [
-            "page_url"
-          ],
+          "columns": ["page_url"],
           "isUnique": true
         }
       },
@@ -263,16 +253,12 @@
       "indexes": {
         "transactions_email_idx": {
           "name": "transactions_email_idx",
-          "columns": [
-            "customer_email"
-          ],
+          "columns": ["customer_email"],
           "isUnique": false
         },
         "transactions_created_at_idx": {
           "name": "transactions_created_at_idx",
-          "columns": [
-            "created_at"
-          ],
+          "columns": ["created_at"],
           "isUnique": false
         }
       },

@@ -10,19 +10,10 @@
     "isolatedModules": true,
     "skipLibCheck": true,
     "jsx": "react-jsx",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@lh/*": [
-        "./src/lighthouse/*",
-        "../../packages/shared/src/lighthouse/*"
-      ]
+      "@/*": ["./src/*"],
+      "@lh/*": ["./src/lighthouse/*", "../../packages/shared/src/lighthouse/*"]
     },
     "allowJs": true,
     "noEmit": true,
@@ -35,13 +26,6 @@
       }
     ]
   },
-  "include": [
-    "src/**/*",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*", "next-env.d.ts", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

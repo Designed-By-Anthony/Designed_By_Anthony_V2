@@ -3,87 +3,87 @@
  * Consumed by dba-global.css → marketing, Lighthouse, admin (via globals.css).
  */
 :root {
-	/* ── Brand palette (canonical) ───────────────────────────────── */
-	--brand-linen: #f8f9fa;
-	--brand-indigo: #1a2a40;
-	--brand-charcoal: #333333;
-	--brand-accent: #5b7c99;
-	--brand-accent-rgb: 91 124 153;
-	--brand-surface: #ffffff;
-	--border-brand: rgba(26, 42, 64, 0.1);
+  /* ── Brand palette (canonical) ───────────────────────────────── */
+  --brand-linen: #f8f9fa;
+  --brand-indigo: #1a2a40;
+  --brand-charcoal: #333333;
+  --brand-accent: #5b7c99;
+  --brand-accent-rgb: 91 124 153;
+  --brand-surface: #ffffff;
+  --border-brand: rgba(26, 42, 64, 0.1);
 
-	/* Header chrome */
-	--brand-background: #ffffff;
+  /* Header chrome */
+  --brand-background: #ffffff;
 
-	/* Surfaces / page (legacy names → light mapping) */
-	--bg-dark: var(--brand-linen);
-	--bg-deeper: #f3f4f6;
-	--bg-ink: var(--brand-linen);
-	--surface-1: var(--brand-surface);
-	--surface-2: var(--brand-surface);
-	--surface-3: #ffffff;
-	--gray-800: #4b5563;
-	--gray-900: var(--brand-charcoal);
+  /* Surfaces / page (legacy names → light mapping) */
+  --bg-dark: var(--brand-linen);
+  --bg-deeper: #f3f4f6;
+  --bg-ink: var(--brand-linen);
+  --surface-1: var(--brand-surface);
+  --surface-2: var(--brand-surface);
+  --surface-3: #ffffff;
+  --gray-800: #4b5563;
+  --gray-900: var(--brand-charcoal);
 
-	/* Typography — legacy token names map to light UI */
-	--text-white: var(--brand-charcoal);
-	--text-cream: var(--brand-indigo);
-	--text-soft: rgba(51, 51, 51, 0.88);
-	--text-gray: rgba(51, 51, 51, 0.72);
-	--text-muted: rgba(51, 51, 51, 0.48);
+  /* Typography — legacy token names map to light UI */
+  --text-white: var(--brand-charcoal);
+  --text-cream: var(--brand-indigo);
+  --text-soft: rgba(51, 51, 51, 0.88);
+  --text-gray: rgba(51, 51, 51, 0.72);
+  --text-muted: rgba(51, 51, 51, 0.48);
 
-	/* Accent system (slate blue; keeps --accent-bronze-* names for compat) */
-	--accent-bronze-rgb: 91 124 153;
-	--accent-bronze: var(--brand-accent);
-	--accent-bronze-dark: #4a6278;
-	--accent-bronze-light: #e8eef3;
-	--accent-bronze-muted: #c5d4e0;
-	--accent-bronze-soft: rgb(var(--brand-accent-rgb) / 0.18);
-	--accent-bronze-hairline: rgb(var(--brand-accent-rgb) / 0.28);
-	--accent-bronze-glow: rgb(var(--brand-accent-rgb) / 0.35);
-	--accent-blue: var(--brand-accent);
-	--accent-blue-hover: var(--accent-bronze-dark);
-	--accent-blue-soft: rgb(var(--brand-accent-rgb) / 0.12);
-	--accent-brass: var(--brand-accent);
-	--accent-brass-soft: rgb(var(--brand-accent-rgb) / 0.14);
+  /* Accent system (slate blue; keeps --accent-bronze-* names for compat) */
+  --accent-bronze-rgb: 91 124 153;
+  --accent-bronze: var(--brand-accent);
+  --accent-bronze-dark: #4a6278;
+  --accent-bronze-light: #e8eef3;
+  --accent-bronze-muted: #c5d4e0;
+  --accent-bronze-soft: rgb(var(--brand-accent-rgb) / 0.18);
+  --accent-bronze-hairline: rgb(var(--brand-accent-rgb) / 0.28);
+  --accent-bronze-glow: rgb(var(--brand-accent-rgb) / 0.35);
+  --accent-blue: var(--brand-accent);
+  --accent-blue-hover: var(--accent-bronze-dark);
+  --accent-blue-soft: rgb(var(--brand-accent-rgb) / 0.12);
+  --accent-brass: var(--brand-accent);
+  --accent-brass-soft: rgb(var(--brand-accent-rgb) / 0.14);
 
-	--border-soft: var(--border-brand);
-	--border-strong: rgb(var(--brand-accent-rgb) / 0.35);
-	--success-green: #15803d;
+  --border-soft: var(--border-brand);
+  --border-strong: rgb(var(--brand-accent-rgb) / 0.35);
+  --success-green: #15803d;
 
-	--font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-	--font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-	--font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
-	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-	--font-hero: var(--font-playfair), Georgia, "Times New Roman", serif;
-	--font-report-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-hero: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-report-display: var(--font-playfair), Georgia, "Times New Roman", serif;
 
-	--container-gutter: max(0.85rem, min(2rem, clamp(1.15rem, 2.7vw, 2rem)));
-	--content-max: 1160px;
-	--section-space: clamp(6rem, 9vw, 8rem);
-	--section-space-tight: clamp(3.5rem, 5.5vw, 5rem);
-	--radius-card: 1.25rem;
-	--radius-card-lg: 1.4rem;
-	--space-section: clamp(4rem, 8vw, 6rem);
-	--space-block: clamp(2rem, 4vw, 3rem);
-	--space-element: clamp(1rem, 2vw, 1.5rem);
-	--space-inline: 0.75rem;
-	--card-pad: clamp(1.5rem, 1rem + 1.4vw, 1.75rem);
-	--card-pad-lg: clamp(1.75rem, 1.25rem + 1.4vw, 2rem);
-	--shadow-soft: 0 12px 28px -18px rgba(26, 42, 64, 0.12);
-	--shadow-card: 0 16px 40px -24px rgba(26, 42, 64, 0.14);
-	--motion-duration-fast: 0.15s;
-	--motion-duration: 0.22s;
-	--motion-duration-slow: 0.35s;
-	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --container-gutter: max(0.85rem, min(2rem, clamp(1.15rem, 2.7vw, 2rem)));
+  --content-max: 1160px;
+  --section-space: clamp(6rem, 9vw, 8rem);
+  --section-space-tight: clamp(3.5rem, 5.5vw, 5rem);
+  --radius-card: 1.25rem;
+  --radius-card-lg: 1.4rem;
+  --space-section: clamp(4rem, 8vw, 6rem);
+  --space-block: clamp(2rem, 4vw, 3rem);
+  --space-element: clamp(1rem, 2vw, 1.5rem);
+  --space-inline: 0.75rem;
+  --card-pad: clamp(1.5rem, 1rem + 1.4vw, 1.75rem);
+  --card-pad-lg: clamp(1.75rem, 1.25rem + 1.4vw, 2rem);
+  --shadow-soft: 0 12px 28px -18px rgba(26, 42, 64, 0.12);
+  --shadow-card: 0 16px 40px -24px rgba(26, 42, 64, 0.14);
+  --motion-duration-fast: 0.15s;
+  --motion-duration: 0.22s;
+  --motion-duration-slow: 0.35s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
-	--splash-scrim: rgba(248, 249, 250, 0.92);
-	--splash-scrim-blur: 12px;
-	--splash-shell-bg: var(--brand-surface);
-	--splash-shell-border: var(--border-brand);
-	--splash-shell-shadow: 0 24px 60px -36px rgba(26, 42, 64, 0.18);
-	--splash-close-bg: rgba(26, 42, 64, 0.06);
-	--splash-close-bg-hover: rgba(26, 42, 64, 0.1);
-	--splash-close-border: var(--border-brand);
-	--splash-calendly-chrome-bg: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+  --splash-scrim: rgba(248, 249, 250, 0.92);
+  --splash-scrim-blur: 12px;
+  --splash-shell-bg: var(--brand-surface);
+  --splash-shell-border: var(--border-brand);
+  --splash-shell-shadow: 0 24px 60px -36px rgba(26, 42, 64, 0.18);
+  --splash-close-bg: rgba(26, 42, 64, 0.06);
+  --splash-close-bg-hover: rgba(26, 42, 64, 0.1);
+  --splash-close-border: var(--border-brand);
+  --splash-calendly-chrome-bg: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
 }
