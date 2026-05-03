@@ -24,11 +24,17 @@
     "test:ui": "playwright show-report",
     "test:install": "playwright install"
   },
+  "engines": {
+    "node": ">=22"
+  },
+  "volta": {
+    "node": "22.22.2"
+  },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.13",
-    "@playwright/test": "^1.48.0",
+    "@biomejs/biome": "^2.4.14",
+    "@playwright/test": "^1.59.1",
     "drizzle-kit": "^0.31.10",
     "drizzle-orm": "^0.45.2",
-    "turbo": "^2.9.6"
+    "turbo": "^2.9.8"
   }
 }
