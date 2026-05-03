@@ -212,7 +212,7 @@ window.__dbaRevokeAnalyticsConsent = function () {
             <T k="Say hello" />
           </h2>
           <p className="m-0 mb-[1.1rem] text-[0.92rem] leading-[1.5] text-brand-charcoal/75">
-            Start with a free site audit — or just call / email.
+            <T k="Start with a free site audit — or just call / email." />
           </p>
           <Link
             href="/lighthouse"

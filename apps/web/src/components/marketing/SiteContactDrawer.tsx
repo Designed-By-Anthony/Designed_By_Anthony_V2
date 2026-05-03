@@ -143,7 +143,7 @@ export function SiteContactDrawer() {
         className={RAIL_DRAWER}
         role="dialog"
         aria-modal={open}
-        aria-label={t("Contact")}
+        aria-label={t("Contact form")}
         aria-hidden={!open}
         data-nav-rail
       >

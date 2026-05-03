@@ -18,6 +18,7 @@ const es: Record<string, string> = {
   FAQ: "Preguntas Frecuentes",
   Blog: "Blog",
   Tools: "Herramientas",
+  About: "Acerca de",
   Contact: "Contacto",
   "Audit My Site": "Auditar Mi Sitio",
 
@@ -35,6 +36,7 @@ const es: Record<string, string> = {
   "Or call now": "O llama ahora",
   "Say hello": "Hola",
   Close: "Cerrar",
+  "Contact form": "Formulario de contacto",
   "Close contact drawer": "Cerrar formulario de contacto",
   "Start with a free site audit — or just call / email.":
     "Comienza con una auditoría gratuita — o llama / envía un correo.",
