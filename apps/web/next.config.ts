@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: monorepoRoot,
   },
-  outputFileTracingRoot: monorepoRoot,
   async headers() {
     return [
       {
