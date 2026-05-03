@@ -1419,25 +1419,26 @@ body:not(.has-progress-bar) #reading-progress-bar {
 	justify-content: center;
 	gap: 0.5rem;
 	padding: 0.65rem 1.25rem;
-	/* Slightly tighter radius than a full pill looks more "tech" */
-	border-radius: 0.75rem; 
-	/* Very subtle gradient to give it physical volume */
+	border-radius: 0.75rem;
 	background: linear-gradient(180deg, #ffffff 0%, #e2e8f0 100%);
-	color: var(--bg-ink); /* Dark text for sharp contrast */
+	/* Brand indigo (#1A2A40) on near-white = ~14:1 contrast — AAA for body. */
+	color: var(--brand-indigo);
 	font-weight: 600;
 	font-size: 0.95rem;
+	border: 1px solid rgba(26, 42, 64, 0.12);
 	box-shadow:
-		inset 0 -2px 0 rgba(0, 0, 0, 0.05), /* Inner bottom shadow */
-		0 1px 3px rgba(0, 0, 0, 0.1),
-		0 0 0 1px rgba(255, 255, 255, 0.5); /* Crisp outer definition */
-	transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+		inset 0 -2px 0 rgba(0, 0, 0, 0.05),
+		0 1px 3px rgba(26, 42, 64, 0.08);
+	transition:
+		transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+		box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+		border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .btn-premium-primary:hover {
 	transform: translateY(-1px);
+	border-color: rgba(26, 42, 64, 0.22);
 	box-shadow:
 		inset 0 -2px 0 rgba(0, 0, 0, 0.05),
-		0 4px 8px rgba(0, 0, 0, 0.15),
-		0 0 0 1px rgba(255, 255, 255, 0.7);
-	filter: brightness(1.03);
+		0 4px 12px rgba(26, 42, 64, 0.14);
 }

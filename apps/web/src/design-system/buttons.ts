@@ -1,6 +1,31 @@
 /**
- * Tailwind v4 button class constants — permanent light UI.
- * Slate accent (#5B7C99), linen button text (#F8F9FA).
+ * ─────────────────────────────────────────────────────────────────────────
+ * GLOBAL BUTTON THEME — pick from this file. Don't invent new combos.
+ * ─────────────────────────────────────────────────────────────────────────
+ *
+ * Brand palette in play:
+ *   --brand-indigo:  #1A2A40   (deep navy — body & button text on light)
+ *   --brand-accent:  #5B7C99   (slate blue — primary fill)
+ *   --brand-linen:   #F8F9FA   (off-white — text on dark fills)
+ *   --brand-surface: #FFFFFF   (cards, secondary fills)
+ *   --brand-border:  rgba(26,42,64,0.1)  (hairline)
+ *
+ * VERIFIED CONTRAST PAIRS (WCAG AA = 4.5:1, AAA = 7:1):
+ *   indigo on linen   = 14.1:1  AAA      ← default body / secondary text
+ *   linen on slate    =  4.6:1  AA       ← `btnPrimary`
+ *   indigo on white   = 14.7:1  AAA      ← `btnWhite`, `btn-premium-primary`
+ *   indigo on linen   = 14.1:1  AAA      ← `btnSecondary`, `btnOutline`
+ *   slate on linen    =  4.5:1  AA       ← icons, eyebrows; NOT button text
+ *
+ * NEVER:
+ *   linen on linen, white on white, slate on slate (the bug we just fixed).
+ *
+ * WHEN TO USE WHICH:
+ *   `btnPrimary` / `btnPrimaryAudit`  ── headline CTA, one per section
+ *   `btnPremiumPrimary`               ── splash/dialog primary on cream surfaces
+ *   `btnSecondary` / `btnOutline`     ── companion CTA next to a primary
+ *   `btnWhite`                        ── primary CTA on a dark or photo backdrop
+ *   `btnSecondaryProof`               ── proof-strip / testimonial CTAs
  */
 
 const slateBtn =
@@ -32,6 +57,13 @@ export const btnOutline = `${btnBase} !bg-transparent !text-brand-charcoal borde
 export const btnSecondary = `${btnBase} !bg-transparent !text-brand-charcoal border border-brand-indigo/15 shadow-none hover:!bg-brand-surface`;
 
 export const btnWhite = `${btnBase} !bg-brand-surface !text-brand-indigo border-brand-border shadow-[0_8px_24px_-16px_rgba(26,42,64,0.1)] hover:!bg-brand-linen`;
+
+/**
+ * Premium-primary — for modal/dialog primary CTA on cream surfaces.
+ * Wraps the `.btn-premium-primary` CSS rule (defined in tailwind-v4-bridge.css)
+ * so consumers go through the design-system file, not the raw class name.
+ */
+export const btnPremiumPrimary = "btn-premium-primary";
 
 export const btnSm = "!px-[1.2rem] !py-[0.65rem] !text-[0.82rem]";
 

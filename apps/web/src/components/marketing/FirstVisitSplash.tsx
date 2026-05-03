@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { btnPremiumPrimary } from "@/design-system/buttons";
 
 const STORAGE_KEY = "dba_first_visit_shown_v1";
 
@@ -100,7 +101,7 @@ export function FirstVisitSplash() {
                     <Link
                         href="/contact"
                         onClick={handleContactClick}
-                        className="btn-premium-primary flex-1 sm:flex-none"
+                        className={`${btnPremiumPrimary} flex-1 sm:flex-none`}
                     >
                         Contact us →
                     </Link>
