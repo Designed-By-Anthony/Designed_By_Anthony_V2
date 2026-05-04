@@ -64,21 +64,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         return {
           success: result.length > 0,
           deletedId: params.id,
-        };
-      } catch (_error) {
-        return {
-          error: "Failed to delete lead",
-          success: false,
-        };
-      }
-    },
-    {
-      params: t.Object({
-        id: t.String(),
-      }),
-    }
-  )
-  .post(
+       .post(
     "",
     // biome-ignore lint/suspicious/noExplicitAny: Elysia handler context inferred at runtime
     async ({ body, set, store, request }: any) => {
@@ -114,25 +100,34 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
 
         const db = createD1Client(d1 as D1Database);
 
+        // 1. SEPARATE CORE FIELDS FROM CUSTOM FIELDS
+        // Everything not explicitly named gets swept into 'customFields'
+        const { email, company, website, sourceId, lang, ...customFields } = body;
+
         // Ensure website field has https:// prepended if missing
-        let website = body.website;
-        if (website && !website.startsWith("https://")) {
-          website = `https://${website}`;
+        let finalWebsite = website;
+        if (finalWebsite && !finalWebsite.startsWith("http")) {
+          finalWebsite = `https://${finalWebsite}`;
         }
 
-        // Build metadata JSON when the visitor has a non-default language
-        const metadata = body.lang ? JSON.stringify({ lang: body.lang }) : undefined;
+        // 2. THE JSON PACKER
+        // Combine 'lang' and any unknown custom fields into one object
+        const metadataObj = { ...customFields };
+        if (lang) metadataObj.lang = lang;
+        
+        // Stringify if we actually caught anything, otherwise null
+        const metadata = Object.keys(metadataObj).length > 0 ? JSON.stringify(metadataObj) : null;
 
-        // First: Execute the D1 insertion
+        // First: Execute the D1 insertion via Drizzle
         const result = await db
           .insert(leadsTable)
           .values({
             id: crypto.randomUUID(),
-            email: body.email,
-            company_name: body.company,
-            source: "Contact_Form" as const,
+            email: email || "No Email Provided",         // Fallback prevents SQL NOT NULL crashes
+            company_name: company || "Unknown Name",     // Fallback prevents SQL NOT NULL crashes
+            source: sourceId || "Contact_Form",
             status: "New" as const,
-            metadata,
+            metadata: metadata,                          // <--- THE LIMITLESS JSON BUCKET
             created_at: Date.now(),
           })
           .returning();
@@ -140,13 +135,13 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         // Second: Pass the Slack webhook fetch call into background execution
         if (process.env.SLACK_WEBHOOK_URL) {
           const slackPayload = {
-            text: `New lead created: ${body.email} from ${body.company}${body.lang ? ` [${body.lang}]` : ""}`,
+            text: `New lead created: ${email || 'Unknown'} from ${company || 'Unknown'}${lang ? ` [${lang}]` : ""}`,
             lead: {
-              email: body.email,
-              company: body.company,
-              website: website,
-              source: body.sourceId || "Contact_Form",
-              ...(body.lang ? { lang: body.lang } : {}),
+              email: email || "N/A",
+              company: company || "N/A",
+              website: finalWebsite || "N/A",
+              source: sourceId || "Contact_Form",
+              ...metadataObj // Send all the custom fields to your Slack notification too!
             },
           };
 
@@ -174,12 +169,13 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
       }
     },
     {
+      // 3. THE LOOSE BOUNCER
       body: t.Object({
-        email: t.String({ format: "email" }),
-        company: t.String(),
-        website: t.String({ format: "uri" }),
+        email: t.Optional(t.String()),
+        company: t.Optional(t.String()),
+        website: t.Optional(t.String()),
         sourceId: t.Optional(t.String()),
-        lang: t.Optional(t.Literal("es")),
-      }),
+        lang: t.Optional(t.String()),
+      }, { additionalProperties: true }) // <--- THIS ENABLES THE MULTI-TENANT CATCH-ALL
     }
   );
