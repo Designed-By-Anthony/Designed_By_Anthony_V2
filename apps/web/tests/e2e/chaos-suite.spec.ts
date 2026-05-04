@@ -152,7 +152,7 @@ test.describe("Chaos · Pillar 1 — Integration Gauntlet", () => {
     await resetRateLimits(request);
 
     const email = randomEmail();
-    const metadata = { widget: "chaos-test", score: 42, nested: { fire: true } };
+    const metadata = { widget: "chaos-suite", score: 42, nested: { fire: true } };
 
     const postRes = await request.post(`${API}/leads`, {
       headers: {
@@ -465,6 +465,22 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
   test("Mobile 375 px — no horizontal scrollbar, hero text legible", async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded" });
+
+    // Wait for hero entrance animations to settle (h1 uses a CSS animation with backwards
+    // fill-mode that holds opacity:0 during the delay; allow up to 2 s for it to resolve).
+    await page
+      .waitForFunction(
+        () => {
+          const h1 =
+            document.querySelector("[data-hero-h1]") ?? document.querySelector("h1");
+          if (!h1) return false;
+          return Number.parseFloat(window.getComputedStyle(h1).opacity) > 0;
+        },
+        { timeout: 2000 }
+      )
+      .catch(() => {
+        // Best-effort — if the wait times out the assertion below surfaces the real failure.
+      });
 
     // No horizontal overflow
     const hasHorizontalScroll = await page.evaluate(() => {
