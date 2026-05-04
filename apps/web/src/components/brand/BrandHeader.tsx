@@ -58,7 +58,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
         </Link>
       </div>
 
-      <header className="relative bg-transparent pl-[max(1.25rem,env(safe-area-inset-left,0px))] pr-[max(1.25rem,env(safe-area-inset-right,0px))]">
+      <header className="relative z-50 bg-transparent pl-[max(1.25rem,env(safe-area-inset-left,0px))] pr-[max(1.25rem,env(safe-area-inset-right,0px))]">
         <div className="flex items-center justify-between gap-6 max-w-[80rem] mx-auto pt-8 pb-4">
           <Link
             href={SITE_BRAND.homeHref}
