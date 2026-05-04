@@ -53,14 +53,6 @@ export function FirstVisitSplash() {
 
   const handleContactClick = () => {
     localStorage.setItem(STORAGE_KEY, "true");
-    // Track the CTA
-    if (typeof window !== "undefined") {
-      const w = window as unknown as { dataLayer?: unknown[] };
-      w.dataLayer?.push({
-        event: "first_visit_splash_contact",
-        cta_source: "first_visit_splash",
-      });
-    }
     setIsOpen(false);
   };
 

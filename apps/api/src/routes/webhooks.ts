@@ -1,4 +1,4 @@
-import { createD1Client } from "@dba/shared/db/client";
+import { createD1Client, purchases, users } from "@dba/shared/db/client";
 import { leads, tryInsertLead, tryInsertTransaction } from "@dba/shared/lib/d1Leads";
 import { eq } from "drizzle-orm";
 import { Elysia, t } from "elysia";
@@ -133,6 +133,32 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
               ? session.customer
               : (session.customer?.id ?? null),
         });
+
+        const productSlug = session.metadata?.product_slug;
+        const tier = session.metadata?.tier;
+        if (productSlug && tier) {
+          try {
+            const drizzle = createD1Client(db);
+            const userRow = await drizzle
+              .select({ id: users.id })
+              .from(users)
+              .where(eq(users.email, customerEmail.trim().toLowerCase()))
+              .limit(1);
+            if (userRow[0]) {
+              await drizzle.insert(purchases).values({
+                id: crypto.randomUUID(),
+                user_id: userRow[0].id,
+                product_slug: productSlug,
+                tier,
+                stripe_session_id: stripeSessionId,
+                status: "active",
+                created_at: Date.now(),
+              });
+            }
+          } catch {
+            // non-fatal — purchase record is best-effort
+          }
+        }
       }
     }
 
