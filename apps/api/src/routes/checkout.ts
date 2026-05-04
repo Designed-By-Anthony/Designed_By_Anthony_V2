@@ -44,6 +44,10 @@ const TOOL_PRICES: Record<string, { priceId: string; name: string }> = {
     priceId: "price_1TTJivDAc5rCuqvSPRHP8Txv",
     name: "Website Speed Grader",
   },
+  "founder-all-access": {
+    priceId: "price_1TTJvoDAc5rCuqvS8uvAs0L2",
+    name: "Founder All-Access",
+  },
 };
 
 export const checkoutRoute = new Elysia().post(

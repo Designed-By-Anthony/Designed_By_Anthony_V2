@@ -434,6 +434,23 @@ export const TOOLS_PRODUCTS: readonly Product[] = [
   },
 ] as const;
 
+export const FOUNDER_ALL_ACCESS = {
+  slug: "founder-all-access",
+  name: "Founder All-Access",
+  tagline: "Every tool. One price. Locked in forever.",
+  description:
+    "Get full access to every tool in the suite — current and future. Founding member pricing means this rate never goes up.",
+  annualPrice: 1490,
+  annualLink: "#",
+  features: [
+    "All 7 tools included",
+    "Every future tool added free",
+    "Founding member rate — locked forever",
+    "Priority support",
+    "Cancel any time",
+  ],
+} as const;
+
 export const PROMO_FOUNDING = {
   code: "FOUNDING50",
   label: "Founding Member",

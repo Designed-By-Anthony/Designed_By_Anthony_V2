@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from "react";
 import {
+  FOUNDER_ALL_ACCESS,
   PROMO_BOGO,
   PROMO_FOUNDING,
   type Product,
@@ -319,6 +320,50 @@ export function ToolsPage() {
         </div>
       </div>
 
+      {/* Founder All-Access */}
+      <section
+        id="founder-all-access"
+        className="mx-auto mb-14 max-w-[44rem] rounded-[var(--radius-card,1.25rem)] border-2 border-brand-accent bg-brand-linen p-[clamp(1.5rem,4vw,2.5rem)] text-center shadow-[0_16px_48px_-20px_rgb(var(--brand-accent-rgb)/0.18)]"
+      >
+        <span className="mb-4 inline-block rounded-full bg-brand-accent px-[0.85rem] py-[0.25rem] text-[0.62rem] font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_2px_8px_-2px_rgb(var(--brand-accent-rgb)/0.4)]">
+          Best Value
+        </span>
+        <h3 className="mb-2 text-[clamp(1.35rem,3vw,1.75rem)] font-bold leading-[1.2] text-brand-indigo">
+          {FOUNDER_ALL_ACCESS.name}
+        </h3>
+        <p className="mb-1 text-[0.9rem] leading-[1.5] text-brand-charcoal/70">
+          {FOUNDER_ALL_ACCESS.tagline}
+        </p>
+        <p className="mb-5 text-[0.88rem] leading-[1.6] text-brand-charcoal/65">
+          {FOUNDER_ALL_ACCESS.description}
+        </p>
+        <p className="mb-1 flex items-baseline justify-center gap-[0.25rem]">
+          <span className="text-[2.5rem] font-extrabold leading-none tracking-[-0.02em] text-brand-indigo">
+            ${FOUNDER_ALL_ACCESS.annualPrice.toLocaleString()}
+          </span>
+          <span className="text-[0.9rem] font-medium text-brand-charcoal/65">/yr</span>
+        </p>
+        <p className="mb-6 text-[0.72rem] text-brand-charcoal/55">
+          That&rsquo;s ${Math.round(FOUNDER_ALL_ACCESS.annualPrice / 12)}/mo for every tool
+        </p>
+        <ul className="mx-auto mb-6 inline-flex max-w-[24rem] list-none flex-col gap-[0.45rem] p-0 text-left">
+          {FOUNDER_ALL_ACCESS.features.map((f) => (
+            <li
+              key={f}
+              className="relative pl-[1.15rem] text-[0.85rem] leading-[1.4] text-brand-charcoal/75 before:absolute before:left-0 before:text-[0.72rem] before:font-bold before:text-[#22c55e] before:content-['✓']"
+            >
+              {f}
+            </li>
+          ))}
+        </ul>
+        <a
+          href="/sign-up"
+          className="inline-block cursor-pointer rounded-[0.55rem] border border-brand-accent bg-brand-accent px-8 py-[0.75rem] text-[0.9rem] font-bold text-white no-underline transition-[transform,box-shadow,border-color,background-color] duration-200 ease-out hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
+        >
+          Get All-Access
+        </a>
+      </section>
+
       {/* Quick nav */}
       <nav className="flex flex-wrap gap-2 justify-center mb-14" aria-label="Product quick links">
         {TOOLS_PRODUCTS.map((p) => (
@@ -340,12 +385,19 @@ export function ToolsPage() {
       {/* Bottom CTA */}
       <section className="mx-auto mt-8 max-w-[40rem] rounded-[var(--radius-card,1.25rem)] border border-brand-border bg-brand-linen px-[var(--card-pad,1.5rem)] py-10 text-center">
         <h2 className="mb-3 text-[clamp(1.25rem,3vw,1.6rem)] font-bold text-brand-indigo">
-          Bundle your tools and save more.
+          Want every tool?
         </h2>
         <p className="text-[0.9rem] leading-[1.65] text-brand-charcoal/75">
-          Use code <strong>{PROMO_FOUNDING.code}</strong> for 50% off your first tool forever. Then
-          add <strong>{PROMO_BOGO.code}</strong> to get 50% off a second tool. Annual billing saves
-          2 extra months on every tool.
+          The{" "}
+          <a
+            href="#founder-all-access"
+            className="font-semibold text-brand-accent no-underline hover:underline"
+          >
+            Founder All-Access
+          </a>{" "}
+          plan gives you the full suite for ${FOUNDER_ALL_ACCESS.annualPrice.toLocaleString()}/yr
+          &mdash; that&rsquo;s ${Math.round(FOUNDER_ALL_ACCESS.annualPrice / 12)}/mo for every tool,
+          locked in forever.
         </p>
       </section>
     </div>
