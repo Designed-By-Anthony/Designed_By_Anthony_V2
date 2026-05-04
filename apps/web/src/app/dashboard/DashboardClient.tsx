@@ -22,12 +22,36 @@ type MeResponse = {
 };
 
 const PRODUCT_META: Record<string, { name: string; icon: string; appPath: string }> = {
-  sitescan: { name: "SiteScan", icon: "\u{1F50D}", appPath: "/tools/lighthouse-batch-scanner" },
-  reviewpilot: { name: "ReviewPilot", icon: "\u2B50", appPath: "/tools/local-seo-audit-kit" },
-  clienthub: { name: "ClientHub", icon: "\u{1F465}", appPath: "/tools/lead-form-builder" },
-  localrank: { name: "LocalRank", icon: "\u{1F4CD}", appPath: "/tools/local-seo-audit-kit" },
-  testiflow: { name: "TestiFlow", icon: "\u{1F4AC}", appPath: "/tools/cold-outreach-sequencer" },
-  contentmill: { name: "ContentMill", icon: "\u270F\uFE0F", appPath: "/tools/calculator" },
+  sitescan: {
+    name: "SiteScan — Website Health Reports",
+    icon: "\u{1F50D}",
+    appPath: "/tools/lighthouse-scanner",
+  },
+  reviewpilot: {
+    name: "ReviewPilot — AI Review Response",
+    icon: "\u2B50",
+    appPath: "/tools/seo-audit",
+  },
+  clienthub: {
+    name: "ClientHub — Client Portal",
+    icon: "\u{1F465}",
+    appPath: "/tools/lead-form-builder",
+  },
+  localrank: {
+    name: "LocalRank — Local SEO Dashboard",
+    icon: "\u{1F4CD}",
+    appPath: "/tools/site-speed-monitor",
+  },
+  testiflow: {
+    name: "TestiFlow — Testimonial Collector",
+    icon: "\u{1F4AC}",
+    appPath: "/tools/cold-outreach",
+  },
+  contentmill: {
+    name: "ContentMill — AI Social Content",
+    icon: "\u270F\uFE0F",
+    appPath: "/tools/service-area-map",
+  },
 };
 
 export function DashboardClient() {
