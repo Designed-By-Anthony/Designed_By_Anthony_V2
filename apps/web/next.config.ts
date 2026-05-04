@@ -71,7 +71,6 @@ export default withSentryConfig(nextConfig, {
   silent: !process.env.CI,
   widenClientFileUpload: true,
   disableLogger: true,
-  automaticVercelMonitors: true,
   sourcemaps: {
     deleteSourcemapsAfterUpload: true,
   },
