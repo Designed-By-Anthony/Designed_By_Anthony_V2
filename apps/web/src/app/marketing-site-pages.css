@@ -1084,6 +1084,11 @@ a.marketing-service-card:hover {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   transform: scale(1.05);
   z-index: 1;
+  overflow: visible;
+}
+
+.pricing-tier--featured:hover {
+  transform: scale(1.05) translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
 }
 
 .pricing-tier--featured::before {
