@@ -65,7 +65,10 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
     if (!userRow && email) {
       userRow = (await drizzle.select().from(users).where(sql`lower(${users.email}) = ${email}`).limit(1))[0];
 
-      if (userRow && !userRow.clerk_id) {
+      if (userRow && userRow.clerk_id && userRow.clerk_id !== clerkId) {
+        // Row belongs to a different Clerk account — do not return it
+        userRow = undefined;
+      } else if (userRow && !userRow.clerk_id) {
         await drizzle
           .update(users)
           .set({ clerk_id: clerkId, updated_at: Date.now() })
