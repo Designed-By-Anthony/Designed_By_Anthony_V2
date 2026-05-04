@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ComponentPropsWithoutRef } from "react";
 
 const wordmarkBase =
@@ -9,14 +10,29 @@ const variants = {
   dialog: "text-2xl",
 } as const;
 
+const imgHeights = {
+  header: 40,
+  footer: 64,
+  dialog: 40,
+} as const;
+
 export type LogoProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
   variant?: keyof typeof variants;
 };
 
 export function Logo({ variant = "header", className = "", ...props }: LogoProps) {
+  const h = imgHeights[variant];
   return (
-    <span className={`${wordmarkBase} ${variants[variant]} ${className}`.trim()} {...props}>
-      ANTHONY.
+    <span className={`inline-flex items-center ${className}`.trim()} {...props}>
+      <Image
+        src="/logo.png"
+        alt="ANTHONY."
+        width={h}
+        height={h}
+        className="h-auto object-contain"
+        style={{ height: h, width: "auto" }}
+        priority={variant === "header"}
+      />
     </span>
   );
 }
