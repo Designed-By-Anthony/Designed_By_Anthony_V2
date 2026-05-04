@@ -109,24 +109,26 @@ export function AuditForm({
         <div data-form-shell>
           <div className={FORM_GRID}>
             <div className={FIELD}>
-              <label htmlFor={`${formId}-first`}>First name</label>
+              <label htmlFor={`${formId}-first`}>First name <span aria-hidden="true">*</span></label>
               <input
                 id={`${formId}-first`}
                 name="first_name"
                 type="text"
                 autoComplete="given-name"
                 required
+                aria-required="true"
               />
               <p className={FIELD_HINT} data-field-error="first_name" />
             </div>
             <div className={FIELD}>
-              <label htmlFor={`${formId}-email`}>Email</label>
+              <label htmlFor={`${formId}-email`}>Email address <span aria-hidden="true">*</span></label>
               <input
                 id={`${formId}-email`}
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
+                aria-required="true"
               />
               <p className={FIELD_HINT} data-field-error="email" />
             </div>

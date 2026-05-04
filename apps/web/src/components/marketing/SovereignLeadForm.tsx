@@ -94,7 +94,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
     <form onSubmit={handleSubmit} className={SF_FORM}>
       <div className={SF_GRID}>
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>{t("First Name")}</label>
+          <label htmlFor={`${formId}-first_name`}>{t("First Name")} <span aria-hidden="true">*</span></label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -102,11 +102,12 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
             type="text"
             autoComplete="given-name"
             required
+            aria-required="true"
           />
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-email`}>{t("Email")}</label>
+          <label htmlFor={`${formId}-email`}>{t("Email address")} <span aria-hidden="true">*</span></label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -114,11 +115,12 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
             type="email"
             autoComplete="email"
             required
+            aria-required="true"
           />
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-phone`}>{t("Phone")}</label>
+          <label htmlFor={`${formId}-phone`}>{t("Phone number")}</label>
           <input
             id={`${formId}-phone`}
             ref={phoneRef}
@@ -130,7 +132,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-url`}>{t("Website")}</label>
+          <label htmlFor={`${formId}-url`}>{t("Website URL")}</label>
           <input
             id={`${formId}-url`}
             maxLength={80}
@@ -149,7 +151,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={`${SF_FIELD} ${SF_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>{t("Message")}</label>
+          <label htmlFor={`${formId}-description`}>{t("Message")} <span aria-hidden="true">*</span></label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}
@@ -157,6 +159,7 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
             rows={4}
             placeholder={t("Tell us what you're looking for...")}
             required
+            aria-required="true"
           />
         </div>
       </div>

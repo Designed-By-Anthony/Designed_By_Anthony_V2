@@ -45,6 +45,13 @@ export function MarketingChrome({
     <>
       <PageLifecycle />
 
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:rounded-lg focus:bg-brand-indigo focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
+
       <div id="reading-progress-bar" aria-hidden="true" />
       <div className="site-chrome-sticky header-container sticky top-0 z-50 border-b border-[rgba(26,42,64,0.05)] bg-[rgba(248,249,250,0.9)] backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]">
         <BrandHeader />
@@ -85,7 +92,7 @@ export function MarketingChrome({
             </div>
             <nav
               className="flex flex-col items-center gap-8 flex-1 min-h-0 overflow-y-auto [overscroll-behavior:contain] [-webkit-overflow-scrolling:touch] pb-2 [&_a]:text-2xl [&_a]:font-bold [&_a]:text-brand-charcoal/70 [&_a]:uppercase [&_a]:tracking-[0.08em] [&_a]:transition-colors [&_a]:duration-200 [&_a]:no-underline [&_a:hover]:text-brand-indigo"
-              aria-label="Mobile"
+              aria-label="Mobile navigation"
             >
               {SITE_HEADER_NAV_LINKS.map((link) => (
                 <Link key={link.href} href={link.href}>
@@ -152,7 +159,7 @@ export function MarketingChrome({
               data-reach-out-close
               aria-label="Close"
             >
-              ×
+              <span aria-hidden="true">×</span>
             </button>
           </div>
           <h2

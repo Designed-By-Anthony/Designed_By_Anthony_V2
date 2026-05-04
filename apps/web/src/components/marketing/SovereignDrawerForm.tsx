@@ -88,7 +88,7 @@ export function SovereignDrawerForm({
     <form onSubmit={handleSubmit} className={SF_DRAWER_FORM}>
       <div className={SF_DRAWER_GRID}>
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>{t("First Name")}</label>
+          <label htmlFor={`${formId}-first_name`}>{t("First Name")} <span aria-hidden="true">*</span></label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -96,11 +96,12 @@ export function SovereignDrawerForm({
             type="text"
             autoComplete="given-name"
             required
+            aria-required="true"
           />
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-email`}>{t("Email")}</label>
+          <label htmlFor={`${formId}-email`}>{t("Email address")} <span aria-hidden="true">*</span></label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -108,11 +109,12 @@ export function SovereignDrawerForm({
             type="email"
             autoComplete="email"
             required
+            aria-required="true"
           />
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-phone`}>{t("Phone")}</label>
+          <label htmlFor={`${formId}-phone`}>{t("Phone number")}</label>
           <input
             id={`${formId}-phone`}
             ref={phoneRef}
@@ -124,7 +126,7 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-url`}>{t("Website")}</label>
+          <label htmlFor={`${formId}-url`}>{t("Website URL")}</label>
           <input
             id={`${formId}-url`}
             maxLength={80}
@@ -143,7 +145,7 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={`${SF_DRAWER_FIELD} ${SF_DRAWER_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>{t("Message")}</label>
+          <label htmlFor={`${formId}-description`}>{t("Message")} <span aria-hidden="true">*</span></label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}
@@ -151,6 +153,7 @@ export function SovereignDrawerForm({
             rows={3}
             placeholder={t("How can we help?")}
             required
+            aria-required="true"
           />
         </div>
       </div>

@@ -38,6 +38,8 @@ const es: Record<string, string> = {
   Close: "Cerrar",
   "Contact form": "Formulario de contacto",
   "Close contact drawer": "Cerrar formulario de contacto",
+  "Contact \u2014 toggle contact form": "Contacto \u2014 alternar formulario de contacto",
+  "Call us at": "Llámanos al",
   "Start with a free site audit — or just call / email.":
     "Comienza con una auditoría gratuita — o llama / envía un correo.",
   Call: "Llamar",
@@ -46,8 +48,11 @@ const es: Record<string, string> = {
   /* ── Form labels ───────────────────────────────────────── */
   "First Name": "Nombre",
   Email: "Correo",
+  "Email address": "Correo electrónico",
   Phone: "Teléfono",
+  "Phone number": "Número de teléfono",
   Website: "Sitio Web",
+  "Website URL": "URL del sitio web",
   Message: "Mensaje",
   "How can we help?": "¿Cómo podemos ayudarte?",
   "Tell us what you're looking for...": "Cuéntanos qué estás buscando...",
@@ -73,6 +78,9 @@ const es: Record<string, string> = {
   /* ── Language toggle ───────────────────────────────────── */
   "Switch to Spanish": "Cambiar a español",
   "Switch to English": "Cambiar a inglés",
+  "EN \u2014 Switch to English": "EN \u2014 Cambiar a inglés",
+  "ES \u2014 Switch to Spanish": "ES \u2014 Cambiar a español",
+  Language: "Idioma",
 
   /* ── Contact page ──────────────────────────────────────── */
   "Contact the studio": "Contacta al estudio",

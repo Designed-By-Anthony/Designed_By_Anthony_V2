@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { btnPremiumPrimary } from "@/design-system/buttons";
 
 const STORAGE_KEY = "dba_first_visit_shown_v1";
 
 export function FirstVisitSplash() {
   const [isOpen, setIsOpen] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     function tryShow(): (() => void) | undefined {
@@ -18,7 +20,10 @@ export function FirstVisitSplash() {
         /* private browsing */
       }
       if (!hasShown) {
-        const t = setTimeout(() => setIsOpen(true), 800);
+        const t = setTimeout(() => {
+          previousFocusRef.current = document.activeElement as HTMLElement | null;
+          setIsOpen(true);
+        }, 800);
         return () => clearTimeout(t);
       }
     }
@@ -26,20 +31,44 @@ export function FirstVisitSplash() {
     return tryShow();
   }, []);
 
-  const handleClose = () => {
-    localStorage.setItem(STORAGE_KEY, "true");
+  useEffect(() => {
+    if (isOpen) {
+      closeRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const handleClose = useCallback(() => {
+    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
     setIsOpen(false);
-  };
+    previousFocusRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        handleClose();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, handleClose]);
 
   const handleContactClick = () => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
     setIsOpen(false);
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 transform-gpu">
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center p-4 transform-gpu"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="first-visit-splash-title"
+    >
       {/* Backdrop */}
       <button
         type="button"
@@ -52,6 +81,7 @@ export function FirstVisitSplash() {
       <div className="relative w-full max-w-lg overflow-hidden rounded-2xl border border-[rgba(26,42,64,0.1)] bg-[rgba(255,255,255,0.96)] p-8 md:p-10 shadow-[0_32px_80px_-32px_rgba(26,42,64,0.35)]">
         {/* Close Button — inline override of the dark splash-close-btn defaults */}
         <button
+          ref={closeRef}
           type="button"
           onClick={handleClose}
           aria-label="Close"
@@ -75,7 +105,10 @@ export function FirstVisitSplash() {
           <p className="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-[rgb(var(--accent-bronze-rgb)/0.9)]">
             New: Micro SaaS Division
           </p>
-          <h2 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-medium tracking-[-0.035em] leading-[1.1] text-brand-charcoal">
+          <h2
+            id="first-visit-splash-title"
+            className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-medium tracking-[-0.035em] leading-[1.1] text-brand-charcoal"
+          >
             Bespoke web apps & automations.
           </h2>
         </div>
