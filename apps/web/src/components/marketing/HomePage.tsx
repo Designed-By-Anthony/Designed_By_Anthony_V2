@@ -258,11 +258,11 @@ export function HomePage() {
                 want a call. We reply within one business day.
               </p>
             </div>
-            <div className="home-email-cta__actions">
-              <Link href="/contact" className={btnOutline}>
+            <div className="home-email-cta__actions flex flex-col sm:flex-row w-full gap-3">
+              <Link href="/contact" className={`${btnOutline} w-full sm:w-auto`}>
                 Open contact form
               </Link>
-              <Link href="/contact" className={btnPrimary}>
+              <Link href="/contact" className={`${btnPrimary} w-full sm:w-auto`}>
                 Let&apos;s build something great.
               </Link>
             </div>
