@@ -14,3 +14,5 @@ CREATE INDEX `purchases_user_id_idx` ON `purchases` (`user_id`);
 CREATE INDEX `purchases_product_slug_idx` ON `purchases` (`product_slug`);
 --> statement-breakpoint
 CREATE INDEX `purchases_status_idx` ON `purchases` (`status`);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `purchases_stripe_session_id_unique` ON `purchases` (`stripe_session_id`);
