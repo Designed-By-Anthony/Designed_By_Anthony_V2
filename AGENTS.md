@@ -10,6 +10,6 @@
 ## Learned Workspace Facts
 
 - Local development defaults: marketing web on port 3000, admin on 3100, Workers API on 8787.
-- Public lead ingest on the Worker is `POST /leads` (not `POST /api/leads`).
+- Public marketing lead forms should use the Worker `POST /api/lead-email` route; legacy `POST /leads` remains mounted for older flows.
 - Repository root `playwright.config.ts` backs `bun run test`; suites that hit the live worker often use low parallelism so rate limits and D1 state are not corrupted by interleaved workers.
 - Cloudflare Workers and OpenNext need static assets bound and routed so JS, CSS, and fonts return the right MIME types; HTML fallbacks for those URLs surface as browser “refused to load/execute” errors.
