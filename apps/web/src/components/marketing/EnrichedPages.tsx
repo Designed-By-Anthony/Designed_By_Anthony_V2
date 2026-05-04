@@ -297,13 +297,14 @@ export function PricingPage() {
           </p>
         </MotionReveal>
       </section>
-      <section className="section-shell section-shell--wash">
+      <section className="section-shell section-shell--wash" aria-label="Pricing tiers">
         <div className="section-container">
           <div className="section-divider-glow" aria-hidden="true" />
           <MotionStagger className="pricing-tiers" staggerDelay={0.08}>
             <MotionStaggerChild
               as="article"
               className="surface-card pricing-tier !p-10 reveal-left"
+              aria-label="Simple Site pricing tier"
             >
               <p className="pricing-tier-name">Simple Site</p>
               <p className="pricing-tier-price">
@@ -332,6 +333,7 @@ export function PricingPage() {
             <MotionStaggerChild
               as="article"
               className="surface-card pricing-tier pricing-tier--featured !p-10 reveal-scale"
+              aria-label="Standard Rebuild pricing tier — most popular"
             >
               <span className="pricing-tier-badge">Most Popular</span>
               <p className="pricing-tier-name">Standard Rebuild</p>
@@ -367,6 +369,7 @@ export function PricingPage() {
             <MotionStaggerChild
               as="article"
               className="surface-card pricing-tier !p-10 reveal-right"
+              aria-label="Enterprise pricing tier"
             >
               <p className="pricing-tier-name">Enterprise</p>
               <p className="pricing-tier-price">
