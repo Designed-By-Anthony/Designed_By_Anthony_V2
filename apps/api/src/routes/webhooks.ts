@@ -69,7 +69,7 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
     // ── Event handling ─────────────────────────────────────────────────────────
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
-      const customerEmail = session.customer_email;
+      const customerEmail = session.customer_email ?? session.customer_details?.email;
       const amountTotal = session.amount_total;
       const stripeSessionId = session.id;
 
@@ -134,9 +134,9 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
               : (session.customer?.id ?? null),
         });
 
-        const productSlug = session.metadata?.product_slug;
-        const tier = session.metadata?.tier;
-        if (productSlug && tier) {
+        const productSlugRaw = session.metadata?.product_slug;
+        const tierRaw = session.metadata?.tier;
+        if (productSlugRaw && tierRaw) {
           try {
             const drizzle = createD1Client(db);
             const userRow = await drizzle
@@ -145,15 +145,25 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
               .where(sql`lower(${users.email}) = ${customerEmail.trim().toLowerCase()}`)
               .limit(1);
             if (userRow[0]) {
-              await drizzle.insert(purchases).values({
-                id: crypto.randomUUID(),
-                user_id: userRow[0].id,
-                product_slug: productSlug,
-                tier,
-                stripe_session_id: stripeSessionId,
-                status: "active",
-                created_at: Date.now(),
-              });
+              const slugs = productSlugRaw
+                .split(",")
+                .map((s: string) => s.trim())
+                .filter(Boolean);
+              const tiers = tierRaw
+                .split(",")
+                .map((s: string) => s.trim())
+                .filter(Boolean);
+              for (let i = 0; i < slugs.length; i++) {
+                await drizzle.insert(purchases).values({
+                  id: crypto.randomUUID(),
+                  user_id: userRow[0].id,
+                  product_slug: slugs[i],
+                  tier: tiers[i] ?? tiers[0] ?? "pro",
+                  stripe_session_id: stripeSessionId,
+                  status: "active",
+                  created_at: Date.now(),
+                });
+              }
             }
           } catch {
             // non-fatal — purchase record is best-effort

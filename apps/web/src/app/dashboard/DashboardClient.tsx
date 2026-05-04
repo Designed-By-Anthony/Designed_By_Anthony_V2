@@ -21,13 +21,42 @@ type MeResponse = {
   purchases: Purchase[];
 };
 
-const PRODUCT_META: Record<string, { name: string; icon: string; appPath: string }> = {
-  sitescan: { name: "SiteScan", icon: "\u{1F50D}", appPath: "/tools/lighthouse-batch-scanner" },
-  reviewpilot: { name: "ReviewPilot", icon: "\u2B50", appPath: "/tools/local-seo-audit-kit" },
-  clienthub: { name: "ClientHub", icon: "\u{1F465}", appPath: "/tools/lead-form-builder" },
-  localrank: { name: "LocalRank", icon: "\u{1F4CD}", appPath: "/tools/local-seo-audit-kit" },
-  testiflow: { name: "TestiFlow", icon: "\u{1F4AC}", appPath: "/tools/cold-outreach-sequencer" },
-  contentmill: { name: "ContentMill", icon: "\u270F\uFE0F", appPath: "/tools/calculator" },
+const PRODUCT_META: Record<string, { name: string; icon: string; url: string }> = {
+  "construction-calculator": {
+    name: "Construction Calculator",
+    icon: "\u{1F3D7}\uFE0F",
+    url: "https://calculator.designedbyanthony.online",
+  },
+  "lead-form-builder": {
+    name: "Contact Form Builder",
+    icon: "\u{1F4CB}",
+    url: "https://lead-form.designedbyanthony.online",
+  },
+  "site-speed-monitor": {
+    name: "Website Speed Test",
+    icon: "\u26A1",
+    url: "https://web-vitals.designedbyanthony.online",
+  },
+  "seo-audit": {
+    name: "Local SEO Checker",
+    icon: "\u{1F50D}",
+    url: "https://seo-audit.designedbyanthony.online",
+  },
+  "cold-outreach": {
+    name: "Follow-Up Email Writer",
+    icon: "\u2709\uFE0F",
+    url: "https://outreach.designedbyanthony.online",
+  },
+  "service-area-map": {
+    name: "Service Area Map",
+    icon: "\u{1F4CD}",
+    url: "https://service-area.designedbyanthony.online",
+  },
+  "lighthouse-scanner": {
+    name: "Website Speed Grader",
+    icon: "\u{1F680}",
+    url: "https://lighthouse.designedbyanthony.online",
+  },
 };
 
 export function DashboardClient() {
@@ -93,7 +122,7 @@ export function DashboardClient() {
                       return (
                         <a
                           key={p.id}
-                          href={`${TOOLS_DOMAIN}${meta?.appPath ?? ""}`}
+                          href={meta?.url ?? TOOLS_DOMAIN}
                           className="flex items-start gap-4 rounded-xl border border-[rgba(26,42,64,0.1)] bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
                         >
                           <span className="text-2xl" aria-hidden="true">
