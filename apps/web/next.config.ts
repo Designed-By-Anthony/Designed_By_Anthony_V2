@@ -1,3 +1,4 @@
+import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
 const monorepoRoot = new URL("../../", `file://${process.cwd()}/`).pathname;
@@ -8,7 +9,7 @@ const _CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://client.crisp.chat",
   "font-src 'self' data: https://fonts.gstatic.com https://client.crisp.chat",
   "img-src 'self' data: blob: https:",
-  "connect-src 'self' https://dba-api.anthony-6b4.workers.dev https://api.designedbyanthony.com https://api.designedbyanthony.online https://api.stripe.com https://client.crisp.chat https://service.crisp.chat wss://relay.crisp.chat https://challenges.cloudflare.com https://tremendous-emu-522.convex.site https://cloudflareinsights.com",
+  "connect-src 'self' https://dba-api.anthony-6b4.workers.dev https://api.designedbyanthony.com https://api.designedbyanthony.online https://api.stripe.com https://client.crisp.chat https://service.crisp.chat wss://relay.crisp.chat https://challenges.cloudflare.com https://tremendous-emu-522.convex.site https://cloudflareinsights.com https://*.ingest.sentry.io",
   "frame-src https://challenges.cloudflare.com https://js.stripe.com",
   "worker-src 'self' blob:",
   "object-src 'none'",
@@ -64,4 +65,14 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  disableLogger: true,
+  automaticVercelMonitors: true,
+  sourcemaps: {
+    deleteSourcemapsAfterUpload: true,
+  },
+});
