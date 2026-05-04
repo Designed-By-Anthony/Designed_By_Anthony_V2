@@ -121,5 +121,38 @@ export function HomePage() {
             var params = new URLSearchParams(window.location.search);
             var variantKey = params.get('v');
             var heroVariants = ${JSON.stringify(heroVariants)};
-            if (variantKey && heroVariants[variantKey]) {
-              var variant =
+            if (variantKey && heroVariants && heroVariants[variantKey]) {
+              var variant = heroVariants[variantKey];
+              var eyebrow = document.querySelector('[data-hero-eyebrow]');
+              var h1 = document.querySelector('[data-hero-h1]');
+              var sub = document.querySelector('[data-hero-sub]');
+              if (eyebrow && variant.eyebrow) eyebrow.textContent = variant.eyebrow;
+              if (h1 && variant.h1) h1.textContent = variant.h1;
+              if (sub && variant.sub) sub.textContent = variant.sub;
+              document.documentElement.setAttribute('data-hero-variant', variantKey);
+            }
+          } catch (e) {
+            console.error("Hero variant swap failed", e);
+          }
+        })();`}
+      </Script>
+
+      <Script id="home-hero-motion" strategy="afterInteractive">
+        {`(() => {
+          var hero = document.querySelector('.page-hero--home');
+          if (!hero) return;
+          var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (prefersReducedMotion) return;
+
+          hero.addEventListener('pointermove', function (e) {
+            var rect = hero.getBoundingClientRect();
+            var x = ((e.clientX - rect.left) / rect.width) * 100;
+            var y = ((e.clientY - rect.top) / rect.height) * 100;
+            hero.style.setProperty('--hero-spot-x', x.toFixed(2) + '%');
+            hero.style.setProperty('--hero-spot-y', y.toFixed(2) + '%');
+          }, { passive: true });
+        })();`}
+      </Script>
+    </>
+  );
+}
