@@ -46,6 +46,7 @@
       "dependencies": {
         "@dba/shared": "workspace:*",
         "@elysiajs/cors": "^1.4.2",
+        "@sentry/cloudflare": "^10.51.0",
         "elysia": "^1.4.28",
         "jose": "^6.2.3",
         "stripe": "^16.0.0",
@@ -460,6 +461,8 @@
 
     "@opennextjs/cloudflare": ["@opennextjs/cloudflare@1.19.5", "", { "dependencies": { "@ast-grep/napi": "^0.40.5", "@dotenvx/dotenvx": "1.31.0", "@opennextjs/aws": "3.10.4", "ci-info": "^4.2.0", "cloudflare": "^4.4.1", "comment-json": "^4.5.1", "enquirer": "^2.4.1", "glob": "^12.0.0", "ts-tqdm": "^0.8.6", "yargs": "^18.0.0" }, "peerDependencies": { "next": ">=15.5.15 <16 || >=16.2.3", "wrangler": "^4.86.0" }, "bin": { "opennextjs-cloudflare": "dist/cli/index.js" } }, "sha512-EE3RiAyxqqlKBImUFuSdK+jYgSuWvQBn0iLnh1USF0nPAGbYjmjRLmOpxNPd234yE+JerDK3GkJ787xF86lHCw=="],
 
+    "@opentelemetry/api": ["@opentelemetry/api@1.9.1", "", {}, "sha512-gLyJlPHPZYdAk1JENA9LeHejZe1Ti77/pTeFm/nMXmQH/HFZlcS/O2XJB+L8fkbrNSqhdtlvjBVjxwUYanNH5Q=="],
+
     "@playwright/test": ["@playwright/test@1.59.1", "", { "dependencies": { "playwright": "1.59.1" }, "bin": { "playwright": "cli.js" } }, "sha512-PG6q63nQg5c9rIi4/Z5lR5IVF7yU5MqmKaPOe0HSc0O2cX1fPi96sUQu5j7eo4gKCkB2AnNGoWt7y4/Xx3Kcqg=="],
 
     "@poppinss/colors": ["@poppinss/colors@4.1.6", "", { "dependencies": { "kleur": "^4.1.5" } }, "sha512-H9xkIdFswbS8n1d6vmRd8+c10t2Qe+rZITbbDHHkQixH5+2x1FDGmi/0K+WgWiqQFKPSlIYB7jlH6Kpfn6Fleg=="],
@@ -487,6 +490,10 @@
     "@protobufjs/pool": ["@protobufjs/pool@1.1.0", "", {}, "sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw=="],
 
     "@protobufjs/utf8": ["@protobufjs/utf8@1.1.1", "", {}, "sha512-oOAWABowe8EAbMyWKM0tYDKi8Yaox52D+HWZhAIJqQXbqe0xI/GV7FhLWqlEKreMkfDjshR5FKgi3mnle0h6Eg=="],
+
+    "@sentry/cloudflare": ["@sentry/cloudflare@10.51.0", "", { "dependencies": { "@opentelemetry/api": "^1.9.1", "@sentry/core": "10.51.0" }, "peerDependencies": { "@cloudflare/workers-types": "^4.x" }, "optionalPeers": ["@cloudflare/workers-types"] }, "sha512-oDv2i70q25QPG9zN2GbdtkAjxBdvwHjZL+2aAuilDsagz+jUMq89EXrdh3RPdqnSlaTOqMJovIRDJVbTvpOCsg=="],
+
+    "@sentry/core": ["@sentry/core@10.51.0", "", {}, "sha512-Y45V/YXvVLEXmOdkbD1oG1gkRWFi9guCEGg3PlIlIpRjAbZUrvLGgjRJIc1E7XpSzmOnWbs5BbUxMv4PDaPj2w=="],
 
     "@sinclair/typebox": ["@sinclair/typebox@0.34.49", "", {}, "sha512-brySQQs7Jtn0joV8Xh9ZV/hZb9Ozb0pmazDIASBkYKCjXrXU3mpcFahmK/z4YDhGkQvP9mWJbVyahdtU5wQA+A=="],
 

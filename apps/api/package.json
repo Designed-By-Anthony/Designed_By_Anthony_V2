@@ -16,6 +16,7 @@
   "dependencies": {
     "@dba/shared": "workspace:*",
     "@elysiajs/cors": "^1.4.2",
+    "@sentry/cloudflare": "^10.51.0",
     "elysia": "^1.4.28",
     "jose": "^6.2.3",
     "stripe": "^16.0.0",
