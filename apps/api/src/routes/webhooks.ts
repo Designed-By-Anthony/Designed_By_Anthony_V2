@@ -69,7 +69,7 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
     // ── Event handling ─────────────────────────────────────────────────────────
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
-      const customerEmail = session.customer_email;
+      const customerEmail = session.customer_email ?? session.customer_details?.email;
       const amountTotal = session.amount_total;
       const stripeSessionId = session.id;
 
