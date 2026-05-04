@@ -148,7 +148,11 @@ export function HomePage() {
                 <span className="hero-cta-glow-halo" aria-hidden="true" />
                 Audit My Site
               </Link>
-              <Link href="/contact" className={btnOutline} id="hero-contact-btn">
+              <Link
+                href="/contact"
+                className={`${btnOutline} !border-brand-indigo/50 !bg-white !shadow-[0_4px_16px_-8px_rgba(26,42,64,0.18)]`}
+                id="hero-contact-btn"
+              >
                 Contact us
               </Link>
             </div>

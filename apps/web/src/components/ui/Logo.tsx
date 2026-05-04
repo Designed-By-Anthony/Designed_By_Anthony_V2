@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from "react";
 import { BRAND_ASSETS, BRAND_NAME } from "@/design-system/brand";
 
 const imgHeights = {
-  header: 40,
+  header: 56,
   footer: 64,
   dialog: 40,
 } as const;

@@ -17,6 +17,10 @@ Content-Signal: ai-train=no, search=yes, ai-input=no
 
 Sitemap: https://designedbyanthony.com/sitemap.xml
 
+# LLM-readable summary of this site
+# https://llmstxt.org/
+LLMs-Txt: https://designedbyanthony.com/llms.txt
+
 # Note: agent-skills, api-catalog, and mcp-server discovery should be
 # advertised via HTTP `Link:` response headers, not robots.txt.
 # `Link:` is not a valid robots.txt directive and Lighthouse flags it.
