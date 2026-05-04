@@ -11,10 +11,10 @@
   "scripts": {
     "dev": "next dev --port 3100 --webpack",
     "build": "bun run build:next",
-    "build:next": "NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
-    "build:worker": "NODE_OPTIONS=\"--max-old-space-size=4096\" opennextjs-cloudflare build",
+    "build:next": "node ../../scripts/require-clerk-build-env.mjs && NODE_OPTIONS=\"--max-old-space-size=4096\" next build",
+    "build:worker": "node ../../scripts/require-clerk-build-env.mjs && NODE_OPTIONS=\"--max-old-space-size=4096\" opennextjs-cloudflare build",
     "preview": "bun run build:worker && wrangler dev",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy": "node ../../scripts/require-clerk-build-env.mjs && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "start": "next start --port 3100",
     "typecheck": "tsc --noEmit"
   },
