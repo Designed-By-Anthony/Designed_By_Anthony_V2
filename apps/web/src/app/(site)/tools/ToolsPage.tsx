@@ -282,6 +282,20 @@ export function ToolsPage() {
           and more — priced for small businesses and freelancers. No bloat. No contracts. Pre-order
           now to lock in founding member pricing.
         </p>
+        <div className="mt-6 flex gap-3 justify-center flex-wrap">
+          <a
+            href="/sign-up"
+            className="inline-flex items-center gap-2 rounded-[0.55rem] border border-brand-accent bg-brand-accent px-6 py-[0.65rem] text-[0.85rem] font-bold text-white no-underline transition-[transform,box-shadow,background] duration-200 ease-out hover:-translate-y-px hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
+          >
+            Sign Up &amp; Get Started
+          </a>
+          <a
+            href="/sign-in"
+            className="inline-flex items-center gap-2 rounded-[0.55rem] border border-brand-border bg-transparent px-6 py-[0.65rem] text-[0.85rem] font-semibold text-brand-charcoal/70 no-underline transition-colors duration-200 ease-in hover:border-brand-accent hover:text-brand-indigo"
+          >
+            Already have an account? Sign in
+          </a>
+        </div>
       </section>
 
       {/* Promo banners */}

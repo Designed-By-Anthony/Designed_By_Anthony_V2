@@ -15,6 +15,7 @@ import { testEmailsRoute } from "./routes/testEmails";
 import { testRateLimitsRoute } from "./routes/testRateLimits";
 import { vaultRoute } from "./routes/vault";
 import { webhooks } from "./routes/webhooks";
+import { checkoutRoute } from "./routes/checkout";
 
 // Export the handler directly for Cloudflare Workers
 // env and ctx are passed directly from the Worker fetch handler to Elysia
@@ -53,7 +54,8 @@ const app = new Elysia({ aot: false })
   .use(reportPdfRoute)
   .use(testEmailsRoute)
   .use(testRateLimitsRoute)
-  .use(webhooks);
+  .use(webhooks)
+  .use(checkoutRoute);
 
 import { type AuditQueueMessage, runAuditDetonatorJob } from "./services/auditDetonatorPipeline";
 
