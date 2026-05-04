@@ -271,7 +271,7 @@ export const serviceAreaLocations: readonly ServiceAreaLocation[] = [
     name: "Albany, NY",
     tag: "primary",
     cardBadge: "CAPITAL REGION",
-    cardTeaser: "High-performance infrastructure for the Tech Valley corridor.",
+    cardTeaser: "Custom websites for the Tech Valley corridor.",
     heroSubtitle:
       "Custom web design and local SEO for Albany and the Capital Region's growing tech and service economy.",
     metaDescription:

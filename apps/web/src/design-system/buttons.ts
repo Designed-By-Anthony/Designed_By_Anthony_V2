@@ -12,7 +12,7 @@
  *
  * VERIFIED CONTRAST PAIRS (WCAG AA = 4.5:1, AAA = 7:1):
  *   indigo on linen   = 14.1:1  AAA      ← default body / secondary text
- *   linen on slate    =  4.6:1  AA       ← `btnPrimary`
+ *   white on slate    =  5.2:1  AA       ← `btnPrimary`
  *   indigo on white   = 14.7:1  AAA      ← `btnWhite`, `btn-premium-primary`
  *   indigo on linen   = 14.1:1  AAA      ← `btnSecondary`, `btnOutline`
  *   slate on linen    =  4.5:1  AA       ← icons, eyebrows; NOT button text
@@ -29,7 +29,7 @@
  */
 
 const slateBtn =
-  "btn relative inline-flex items-center justify-center gap-[0.45rem] px-[1.8rem] py-[0.96rem] rounded-full overflow-hidden cursor-pointer no-underline font-[family-name:var(--font-inter)] font-semibold text-[0.95rem] tracking-normal leading-none text-[#F8F9FA] bg-[#5B7C99] border border-transparent shadow-[0_8px_30px_rgb(26,42,64,0.04)] transition-[transform,box-shadow,background-color,border-color] duration-[300ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:bg-[#1A2A40] hover:shadow-[0_10px_34px_-20px_rgba(26,42,64,0.12)] active:scale-[0.98] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(91,124,153,0.45)] focus-visible:outline-offset-[3px] disabled:opacity-[0.72] disabled:cursor-not-allowed";
+  "btn relative inline-flex items-center justify-center gap-[0.45rem] px-[1.8rem] py-[0.96rem] rounded-full overflow-hidden cursor-pointer no-underline font-[family-name:var(--font-inter)] font-semibold text-[0.95rem] tracking-normal leading-none text-[#FFFFFF] bg-[#486D8A] border border-transparent shadow-[0_8px_30px_rgb(26,42,64,0.06)] transition-[transform,box-shadow,background-color,border-color] duration-[300ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:bg-[#1A2A40] hover:shadow-[0_10px_34px_-20px_rgba(26,42,64,0.14)] active:scale-[0.98] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[rgba(91,124,153,0.45)] focus-visible:outline-offset-[3px] disabled:opacity-[0.72] disabled:cursor-not-allowed";
 
 export const btnChrome = slateBtn;
 
@@ -51,7 +51,7 @@ export const btnPrimaryAudit = `${slateBtn} [&.audit-submit-success]:!bg-[#15803
 
 export const btnSecondaryProof = `${btnBase} !bg-brand-surface !text-brand-charcoal border-brand-border shadow-[0_8px_24px_-16px_rgba(26,42,64,0.12)] hover:!bg-brand-linen hover:border-brand-indigo/25`;
 
-export const btnOutline = `${btnBase} !bg-transparent !text-brand-charcoal border border-brand-indigo/20 shadow-none hover:!bg-brand-linen hover:border-brand-indigo/35`;
+export const btnOutline = `${btnBase} !bg-[rgba(255,255,255,0.72)] backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)] !text-brand-indigo border border-brand-indigo/25 shadow-[0_4px_16px_-8px_rgba(26,42,64,0.1)] hover:!bg-[rgba(255,255,255,0.88)] hover:border-brand-indigo/40 hover:shadow-[0_6px_20px_-10px_rgba(26,42,64,0.14)]`;
 
 export const btnSecondary = `${btnBase} !bg-transparent !text-brand-charcoal border border-brand-indigo/15 shadow-none hover:!bg-brand-surface`;
 

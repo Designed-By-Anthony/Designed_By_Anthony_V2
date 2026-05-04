@@ -19,7 +19,7 @@ export type BrandHeaderProps = {
 const navAuditCtaTypography =
   "font-[family-name:var(--font-inter)] font-semibold uppercase tracking-widest text-[0.68rem]";
 
-const navCtaBase = `inline-flex items-center gap-[0.4rem] rounded-[0.6rem] border border-brand-accent bg-brand-accent ${navAuditCtaTypography} text-brand-linen no-underline transition-[transform,background-color,border-color] duration-[200ms] ease-in whitespace-nowrap hover:-translate-y-px hover:bg-[#4a6278] hover:border-[#4a6278]`;
+const navCtaBase = `inline-flex items-center gap-[0.4rem] rounded-[0.6rem] border border-[#486D8A] bg-[#486D8A] ${navAuditCtaTypography} text-white no-underline transition-[transform,background-color,border-color] duration-[200ms] ease-in whitespace-nowrap hover:-translate-y-px hover:bg-[#1A2A40] hover:border-[#1A2A40]`;
 
 const auditCurrentChip = `inline-flex items-center gap-[0.45rem] px-3 py-[0.35rem] rounded-full border border-brand-border bg-brand-linen ${navAuditCtaTypography} text-brand-indigo whitespace-nowrap`;
 

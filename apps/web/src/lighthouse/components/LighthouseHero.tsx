@@ -188,7 +188,7 @@ export function LighthouseHero() {
         transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       >
         <span className="inline-block h-px w-7 bg-brand-accent/70" aria-hidden />
-        <span>The Diagnostic Bench</span>
+        <span>Free Website Audit</span>
       </MotionDiv>
 
       <MotionDiv

@@ -392,6 +392,9 @@ export function PricingPage() {
             <Link href="/contact" className={btnPrimary}>
               Let&apos;s build something great.
             </Link>
+            <Link href="/calculator" className={btnOutline}>
+              Cost Calculator
+            </Link>
             <Link href="/lighthouse" className={btnOutline}>
               Audit My Site
             </Link>

@@ -93,7 +93,7 @@ export const YELP_BUSINESS_URL = "https://www.yelp.com/biz/designed-by-anthony-r
 
 /** Richer org description for JSON-LD (Organization / ProfessionalService / LocalBusiness). */
 export const ORGANIZATION_SCHEMA_DESCRIPTION =
-  "ANTHONY. engineers bespoke digital estates and high-performance infrastructure for service businesses — The Vault CRM (client workspace and automations), managed hosting, and local SEO across the Mohawk Valley (315), Capital Region (518), and Central New York. Digital Infrastructure, Engineered in the Copper City (Rome, NY).";
+  "ANTHONY. builds custom websites and marketing systems for service businesses — The Vault CRM (client workspace and automations), managed hosting, and local SEO across the Mohawk Valley (315), Capital Region (518), and Central New York. Custom websites designed in Rome, NY.";
 
 export const businessProfile = {
   name: SITE_NAME,
@@ -681,7 +681,7 @@ export function buildBaseOrganizationSchema(): SchemaValue {
       },
       ...businessProfile.areaServed.map(toPlace),
     ],
-    slogan: "Digital Infrastructure, Engineered in the Copper City.",
+    slogan: "Custom Websites for the 315.",
     brand: {
       "@type": "Brand",
       name: SITE_NAME,
@@ -765,7 +765,7 @@ export function buildVaultCrmSoftwareApplicationSchema(): SchemaValue {
     "@type": ["SoftwareApplication", "WebApplication"],
     "@id": VAULT_CRM_SOFTWARE_ID,
     name: "The Vault by ANTHONY.",
-    alternateName: ["ANTHONY. Vault — Client Workspace", "ANTHONY_INFRASTRUCTURE"],
+    alternateName: ["ANTHONY. Vault — Client Workspace", "ANTHONY_WEB_STUDIO"],
     description:
       "CRM for service businesses: pipeline and leads, client portal (magic-link access), and automations — paired with hosting and local SEO on the Growth Plan. Console access via the managed admin host; client-facing tools via accounts.designedbyanthony.com.",
     applicationCategory: "BusinessApplication",

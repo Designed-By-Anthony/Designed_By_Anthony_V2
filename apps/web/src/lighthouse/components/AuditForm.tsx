@@ -107,11 +107,11 @@ export function AuditForm() {
           Blueprint requested
         </p>
         <h2 className="mt-3 font-[family-name:var(--font-display)] text-[1.5rem] font-bold tracking-tight text-brand-charcoal sm:text-[1.75rem]">
-          Our edge servers are on it
+          Your audit is on the way
         </h2>
         <p className="mt-4 max-w-xl text-[15px] leading-[1.75] text-brand-charcoal/75">
-          Blueprint requested. Our edge servers are analyzing your infrastructure. Your
-          architectural report will be in your inbox in 2–3 minutes.
+          Got it — we’re running your site through a full performance and SEO check right now. Your
+          report will be in your inbox in 2–3 minutes.
         </p>
         <button
           type="button"
@@ -143,7 +143,7 @@ export function AuditForm() {
             Get Your Free Report
           </h2>
           <p className="mt-3 max-w-xl text-[14px] leading-[1.7] text-brand-charcoal/60">
-            Submit your URL — we queue a full lab pass and email a branded architectural blueprint.
+            Submit your URL — we'll run a full performance and SEO check and email you the results.
             No waiting on this screen.
           </p>
         </div>
