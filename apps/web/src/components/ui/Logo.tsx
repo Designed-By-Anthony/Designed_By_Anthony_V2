@@ -2,12 +2,6 @@ import Image from "next/image";
 import type { ComponentPropsWithoutRef } from "react";
 import { BRAND_ASSETS, BRAND_NAME } from "@/design-system/brand";
 
-const variants = {
-  header: "text-2xl",
-  footer: "text-5xl max-md:text-4xl",
-  dialog: "text-2xl",
-} as const;
-
 const imgHeights = {
   header: 40,
   footer: 64,
@@ -15,7 +9,7 @@ const imgHeights = {
 } as const;
 
 export type LogoProps = Omit<ComponentPropsWithoutRef<"span">, "children"> & {
-  variant?: keyof typeof variants;
+  variant?: keyof typeof imgHeights;
 };
 
 export function Logo({ variant = "header", className = "", ...props }: LogoProps) {
