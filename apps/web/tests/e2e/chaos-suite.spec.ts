@@ -70,14 +70,46 @@ import { expect, test } from "@playwright/test";
 const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8787";
 const WEB = process.env.NEXT_PUBLIC_WEB_URL ?? "http://localhost:3000";
 
-// ── helpers ──────────────────────────────────────────────────────────────
+// ── named constants ───────────────────────────────────────────────────────
+
+/** Characters to stress-test the message/metadata columns. */
+const MAX_MESSAGE_STRESS_LENGTH = 5000;
+
+/**
+ * Delay in ms used to simulate a slow/hung API response.
+ * 5.5 s exceeds a reasonable 5 s UX timeout and triggers the
+ * "request aborted" code path in the form's fetch handler.
+ */
+const API_TIMEOUT_THRESHOLD_MS = 5500;
+
+/**
+ * Minimum z-index for a sticky site header to stay above scrolled content.
+ * Anything below 10 risks page sections painting on top of the nav.
+ */
+const STICKY_HEADER_MIN_Z_INDEX = 10;
+
+/** Brand-indigo color values used to detect ghost-button regressions. */
+const BRAND_INDIGO_RGB = "26, 42, 64";
+const BRAND_INDIGO_HEX = "#1a2a40";
+
+// ── type aliases ─────────────────────────────────────────────────────────
+
+type TestContext = Parameters<Parameters<typeof test>[1]>[0];
+type PlaywrightRequest = TestContext["request"];
+
+// ── helpers ───────────────────────────────────────────────────────────────
 
 function randomEmail(): string {
-  return `chaos-${randomUUID()}@fire.test`;
+  return `chaos-${randomUUID()}@example.test`;
+}
+
+/** Generate a string of `length` repeated characters for stress tests. */
+function stressMessage(length: number, char = "A"): string {
+  return char.repeat(length);
 }
 
 /** Reset in-memory rate-limit buckets so tests don't bleed into each other. */
-async function resetRateLimits(request: Parameters<Parameters<typeof test>[1]>[0]["request"]) {
+async function resetRateLimits(request: PlaywrightRequest) {
   await request.delete(`${API}/api/test/rate-limits`);
 }
 
@@ -185,8 +217,8 @@ test.describe("Chaos · Pillar 1 — Integration Gauntlet", () => {
 
     // Intercept the lead-email API call and delay it beyond a realistic timeout
     await page.route(`${API}/api/lead-email`, async (route) => {
-      // Simulate a 5 s+ slow/broken response then abort
-      await new Promise((r) => setTimeout(r, 5500));
+      // Simulate a slow/broken response then abort
+      await new Promise((r) => setTimeout(r, API_TIMEOUT_THRESHOLD_MS));
       route.abort("timedout");
     });
 
@@ -333,10 +365,12 @@ test.describe("Chaos · Pillar 2 — Security & Auth Infiltration", () => {
       status,
       "If this fails with a 302/auth-redirect it means GAP-3 has been fixed ✅"
     ).toBeLessThan(400);
-    // Flag the gap explicitly in the test output.
-    console.warn(
-      "⚠️  GAP-3: /vault loaded without Clerk auth. Ensure Cloudflare Access is active in production."
-    );
+    // Flag the gap explicitly in the test output using Playwright's annotation API.
+    test.info().annotations.push({
+      type: "GAP-3",
+      description:
+        "⚠️  /vault loaded without Clerk auth. Ensure Cloudflare Access is active in production.",
+    });
   });
 });
 
@@ -415,8 +449,10 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
       const bgLower = btn.bgColor.toLowerCase();
 
       // Convert rgb(26, 42, 64) → the indigo brand color
-      const isIndigoText = colorLower.includes("26, 42, 64") || colorLower === "#1a2a40";
-      const isIndigoBg = bgLower.includes("26, 42, 64") || bgLower === "#1a2a40";
+      const isIndigoText =
+        colorLower.includes(BRAND_INDIGO_RGB) || colorLower === BRAND_INDIGO_HEX;
+      const isIndigoBg =
+        bgLower.includes(BRAND_INDIGO_RGB) || bgLower === BRAND_INDIGO_HEX;
 
       expect(
         isIndigoText && isIndigoBg,
@@ -477,12 +513,12 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
       return Number.parseInt(window.getComputedStyle(header).zIndex, 10) || 0;
     });
 
-    // A z-index of at least 10 is the minimum to be considered sticky
+    // A z-index of at least STICKY_HEADER_MIN_Z_INDEX is the minimum to be considered sticky
     if (headerZIndex !== null) {
       expect(
         headerZIndex,
         `Sticky header z-index is ${headerZIndex} — it may be overlapped by page content`
-      ).toBeGreaterThanOrEqual(10);
+      ).toBeGreaterThanOrEqual(STICKY_HEADER_MIN_Z_INDEX);
     }
   });
 });
@@ -501,7 +537,7 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
   test("POST /leads with 5 000-char message — no 500, D1 does not truncate", async ({
     request,
   }) => {
-    const junkMessage = "A".repeat(5000);
+    const junkMessage = stressMessage(MAX_MESSAGE_STRESS_LENGTH);
     const email = randomEmail();
 
     const res = await request.post(`${API}/leads`, {
@@ -520,7 +556,7 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
     });
 
     // Must NOT crash the Worker
-    expect(res.status(), `POST /leads with 5 000-char body should not 5xx — got ${res.status()}`).not.toBe(500);
+    expect(res.status(), `POST /leads with ${MAX_MESSAGE_STRESS_LENGTH}-char body should not 5xx — got ${res.status()}`).not.toBe(500);
 
     if (res.ok()) {
       // Verify D1 preserved the full payload
@@ -532,8 +568,8 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
         const meta = JSON.parse(row.metadata) as { description?: string };
         expect(
           meta.description?.length,
-          "D1 must not silently truncate a 5 000-char message"
-        ).toBe(5000);
+          `D1 must not silently truncate a ${MAX_MESSAGE_STRESS_LENGTH}-char message`
+        ).toBe(MAX_MESSAGE_STRESS_LENGTH);
       }
     }
   });
@@ -587,7 +623,7 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
   test("POST /api/lead-email with 5 000-char message — no 500, structured response", async ({
     request,
   }) => {
-    const junkMessage = "B".repeat(5000);
+    const junkMessage = stressMessage(MAX_MESSAGE_STRESS_LENGTH, "B");
 
     const res = await request.post(`${API}/api/lead-email`, {
       headers: {
@@ -605,7 +641,7 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
     // 400 (validation) is also fine. 500 is NOT.
     expect(
       res.status(),
-      `POST /api/lead-email with 5 000-char message must not 5xx — got ${res.status()}`
+      `POST /api/lead-email with ${MAX_MESSAGE_STRESS_LENGTH}-char message must not 5xx — got ${res.status()}`
     ).not.toBe(500);
 
     const contentType = res.headers()["content-type"] ?? "";
