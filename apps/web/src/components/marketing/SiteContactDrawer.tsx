@@ -131,6 +131,7 @@ export function SiteContactDrawer() {
         className={TAB}
         aria-expanded={open}
         aria-controls={panelId}
+        aria-label={t("Contact — toggle contact form")}
         onClick={toggle}
       >
         <span className={TAB_CHEVRON} aria-hidden="true">
@@ -157,7 +158,7 @@ export function SiteContactDrawer() {
             onClick={close}
             aria-label={t("Close contact drawer")}
           >
-            ×
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <div className={INNER}>
@@ -170,6 +171,7 @@ export function SiteContactDrawer() {
             href={businessProfile.telephoneHref}
             className={`nav-rail-link nav-rail-link--phone ${RAIL_LINK}`}
             onClick={close}
+            aria-label={t("Call us at") + " " + businessProfile.telephone.replace("+1-", "")}
           >
             <span className={RAIL_TEXT}>
               <strong className={RAIL_TEXT_TITLE}>{t("Or call now")}</strong>

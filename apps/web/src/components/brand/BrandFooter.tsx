@@ -109,6 +109,7 @@ export function BrandFooter({ buildTag, poweredBy }: BrandFooterProps) {
               rel="noopener noreferrer"
             >
               {label}
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           ))}
         </div>
@@ -127,6 +128,7 @@ export function BrandFooter({ buildTag, poweredBy }: BrandFooterProps) {
                 rel="noopener noreferrer"
               >
                 {label}
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             ))}
           </div>

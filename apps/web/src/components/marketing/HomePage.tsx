@@ -392,6 +392,8 @@ export function HomePage() {
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener noreferrer" : undefined}
                     className="featured-work-media"
+                    aria-hidden="true"
+                    tabIndex={-1}
                   >
                     <div className="featured-image-wrap">
                       <Image

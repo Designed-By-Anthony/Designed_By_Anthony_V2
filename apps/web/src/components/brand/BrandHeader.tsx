@@ -31,9 +31,8 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
 
   return (
     <>
-      <aside
+      <div
         className="relative border-b border-[rgba(26,42,64,0.05)] bg-transparent"
-        aria-label="Site notice"
       >
         <Link
           href={isAudit ? SITE_BRAND.homeHref : SITE_BANNER.href}
@@ -58,7 +57,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
             </span>
           </span>
         </Link>
-      </aside>
+      </div>
 
       <header className="relative bg-transparent pl-[max(1.25rem,env(safe-area-inset-left,0px))] pr-[max(1.25rem,env(safe-area-inset-right,0px))]">
         <div className="flex items-center justify-between gap-6 max-w-[80rem] mx-auto pt-8 pb-4">

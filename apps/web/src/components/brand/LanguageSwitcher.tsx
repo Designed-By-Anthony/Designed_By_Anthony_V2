@@ -13,11 +13,12 @@ export function LanguageSwitcher() {
   const { lang, setLang, t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-[0.3rem] shrink-0">
+    <div className="flex items-center gap-[0.3rem] shrink-0" role="group" aria-label={t("Language")}>
       <button
         type="button"
         onClick={() => setLang("en")}
-        aria-label={t("Switch to English")}
+        aria-label={t("EN \u2014 Switch to English")}
+        aria-pressed={lang === "en"}
         className={`${BTN_BASE} ${lang === "en" ? BTN_ACTIVE : BTN_INACTIVE}`}
       >
         EN
@@ -28,7 +29,8 @@ export function LanguageSwitcher() {
       <button
         type="button"
         onClick={() => setLang("es")}
-        aria-label={t("Switch to Spanish")}
+        aria-label={t("ES \u2014 Switch to Spanish")}
+        aria-pressed={lang === "es"}
         className={`${BTN_BASE} ${lang === "es" ? BTN_ACTIVE : BTN_INACTIVE}`}
       >
         ES
