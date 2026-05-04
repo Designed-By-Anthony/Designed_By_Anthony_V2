@@ -66,6 +66,7 @@ export function HomePage() {
   const heroSub =
     "Fast, mobile-friendly websites for contractors, home services, medical spas, salons, and growing businesses in Utica, Rome, Syracuse, and Central New York. Sites that load fast on phones, rank higher on Google, and turn visitors into customers. ";
   const heroSubWithLegacy = `${heroSub}${ATELIER_ROME_LEGACY}`;
+  
   return (
     <>
       <section className="page-hero page-hero--home">
@@ -113,9 +114,37 @@ export function HomePage() {
                 </span>
               </span>
             </div>
+            
+            {/* --- FIX APPLIED HERE --- */}
             <h1
               data-hero-h1
               className="home-hero-title font-[family-name:var(--font-inter)] font-normal tracking-[-0.02em]"
             >
               <span className="font-[family-name:var(--font-playfair)] font-bold">Websites</span>{" "}
-              <span className="font-[family-name
+              <span className="font-[family-name:var(--font-inter)]">that drive results.</span>
+            </h1>
+            
+            <p className="hero-sub mt-6 text-lg max-w-2xl" data-hero-sub>
+              {heroSubWithLegacy}
+            </p>
+            
+            <div className="hero-actions mt-8 flex flex-wrap gap-4">
+              <Link href="/contact" className={btnPrimary}>
+                Get Started
+              </Link>
+              <Link href="/audit" className={btnPrimaryAudit}>
+                Free Audit
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Rendering imported sections to complete the page layout */}
+      <PremiumPitchStrip />
+      <FoundingPartnerSection />
+      <FaqSection />
+      <FirstVisitSplash />
+    </>
+  );
+}

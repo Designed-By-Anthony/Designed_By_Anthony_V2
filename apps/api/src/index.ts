@@ -82,14 +82,14 @@ export default Sentry.withSentry(
         ctx,
       });
 
-      // 1. CORS PREFLIGHT
+      // 1. CORS PREFLIGHT (WILDCARD ENFORCED)
       if (request.method === "OPTIONS") {
         return new Response(null, {
           status: 204,
           headers: {
             "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Tenant-Id",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
             "Access-Control-Max-Age": "86400",
           },
         });
@@ -101,6 +101,8 @@ export default Sentry.withSentry(
       // 3. CORS HEADERS ON ACTUAL RESPONSES
       const newResponse = new Response(response.body, response);
       newResponse.headers.set("Access-Control-Allow-Origin", "*");
+      newResponse.headers.set("Access-Control-Allow-Methods", "*");
+      newResponse.headers.set("Access-Control-Allow-Headers", "*");
       return newResponse;
     },
     async queue(batch, env, _ctx) {

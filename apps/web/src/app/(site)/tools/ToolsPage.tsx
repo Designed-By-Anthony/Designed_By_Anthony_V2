@@ -91,7 +91,7 @@ function PreorderForm({
       <div className="flex gap-[0.4rem]">
         <button
           type="submit"
-          className="flex-1 cursor-pointer rounded-[0.45rem] border border-brand-accent bg-brand-accent px-3 py-[0.55rem] text-[0.8rem] font-bold text-brand-linen transition-[background,transform,border-color] duration-[180ms] ease-in hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-55"
+          className="flex-1 cursor-pointer rounded-[0.45rem] border border-transparent !bg-[#1A2A40] px-3 py-[0.55rem] text-[0.8rem] font-bold !text-[#FFFFFF] transition-all duration-[180ms] ease-in hover:!bg-[#486D8A] hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-55"
           disabled={status === "submitting"}
         >
           {status === "submitting" ? "Reserving\u2026" : "Reserve Spot"}
@@ -132,12 +132,12 @@ function TierCard({
     <div
       className={`relative flex flex-col rounded-[var(--radius-card,1.25rem)] border p-[var(--card-pad,1.5rem)] transition-all duration-300 ease-out hover:-translate-y-1 ${
         tier.highlight
-          ? "border-brand-accent bg-brand-linen shadow-[0_12px_36px_-16px_rgb(var(--brand-accent-rgb)/0.22)] hover:shadow-[0_20px_48px_-20px_rgb(var(--brand-accent-rgb)/0.3)] ring-1 ring-brand-accent/20"
-          : "border-brand-border bg-card shadow-[0_8px_28px_-18px_rgba(26,42,64,0.08)] hover:shadow-[0_20px_44px_-22px_rgba(26,42,64,0.14)] hover:border-[rgb(var(--brand-accent-rgb)/0.28)]"
+          ? "border-[rgba(26,42,64,0.15)] bg-brand-linen shadow-[0_12px_36px_-16px_rgba(26,42,64,0.15)] hover:shadow-[0_20px_48px_-20px_rgba(26,42,64,0.2)] ring-1 ring-[#1A2A40]/10"
+          : "border-brand-border bg-card shadow-[0_8px_28px_-18px_rgba(26,42,64,0.08)] hover:shadow-[0_20px_44px_-22px_rgba(26,42,64,0.14)] hover:border-[rgba(26,42,64,0.2)]"
       }`}
     >
       {tier.highlight ? (
-        <span className="absolute -top-[0.65rem] left-1/2 -translate-x-1/2 rounded-full bg-brand-accent px-[0.75rem] py-[0.22rem] text-[0.62rem] font-extrabold uppercase tracking-[0.1em] text-white whitespace-nowrap shadow-[0_2px_8px_-2px_rgb(var(--brand-accent-rgb)/0.4)]">
+        <span className="absolute -top-[0.65rem] left-1/2 -translate-x-1/2 rounded-full !bg-[#1A2A40] px-[0.75rem] py-[0.22rem] text-[0.62rem] font-extrabold uppercase tracking-[0.1em] !text-white whitespace-nowrap shadow-[0_4px_10px_-2px_rgba(26,42,64,0.3)]">
           Most Popular
         </span>
       ) : null}
@@ -173,7 +173,7 @@ function TierCard({
         ) : (
           <button
             type="button"
-            className="block w-full cursor-pointer rounded-[0.55rem] border border-brand-accent bg-brand-accent px-5 py-[0.65rem] text-center text-[0.85rem] font-bold text-brand-linen transition-[transform,box-shadow,border-color,background-color] duration-[180ms] ease-in hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
+            className="block w-full cursor-pointer rounded-[0.55rem] border border-transparent !bg-[#1A2A40] px-5 py-[0.65rem] text-center text-[0.85rem] font-bold !text-[#FFFFFF] transition-all duration-[180ms] ease-in hover:-translate-y-px hover:!bg-[#486D8A] hover:shadow-[0_12px_28px_-12px_rgba(26,42,64,0.35)]"
             onClick={() => setShowPreorder(true)}
           >
             Pre-order
@@ -184,7 +184,7 @@ function TierCard({
           href={link}
           target="_blank"
           rel="noopener noreferrer"
-          className="block cursor-pointer rounded-[0.55rem] border border-brand-accent bg-brand-accent px-5 py-[0.65rem] text-center text-[0.85rem] font-bold text-brand-linen no-underline transition-[transform,box-shadow,border-color,background-color] duration-300 ease-out hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
+          className="block cursor-pointer rounded-[0.55rem] border border-transparent !bg-[#1A2A40] px-5 py-[0.65rem] text-center text-[0.85rem] font-bold !text-[#FFFFFF] no-underline transition-all duration-300 ease-out hover:-translate-y-px hover:!bg-[#486D8A] hover:shadow-[0_12px_28px_-12px_rgba(26,42,64,0.35)]"
         >
           Get Started
         </a>
@@ -205,7 +205,7 @@ function ProductSection({ product }: { product: Product }) {
       <div className="flex gap-4 items-start mb-7 max-sm:flex-col">
         <ProductIcon icon={product.icon} />
         <div>
-          <span className="mb-[0.3rem] inline-block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-brand-accent">
+          <span className="mb-[0.3rem] inline-block text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#486D8A]">
             {product.category}
           </span>
           <h3
@@ -216,190 +216,4 @@ function ProductSection({ product }: { product: Product }) {
             <span className="font-normal text-brand-charcoal/65">&mdash; {product.tagline}</span>
           </h3>
           <p className="max-w-[44rem] text-[0.9rem] leading-[1.6] text-brand-charcoal/75">
-            {product.description}
-          </p>
-        </div>
-      </div>
-
-      <fieldset
-        className="mb-6 inline-flex min-w-0 rounded-[0.55rem] border border-brand-border bg-brand-linen p-[0.2rem]"
-        aria-label="Billing cycle"
-      >
-        <button
-          type="button"
-          className={`cursor-pointer rounded-[0.4rem] border-none px-4 py-[0.45rem] text-[0.8rem] font-semibold transition-[background,color] duration-[150ms] ease-in ${
-            !annual
-              ? "bg-[rgb(var(--brand-accent-rgb)/0.14)] text-brand-accent"
-              : "bg-transparent text-brand-charcoal/55"
-          }`}
-          onClick={() => setAnnual(false)}
-          aria-pressed={!annual}
-        >
-          Monthly
-        </button>
-        <button
-          type="button"
-          className={`cursor-pointer rounded-[0.4rem] border-none px-4 py-[0.45rem] text-[0.8rem] font-semibold transition-[background,color] duration-[150ms] ease-in ${
-            annual
-              ? "bg-[rgb(var(--brand-accent-rgb)/0.14)] text-brand-accent"
-              : "bg-transparent text-brand-charcoal/55"
-          }`}
-          onClick={() => setAnnual(true)}
-          aria-pressed={annual}
-        >
-          Annual{" "}
-          <span className="text-[0.65rem] font-bold px-[0.4rem] py-[0.12rem] rounded-full bg-[rgba(34,197,94,0.14)] text-[#22c55e] ml-[0.35rem] align-middle">
-            Save 2 mo
-          </span>
-        </button>
-      </fieldset>
-
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-5 max-sm:grid-cols-1">
-        {product.tiers.map((tier) => (
-          <TierCard key={tier.name} tier={tier} annual={annual} productName={product.name} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function ToolsPage() {
-  return (
-    <div className="min-h-[80vh] pt-[clamp(4rem,8vw,7rem)] pb-[clamp(4rem,8vw,6rem)] px-[var(--container-gutter)] max-w-[80rem] mx-auto">
-      {/* Hero */}
-      <section className="max-w-[52rem] mx-auto mb-12 text-center">
-        <p className="mb-6 inline-flex items-center gap-[0.45rem] rounded-full border border-[rgb(var(--brand-accent-rgb)/0.28)] bg-[rgb(var(--brand-accent-rgb)/0.08)] px-[0.85rem] py-[0.35rem] text-[0.68rem] font-bold uppercase tracking-[0.18em] text-brand-accent">
-          <span
-            className="inline-block h-[0.35rem] w-[0.35rem] shrink-0 rounded-full bg-brand-accent shadow-[0_0_6px_1px_rgb(var(--brand-accent-rgb)/0.35)]"
-            aria-hidden
-          />
-          Business Tools &middot; Pre-orders Open
-        </p>
-        <h1 className="mb-5 font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3.25rem)] font-bold leading-[1.12] tracking-[-0.03em] text-brand-indigo">
-          Simple tools built for local service businesses.
-        </h1>
-        <p className="mx-auto max-w-[38rem] text-[clamp(0.95rem,1.8vw,1.1rem)] leading-[1.65] text-brand-charcoal/75">
-          Six tools — website reports, review management, client portals, testimonial collection,
-          and more — priced for small businesses and freelancers. No bloat. No contracts. Pre-order
-          now to lock in founding member pricing.
-        </p>
-        <div className="mt-6 flex gap-3 justify-center flex-wrap">
-          <a
-            href="/sign-up"
-            className="inline-flex items-center gap-2 rounded-[0.55rem] border border-brand-accent bg-brand-accent px-6 py-[0.65rem] text-[0.85rem] font-bold text-white no-underline transition-[transform,box-shadow,background] duration-200 ease-out hover:-translate-y-px hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
-          >
-            Sign Up &amp; Get Started
-          </a>
-          <a
-            href="/sign-in"
-            className="inline-flex items-center gap-2 rounded-[0.55rem] border border-brand-border bg-transparent px-6 py-[0.65rem] text-[0.85rem] font-semibold text-brand-charcoal/70 no-underline transition-colors duration-200 ease-in hover:border-brand-accent hover:text-brand-indigo"
-          >
-            Already have an account? Sign in
-          </a>
-        </div>
-      </section>
-
-      {/* Promo banners */}
-      <div className="flex flex-wrap gap-4 justify-center mb-10 max-sm:flex-col max-sm:items-stretch">
-        <div className="flex max-w-[28rem] flex-[1_1_20rem] items-center gap-3 rounded-xl border border-brand-border bg-brand-linen px-5 py-3 max-sm:max-w-full">
-          <span className="inline-block shrink-0 whitespace-nowrap rounded-[0.35rem] bg-[rgb(var(--brand-accent-rgb)/0.14)] px-[0.55rem] py-[0.25rem] text-[0.65rem] font-extrabold uppercase tracking-[0.12em] text-brand-accent">
-            {PROMO_FOUNDING.code}
-          </span>
-          <span className="text-[0.82rem] leading-[1.45] text-brand-charcoal">
-            <strong>{PROMO_FOUNDING.label}</strong> &mdash; {PROMO_FOUNDING.discount}.{" "}
-            {PROMO_FOUNDING.note}.
-          </span>
-        </div>
-        <div className="flex max-w-[28rem] flex-[1_1_20rem] items-center gap-3 rounded-xl border border-brand-border bg-brand-linen px-5 py-3 max-sm:max-w-full">
-          <span className="inline-block shrink-0 whitespace-nowrap rounded-[0.35rem] bg-[rgb(var(--brand-accent-rgb)/0.14)] px-[0.55rem] py-[0.25rem] text-[0.65rem] font-extrabold uppercase tracking-[0.12em] text-brand-accent">
-            {PROMO_BOGO.code}
-          </span>
-          <span className="text-[0.82rem] leading-[1.45] text-brand-charcoal">
-            <strong>{PROMO_BOGO.label}</strong> &mdash; {PROMO_BOGO.discount}. {PROMO_BOGO.note}.
-          </span>
-        </div>
-      </div>
-
-      {/* Founder All-Access */}
-      <section
-        id="founder-all-access"
-        className="mx-auto mb-14 max-w-[44rem] rounded-[var(--radius-card,1.25rem)] border-2 border-brand-accent bg-brand-linen p-[clamp(1.5rem,4vw,2.5rem)] text-center shadow-[0_16px_48px_-20px_rgb(var(--brand-accent-rgb)/0.18)]"
-      >
-        <span className="mb-4 inline-block rounded-full bg-brand-accent px-[0.85rem] py-[0.25rem] text-[0.62rem] font-extrabold uppercase tracking-[0.12em] text-white shadow-[0_2px_8px_-2px_rgb(var(--brand-accent-rgb)/0.4)]">
-          Best Value
-        </span>
-        <h3 className="mb-2 text-[clamp(1.35rem,3vw,1.75rem)] font-bold leading-[1.2] text-brand-indigo">
-          {FOUNDER_ALL_ACCESS.name}
-        </h3>
-        <p className="mb-1 text-[0.9rem] leading-[1.5] text-brand-charcoal/70">
-          {FOUNDER_ALL_ACCESS.tagline}
-        </p>
-        <p className="mb-5 text-[0.88rem] leading-[1.6] text-brand-charcoal/65">
-          {FOUNDER_ALL_ACCESS.description}
-        </p>
-        <p className="mb-1 flex items-baseline justify-center gap-[0.25rem]">
-          <span className="text-[2.5rem] font-extrabold leading-none tracking-[-0.02em] text-brand-indigo">
-            ${FOUNDER_ALL_ACCESS.annualPrice.toLocaleString()}
-          </span>
-          <span className="text-[0.9rem] font-medium text-brand-charcoal/65">/yr</span>
-        </p>
-        <p className="mb-6 text-[0.72rem] text-brand-charcoal/55">
-          That&rsquo;s ${Math.round(FOUNDER_ALL_ACCESS.annualPrice / 12)}/mo for every tool
-        </p>
-        <ul className="mx-auto mb-6 inline-flex max-w-[24rem] list-none flex-col gap-[0.45rem] p-0 text-left">
-          {FOUNDER_ALL_ACCESS.features.map((f) => (
-            <li
-              key={f}
-              className="relative pl-[1.15rem] text-[0.85rem] leading-[1.4] text-brand-charcoal/75 before:absolute before:left-0 before:text-[0.72rem] before:font-bold before:text-[#22c55e] before:content-['✓']"
-            >
-              {f}
-            </li>
-          ))}
-        </ul>
-        <a
-          href="/sign-up"
-          className="inline-block cursor-pointer rounded-[0.55rem] border border-brand-accent bg-brand-accent px-8 py-[0.75rem] text-[0.9rem] font-bold text-white no-underline transition-[transform,box-shadow,border-color,background-color] duration-200 ease-out hover:-translate-y-px hover:border-[var(--accent-bronze-dark)] hover:bg-[var(--accent-bronze-dark)] hover:shadow-[0_12px_28px_-12px_rgb(var(--brand-accent-rgb)/0.35)]"
-        >
-          Get All-Access
-        </a>
-      </section>
-
-      {/* Quick nav */}
-      <nav className="flex flex-wrap gap-2 justify-center mb-14" aria-label="Product quick links">
-        {TOOLS_PRODUCTS.map((p) => (
-          <a
-            key={p.slug}
-            href={`#${p.slug}`}
-            className="inline-flex items-center gap-[0.35rem] rounded-full border border-brand-border bg-card px-[0.85rem] py-[0.45rem] text-[0.78rem] font-semibold text-brand-charcoal no-underline transition-[border-color,background,color] duration-[180ms] ease-in hover:border-brand-accent hover:bg-brand-linen hover:text-brand-indigo"
-          >
-            {ICON_MAP[p.icon] ?? "\u{1F527}"} {p.name}
-          </a>
-        ))}
-      </nav>
-
-      {/* Product sections */}
-      {TOOLS_PRODUCTS.map((product) => (
-        <ProductSection key={product.slug} product={product} />
-      ))}
-
-      {/* Bottom CTA */}
-      <section className="mx-auto mt-8 max-w-[40rem] rounded-[var(--radius-card,1.25rem)] border border-brand-border bg-brand-linen px-[var(--card-pad,1.5rem)] py-10 text-center">
-        <h2 className="mb-3 text-[clamp(1.25rem,3vw,1.6rem)] font-bold text-brand-indigo">
-          Want every tool?
-        </h2>
-        <p className="text-[0.9rem] leading-[1.65] text-brand-charcoal/75">
-          The{" "}
-          <a
-            href="#founder-all-access"
-            className="font-semibold text-brand-accent no-underline hover:underline"
-          >
-            Founder All-Access
-          </a>{" "}
-          plan gives you the full suite for ${FOUNDER_ALL_ACCESS.annualPrice.toLocaleString()}/yr
-          &mdash; that&rsquo;s ${Math.round(FOUNDER_ALL_ACCESS.annualPrice / 12)}/mo for every tool,
-          locked in forever.
-        </p>
-      </section>
-    </div>
-  );
-}
+            {product
