@@ -5,7 +5,7 @@ export const webAppManifest: MetadataRoute.Manifest = {
   name: "ANTHONY.",
   short_name: "ANTHONY.",
   description:
-    "Bespoke digital estates and high-performance infrastructure for the Mohawk Valley (315), Capital Region (518), and Central New York.",
+    "Custom websites and marketing systems for service businesses in the Mohawk Valley (315), Capital Region (518), and Central New York.",
   start_url: "/",
   scope: "/",
   display: "standalone",

@@ -23,8 +23,8 @@ const es: Record<string, string> = {
   "Audit My Site": "Auditar Mi Sitio",
 
   /* ── Banner ────────────────────────────────────────────── */
-  "The 315 Pilot: 10 Founding Infrastructure Placements Remaining":
-    "El Piloto 315: 10 Espacios Fundadores de Infraestructura Disponibles",
+  "The 315 Pilot: 10 Founding Partner Spots Remaining":
+    "El Piloto 315: 10 Espacios de Socio Fundador Disponibles",
   "start with a free SEO + performance audit":
     "comienza con una auditoría SEO + rendimiento gratuita",
   "You're already on the free audit ↓": "Ya estás en la auditoría gratuita ↓",

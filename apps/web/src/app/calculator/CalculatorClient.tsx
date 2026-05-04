@@ -32,9 +32,9 @@ export function CalculatorClient() {
         body: JSON.stringify({
           email,
           name: email.split("@")[0] || "Calculator",
-          source: "digital-estate-calculator",
+          source: "website-cost-calculator",
           leadSource: "calculator",
-          ctaSource: "Digital Estate Cost Calculator",
+          ctaSource: "Website Cost Calculator",
           message: `Calculator estimate ~$${estimate.toLocaleString()} — pages:${pages}, integrations:${integrations}, tier:${tier}`,
         }),
       });
@@ -94,7 +94,7 @@ export function CalculatorClient() {
           ${estimate.toLocaleString()}
         </p>
         <p className="mt-3 text-sm leading-relaxed text-[var(--text-gray)]">
-          Ballpark for a bespoke ANTHONY. estate — not a quote. We validate scope, content, and
+          Ballpark for a custom ANTHONY. website — not a quote. We validate scope, content, and
           integrations on a short call.
         </p>
         {sent ? (

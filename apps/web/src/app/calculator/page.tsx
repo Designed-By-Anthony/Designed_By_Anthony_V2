@@ -5,9 +5,9 @@ import { CalculatorClient } from "./CalculatorClient";
 
 export const revalidate = 86400;
 
-const TITLE = "Digital Estate Cost Calculator | ANTHONY. — Infrastructure Estimator";
+const TITLE = "Website Cost Calculator | ANTHONY. — Project Estimator";
 const DESCRIPTION =
-  "Estimate indicative investment for a high-performance marketing estate, integrations, and Vault CRM alignment — engineered in the 315.";
+  "Get a quick ballpark for your custom website — adjust pages, integrations, and engagement level to see an estimated investment range.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,9 +27,9 @@ export default function CalculatorPage() {
       <section className="section-shell section-shell--wash marketing-page-hero">
         <div className="section-container max-w-[56rem]">
           <p className="text-[0.72rem] font-[family-name:var(--font-inter)] uppercase tracking-[0.22em] text-brand-accent mb-3">
-            Diagnostic bench
+            Cost estimator
           </p>
-          <h1 className="page-title">Digital Estate Cost Calculator</h1>
+          <h1 className="page-title">Website Cost Calculator</h1>
           <p className="page-lead max-w-[40rem]">
             A fast, transparent ballpark for a custom-built site — adjust pages, integrations, and
             engagement tier to see an indicative investment range.

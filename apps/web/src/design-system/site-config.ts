@@ -5,7 +5,7 @@ export type SiteLink = {
   label: string;
 };
 
-export const SITE_WORDMARK_ALT = "ANTHONY. | Digital Infrastructure Architect";
+export const SITE_WORDMARK_ALT = "ANTHONY. | Custom Web Design Studio";
 
 export const SITE_BRAND = {
   name: BRAND_NAME,
@@ -20,7 +20,7 @@ export const SITE_BRAND = {
 
 export const SITE_BANNER = {
   href: "/lighthouse",
-  label: "The 315 Pilot: 10 Founding Infrastructure Placements Remaining",
+  label: "The 315 Pilot: 10 Founding Partner Spots Remaining",
   cta: "start with a free SEO + performance audit",
   currentCta: "You're already on the free audit ↓",
 } as const;
