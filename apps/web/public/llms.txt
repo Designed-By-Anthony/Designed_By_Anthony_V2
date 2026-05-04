@@ -17,9 +17,9 @@ ANTHONY. is a B2B digital infrastructure company that designs, builds, and manag
 
 ## Pricing
 
-- **Simple Site**: From $1,500 — single-service landing pages and brochure sites.
-- **Standard Rebuild**: 3 payments of $1,650 (typical total $3,500–$5,500) — full custom 5–10 page site with local SEO, plus 3 months free hosting and SEO.
-- **Enterprise**: From $7,500 — multi-location, CRM integrations, advanced SEO.
+- **Simple Site**: From $999 — single-service landing pages and brochure sites.
+- **Standard Rebuild**: 3 payments of $833 (typical total $1,900–$3,000) — full custom 5–10 page site with local SEO, plus 3 months free hosting and SEO.
+- **Enterprise**: From $6,000 — multi-location, CRM integrations, advanced SEO.
 - **Growth Plan**: Monthly hosting + security + local SEO + Vault CRM access after launch.
 
 ## Micro-SaaS Tools (designedbyanthony.online)
