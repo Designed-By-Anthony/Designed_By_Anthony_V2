@@ -74,15 +74,6 @@
       "assist": {
         "enabled": false
       }
-    },
-    {
-      "includes": ["apps/web/public/email/**"],
-      "linter": {
-        "enabled": false
-      },
-      "formatter": {
-        "enabled": false
-      }
     }
   ]
 }
