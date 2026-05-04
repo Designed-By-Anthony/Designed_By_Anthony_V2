@@ -5,7 +5,7 @@ import { expect, test } from "@playwright/test";
  * 🔥 CHAOS SUITE — "Trial by Fire" QA Protocol
  *
  * Attacks 4 pillars: Integration, Security, Visual Integrity, Data Stress.
- * Run with: bun run test --grep "Chaos"
+ * Run with: bun run test:chaos
  *
  * ─── PRE-FLIGHT CHECKLIST ────────────────────────────────────────────────
  *
@@ -84,7 +84,8 @@ const API_TIMEOUT_THRESHOLD_MS = 5500;
 
 /**
  * Minimum z-index for a sticky site header to stay above scrolled content.
- * Anything below 10 risks page sections painting on top of the nav.
+ * Values below 10 risk page sections painting on top of the nav bar;
+ * 10 sits above default stacking contexts while leaving room for modals (100+).
  */
 const STICKY_HEADER_MIN_Z_INDEX = 10;
 
