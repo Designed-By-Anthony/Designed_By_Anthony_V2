@@ -16,7 +16,8 @@
       "!!**/.vercel",
       "!!playwright-report",
       "!!reports",
-      "!!test-results"
+      "!!test-results",
+      "!!apps/web/public/email"
     ]
   },
   "formatter": {
@@ -71,6 +72,15 @@
         "enabled": false
       },
       "assist": {
+        "enabled": false
+      }
+    },
+    {
+      "includes": ["apps/web/public/email/**"],
+      "linter": {
+        "enabled": false
+      },
+      "formatter": {
         "enabled": false
       }
     }

@@ -109,7 +109,9 @@ export function AuditForm({
         <div data-form-shell>
           <div className={FORM_GRID}>
             <div className={FIELD}>
-              <label htmlFor={`${formId}-first`}>First name <span aria-hidden="true">*</span></label>
+              <label htmlFor={`${formId}-first`}>
+                First name <span aria-hidden="true">*</span>
+              </label>
               <input
                 id={`${formId}-first`}
                 name="first_name"
@@ -121,7 +123,9 @@ export function AuditForm({
               <p className={FIELD_HINT} data-field-error="first_name" />
             </div>
             <div className={FIELD}>
-              <label htmlFor={`${formId}-email`}>Email address <span aria-hidden="true">*</span></label>
+              <label htmlFor={`${formId}-email`}>
+                Email address <span aria-hidden="true">*</span>
+              </label>
               <input
                 id={`${formId}-email`}
                 name="email"

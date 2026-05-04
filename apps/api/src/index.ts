@@ -61,8 +61,8 @@ const app = new Elysia({ aot: false })
 
 import { type AuditQueueMessage, runAuditDetonatorJob } from "./services/auditDetonatorPipeline";
 
-async function handlePdfGeneration(message: AuditQueueMessage, env: any) {
-  await runAuditDetonatorJob(message, env as Record<string, unknown>);
+async function handlePdfGeneration(message: AuditQueueMessage, env: Record<string, unknown>) {
+  await runAuditDetonatorJob(message, env);
 }
 
 // Export the handler directly for Cloudflare Workers

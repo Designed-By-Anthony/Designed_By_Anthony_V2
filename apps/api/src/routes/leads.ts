@@ -128,7 +128,7 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         // Combine 'lang' and any unknown custom fields into one object
         const metadataObj = { ...customFields };
         if (lang) metadataObj.lang = lang;
-        
+
         // Stringify if we actually caught anything, otherwise null
         const metadata = Object.keys(metadataObj).length > 0 ? JSON.stringify(metadataObj) : null;
 
@@ -137,11 +137,11 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
           .insert(leadsTable)
           .values({
             id: crypto.randomUUID(),
-            email: email || "No Email Provided",         // Fallback prevents SQL NOT NULL crashes
-            company_name: company || "Unknown Name",     // Fallback prevents SQL NOT NULL crashes
+            email: email || "No Email Provided", // Fallback prevents SQL NOT NULL crashes
+            company_name: company || "Unknown Name", // Fallback prevents SQL NOT NULL crashes
             source: sourceId || "Contact_Form",
             status: "New" as const,
-            metadata: metadata,                          // <--- THE LIMITLESS JSON BUCKET
+            metadata: metadata, // <--- THE LIMITLESS JSON BUCKET
             created_at: Date.now(),
           })
           .returning();
@@ -149,13 +149,13 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         // Second: Pass the Slack webhook fetch call into background execution
         if (process.env.SLACK_WEBHOOK_URL) {
           const slackPayload = {
-            text: `New lead created: ${email || 'Unknown'} from ${company || 'Unknown'}${lang ? ` [${lang}]` : ""}`,
+            text: `New lead created: ${email || "Unknown"} from ${company || "Unknown"}${lang ? ` [${lang}]` : ""}`,
             lead: {
               email: email || "N/A",
               company: company || "N/A",
               website: finalWebsite || "N/A",
               source: sourceId || "Contact_Form",
-              ...metadataObj // Send all the custom fields to your Slack notification too!
+              ...metadataObj, // Send all the custom fields to your Slack notification too!
             },
           };
 
@@ -184,12 +184,15 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
     },
     {
       // 3. THE LOOSE BOUNCER
-      body: t.Object({
-        email: t.Optional(t.String()),
-        company: t.Optional(t.String()),
-        website: t.Optional(t.String()),
-        sourceId: t.Optional(t.String()),
-        lang: t.Optional(t.String()),
-      }, { additionalProperties: true }) // <--- THIS ENABLES THE MULTI-TENANT CATCH-ALL
+      body: t.Object(
+        {
+          email: t.Optional(t.String()),
+          company: t.Optional(t.String()),
+          website: t.Optional(t.String()),
+          sourceId: t.Optional(t.String()),
+          lang: t.Optional(t.String()),
+        },
+        { additionalProperties: true }
+      ), // <--- THIS ENABLES THE MULTI-TENANT CATCH-ALL
     }
   );
