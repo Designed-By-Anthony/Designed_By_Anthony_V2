@@ -57,14 +57,17 @@ export function SovereignDrawerForm({
     const urlRaw = (formData.get("url") as string) || "";
     const data = {
       email: formData.get("email") as string,
-      company: formData.get("first_name") as string,
+      name: formData.get("first_name") as string,
+      phone: formData.get("phone") as string,
       website: normalizeWebsiteForApi(urlRaw),
-      sourceId: sourceId,
+      message: formData.get("description") as string,
+      source: sourceId || "contact-drawer",
+      leadSource: sourceId || "contact-drawer",
       lang: lang !== "en" ? lang : undefined,
     };
 
     try {
-      const response = await fetch(buildPublicApiUrl("/leads"), {
+      const response = await fetch(buildPublicApiUrl("/api/lead-email"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
