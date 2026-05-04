@@ -219,7 +219,7 @@
 }
 
 .home-quick-lead__sub a {
-  color: #bfdbfe;
+  color: var(--brand-accent);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -365,7 +365,7 @@
 .process-card:hover {
   transform: translateY(calc(var(--card-stagger-offset) - 3px));
   border-color: rgba(96, 165, 250, 0.22);
-  box-shadow: 0 26px 56px -34px rgba(2, 6, 23, 0.85);
+  box-shadow: 0 26px 56px -34px rgba(26, 42, 64, 0.16);
 }
 
 .service-arrow,
@@ -650,10 +650,10 @@
   border-radius: 999px;
   background: rgba(59, 130, 246, 0.14);
   border: 1px solid rgba(59, 130, 246, 0.26);
-  color: #bfdbfe;
+  color: var(--brand-indigo);
   font-weight: 800;
   margin-bottom: 1rem;
-  box-shadow: 0 4px 14px -8px rgba(91, 156, 248, 0.35);
+  box-shadow: 0 4px 14px -8px rgb(var(--brand-accent-rgb) / 0.25);
   animation: home-process-float 7s ease-in-out infinite;
 }
 
@@ -738,7 +738,7 @@
 .featured-image-wrap {
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: #000;
+  background: var(--brand-linen);
 }
 
 .featured-image-wrap img {
@@ -1037,7 +1037,7 @@
 .why-stack-card:hover {
   transform: translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
   box-shadow:
-    0 32px 64px -32px rgba(2, 6, 23, 0.8),
+    0 32px 64px -32px rgba(26, 42, 64, 0.18),
     0 0 0 1px rgba(96, 165, 250, 0.12);
 }
 
@@ -1144,7 +1144,7 @@
 
 .command-strip__item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 44px -24px rgba(2, 6, 23, 0.7);
+  box-shadow: 0 18px 44px -24px rgba(26, 42, 64, 0.16);
 }
 
 /* ── Reduced motion overrides ── */

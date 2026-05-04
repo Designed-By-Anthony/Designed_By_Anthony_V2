@@ -47,7 +47,7 @@ export function CalculatorClient() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_340px] items-start">
-      <div className="surface-card border border-white/10 rounded-2xl p-6 md:p-8 bg-[rgba(8,11,18,0.55)]">
+      <div className="surface-card rounded-2xl p-6 md:p-8">
         <h2 className="mt-0 text-xl font-semibold tracking-tight">Inputs</h2>
         <label className="block mt-6 text-sm text-[var(--text-gray)]">
           Estimated marketing pages
@@ -57,9 +57,9 @@ export function CalculatorClient() {
             max={80}
             value={pages}
             onChange={(ev) => setPages(Number(ev.target.value))}
-            className="w-full mt-2 accent-[rgb(var(--accent-bronze-rgb))]"
+            className="w-full mt-2 accent-[rgb(var(--brand-accent-rgb))]"
           />
-          <span className="text-[var(--text-primary)] font-medium">{pages} pages</span>
+          <span className="text-brand-indigo font-medium">{pages} pages</span>
         </label>
         <label className="block mt-8 text-sm text-[var(--text-gray)]">
           Integrations (CRM, scheduling, payments, maps…)
@@ -69,11 +69,9 @@ export function CalculatorClient() {
             max={12}
             value={integrations}
             onChange={(ev) => setIntegrations(Number(ev.target.value))}
-            className="w-full mt-2 accent-[rgb(var(--accent-bronze-rgb))]"
+            className="w-full mt-2 accent-[rgb(var(--brand-accent-rgb))]"
           />
-          <span className="text-[var(--text-primary)] font-medium">
-            {integrations} integrations
-          </span>
+          <span className="text-brand-indigo font-medium">{integrations} integrations</span>
         </label>
         <fieldset className="mt-8 border-0 p-0 m-0">
           <legend className="text-sm text-[var(--text-gray)] mb-3">Engagement profile</legend>
@@ -89,7 +87,7 @@ export function CalculatorClient() {
       </div>
 
       <div className="rounded-2xl border border-brand-border bg-card p-6 md:p-7">
-        <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[rgb(var(--accent-bronze-rgb))] m-0">
+        <p className="text-[0.72rem] uppercase tracking-[0.2em] text-brand-accent m-0">
           Indicative range
         </p>
         <p className="mt-2 text-4xl font-bold tracking-tight tabular-nums">
@@ -100,7 +98,7 @@ export function CalculatorClient() {
           integrations on a short call.
         </p>
         {sent ? (
-          <p className="mt-6 text-sm text-emerald-400">
+          <p className="mt-6 text-sm text-[#15803d]">
             Saved. We will follow up with a sharper estimate.
           </p>
         ) : (
@@ -112,7 +110,7 @@ export function CalculatorClient() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-[var(--text-primary)]"
+                className="mt-1 w-full rounded-lg border border-brand-border bg-white px-3 py-2 text-brand-charcoal"
                 placeholder="you@company.com"
               />
             </label>

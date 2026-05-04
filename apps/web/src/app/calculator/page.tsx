@@ -26,14 +26,13 @@ export default function CalculatorPage() {
     <MarketingChrome footerCta={homeFooterCta}>
       <section className="section-shell section-shell--wash marketing-page-hero">
         <div className="section-container max-w-[56rem]">
-          <p className="text-[0.72rem] font-[family-name:var(--font-inter)] uppercase tracking-[0.22em] text-[rgb(var(--accent-bronze-rgb))] mb-3">
+          <p className="text-[0.72rem] font-[family-name:var(--font-inter)] uppercase tracking-[0.22em] text-brand-accent mb-3">
             Diagnostic bench
           </p>
           <h1 className="page-title">Digital Estate Cost Calculator</h1>
           <p className="page-lead max-w-[40rem]">
-            A fast, transparent ballpark for bespoke infrastructure — tune pages, integrations, and
-            engagement tier. Hook this URL for backlinks and drive qualified estimates into the
-            Vault pipeline.
+            A fast, transparent ballpark for a custom-built site — adjust pages, integrations, and
+            engagement tier to see an indicative investment range.
           </p>
         </div>
       </section>

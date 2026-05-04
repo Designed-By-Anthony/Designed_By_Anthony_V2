@@ -684,15 +684,15 @@ main {
 
 .proof-band {
   padding: clamp(1.5rem, 2.4vw, 2rem);
-  border: 1px solid rgba(255, 252, 245, 0.06);
+  border: 1px solid var(--border-brand);
   border-radius: var(--radius-card-lg);
   background:
-    radial-gradient(circle at top left, rgb(var(--accent-bronze-rgb) / 0.1), transparent 36%),
-    radial-gradient(circle at bottom right, rgb(var(--accent-bronze-rgb) / 0.05), transparent 40%),
-    linear-gradient(180deg, rgba(12, 16, 24, 0.96) 0%, rgba(16, 21, 32, 0.92) 100%);
+    radial-gradient(circle at top left, rgb(var(--brand-accent-rgb) / 0.08), transparent 36%),
+    radial-gradient(circle at bottom right, rgb(var(--brand-accent-rgb) / 0.04), transparent 40%),
+    var(--brand-surface);
   box-shadow:
     var(--shadow-card),
-    inset 0 1px 0 rgba(255, 252, 245, 0.04);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .proof-grid {
@@ -704,8 +704,8 @@ main {
 .proof-item {
   padding: 1rem 1.05rem;
   border-radius: var(--radius-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(8, 15, 28, 0.58);
+  border: 1px solid var(--border-brand);
+  background: var(--brand-surface);
   transition:
     transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -714,8 +714,8 @@ main {
 
 .proof-item:hover {
   transform: translateY(-2px);
-  background-color: rgba(14, 23, 39, 0.8);
-  box-shadow: 0 14px 28px -12px rgba(2, 6, 23, 0.75);
+  background-color: var(--brand-linen);
+  box-shadow: 0 14px 28px -12px rgba(26, 42, 64, 0.12);
 }
 
 .proof-value {

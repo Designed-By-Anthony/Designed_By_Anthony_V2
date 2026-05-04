@@ -115,18 +115,18 @@
   min-width: 210px;
   min-height: 180px;
   opacity: 0.78;
-  filter: drop-shadow(0 24px 40px rgba(2, 6, 23, 0.45));
+  filter: drop-shadow(0 24px 40px rgba(26, 42, 64, 0.18));
 }
 
 .marketing-hero-motif__shape {
   position: absolute;
   border: 1px solid rgba(147, 197, 253, 0.22);
   background:
-    linear-gradient(135deg, rgba(10, 16, 28, 0.72), rgba(10, 16, 28, 0.24)),
-    radial-gradient(circle at 24% 18%, rgb(var(--accent-bronze-rgb) / 0.18), transparent 45%);
+    linear-gradient(135deg, rgba(248, 249, 250, 0.85), rgba(255, 255, 255, 0.6)),
+    radial-gradient(circle at 24% 18%, rgb(var(--brand-accent-rgb) / 0.12), transparent 45%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 18px 34px -28px rgba(2, 6, 23, 0.9);
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 18px 34px -28px rgba(26, 42, 64, 0.14);
 }
 
 .marketing-hero-motif__shape:nth-child(1) {
@@ -516,7 +516,7 @@ a.marketing-service-card {
 a.marketing-service-card:hover {
   transform: translateY(-3px);
   border-color: rgba(96, 165, 250, 0.2);
-  box-shadow: 0 22px 48px -28px rgba(15, 23, 42, 0.9);
+  box-shadow: 0 22px 48px -28px rgba(26, 42, 64, 0.16);
 }
 
 .marketing-service-card h2 {
@@ -616,7 +616,7 @@ a.marketing-service-card:hover {
 .blog-index-card:hover {
   transform: translateY(-3px);
   box-shadow:
-    0 28px 56px -32px rgba(2, 6, 23, 0.88),
+    0 28px 56px -32px rgba(26, 42, 64, 0.16),
     0 0 0 1px rgba(96, 165, 250, 0.14);
   border-color: rgba(96, 165, 250, 0.2);
 }
@@ -697,7 +697,7 @@ a.marketing-service-card:hover {
   overflow: hidden;
   line-height: 0;
   --media-parallax-y: 0px;
-  box-shadow: 0 24px 70px -36px rgba(2, 6, 23, 0.9);
+  box-shadow: 0 24px 70px -36px rgba(26, 42, 64, 0.16);
 }
 
 .blog-article-cover img {
@@ -838,8 +838,8 @@ a.marketing-service-card:hover {
   padding: clamp(1.5rem, 3vw, 2rem) clamp(1.35rem, 3vw, 2.25rem);
   border: 1px solid rgba(96, 165, 250, 0.2);
   box-shadow:
-    0 24px 56px -36px rgba(2, 6, 23, 0.85),
-    0 0 0 1px rgba(255, 252, 245, 0.04) inset;
+    0 24px 56px -36px rgba(26, 42, 64, 0.14),
+    0 0 0 1px rgba(26, 42, 64, 0.06) inset;
 }
 
 .contact-form-shell__eyebrow {
@@ -1082,7 +1082,7 @@ a.marketing-service-card:hover {
 .pricing-tier--featured {
   border-color: rgb(var(--accent-bronze-rgb) / 0.42);
   box-shadow:
-    0 28px 70px -38px rgba(15, 23, 42, 0.95),
+    0 28px 70px -38px rgba(26, 42, 64, 0.18),
     0 0 0 1px rgb(var(--accent-bronze-rgb) / 0.18),
     0 0 60px -20px rgb(var(--accent-bronze-rgb) / 0.15);
 }
@@ -1243,8 +1243,8 @@ a.marketing-service-card:hover {
 .home-faq-item.text-bubble.is-bordered[open] {
   border-color: rgb(var(--accent-bronze-rgb) / 0.28);
   box-shadow:
-    0 28px 58px -34px rgba(2, 6, 23, 0.92),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 28px 58px -34px rgba(26, 42, 64, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 0 0 1px rgb(var(--accent-bronze-rgb) / 0.1);
   transform: translateY(-2px);
 }
@@ -1552,19 +1552,19 @@ a.marketing-service-card:hover {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(247, 244, 238, 0.86);
-  border: 1px solid rgba(147, 197, 253, 0.3);
-  background: rgba(10, 16, 28, 0.72);
+  color: var(--brand-indigo);
+  border: 1px solid rgb(var(--brand-accent-rgb) / 0.25);
+  background: rgb(var(--brand-accent-rgb) / 0.1);
 }
 
 .section-shell--longform .marketing-prose--longform {
   max-width: 52rem;
   padding: clamp(1.05rem, 2vw, 1.4rem) clamp(1rem, 2.4vw, 1.45rem);
   border-radius: 1rem;
-  border: 1px solid rgba(147, 197, 253, 0.14);
+  border: 1px solid var(--border-brand);
   background:
-    radial-gradient(circle at 92% 6%, rgba(59, 130, 246, 0.1), transparent 34%),
-    linear-gradient(165deg, rgba(8, 12, 22, 0.82), rgba(7, 10, 18, 0.74));
+    radial-gradient(circle at 92% 6%, rgb(var(--brand-accent-rgb) / 0.08), transparent 34%),
+    var(--brand-surface);
 }
 
 .marketing-prose--longform h2 {
@@ -1782,9 +1782,9 @@ a.marketing-service-card:hover {
   text-transform: uppercase;
   padding: 0.3rem 0.6rem;
   border-radius: 999px;
-  color: rgba(186, 230, 253, 0.9);
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  color: var(--brand-indigo);
+  background: rgb(var(--brand-accent-rgb) / 0.1);
+  border: 1px solid rgb(var(--brand-accent-rgb) / 0.25);
 }
 
 .stack-chips {
