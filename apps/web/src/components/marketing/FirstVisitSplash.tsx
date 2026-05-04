@@ -38,13 +38,25 @@ export function FirstVisitSplash() {
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
     setIsOpen(false);
     previousFocusRef.current?.focus();
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        handleClose();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, handleClose]);
+
   const handleContactClick = () => {
-    localStorage.setItem(STORAGE_KEY, "true");
+    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
     setIsOpen(false);
   };
 
