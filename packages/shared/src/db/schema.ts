@@ -97,6 +97,32 @@ export const clients = sqliteTable(
   (t) => [uniqueIndex("clients_email_unique").on(t.email)]
 );
 
+export const toolPlanEnum = ["free", "paid", "client", "admin"] as const;
+export type ToolPlan = (typeof toolPlanEnum)[number];
+
+/** Shared auth record for cross-domain tool access. */
+export const users = sqliteTable(
+  "users",
+  {
+    id: text("id").primaryKey(),
+    clerk_id: text("clerk_id"),
+    email: text("email").notNull(),
+    plan: text("plan", { enum: toolPlanEnum }).notNull().default("free"),
+    stripe_customer_id: text("stripe_customer_id"),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
+    updated_at: integer("updated_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
+  },
+  (t) => [
+    uniqueIndex("users_clerk_id_unique").on(t.clerk_id),
+    uniqueIndex("users_email_unique").on(t.email),
+    index("users_plan_idx").on(t.plan),
+  ]
+);
+
 export const projects = sqliteTable(
   "projects",
   {
@@ -137,6 +163,8 @@ export type Transaction = typeof transactions.$inferSelect;
 export type NewTransaction = typeof transactions.$inferInsert;
 export type Client = typeof clients.$inferSelect;
 export type NewClient = typeof clients.$inferInsert;
+export type User = typeof users.$inferSelect;
+export type NewUser = typeof users.$inferInsert;
 export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
 export type VaultMessage = typeof vault_messages.$inferSelect;
@@ -158,6 +186,8 @@ export const clientsRelations = relations(clients, ({ many }) => ({
   projects: many(projects),
   vault_messages: many(vault_messages),
 }));
+
+export const usersRelations = relations(users, () => ({}));
 
 export const vaultMessagesRelations = relations(vault_messages, ({ one }) => ({
   client: one(clients, {

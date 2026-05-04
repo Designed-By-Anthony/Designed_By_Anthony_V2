@@ -3,6 +3,7 @@ import { leads, tryInsertLead, tryInsertTransaction } from "@dba/shared/lib/d1Le
 import { eq } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import Stripe from "stripe";
+import { upsertSharedUser } from "../db/users";
 
 interface CfEnv {
   DB?: D1Database;
@@ -117,6 +118,15 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
         lead_id: resolvedLeadId,
         created_at: Date.now(),
       });
+
+	  if (db) {
+		await upsertSharedUser(db, {
+			email: customerEmail,
+			plan: "paid",
+			stripeCustomerId:
+				typeof session.customer === "string" ? session.customer : session.customer?.id ?? null,
+		});
+	  }
     }
 
     const responseBody = JSON.stringify({ received: true });

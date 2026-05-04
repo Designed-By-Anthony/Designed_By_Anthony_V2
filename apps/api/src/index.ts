@@ -10,6 +10,7 @@ import { testEmailsRoute } from "./routes/testEmails";
 import { testRateLimitsRoute } from "./routes/testRateLimits";
 import { leadsRoute } from "./routes/leads";
 import { adminRoute } from "./routes/admin";
+import { authRoute } from "./routes/auth";
 import { vaultRoute } from "./routes/vault";
 import { webhooks } from "./routes/webhooks";
 
@@ -40,6 +41,7 @@ const app = new Elysia({ aot: false })
   .use(auditEmailSummaryRoute)
   .use(leadEmailRoute)
   .use(leadsRoute)
+	.use(authRoute)
   .use(adminRoute)
   .use(vaultRoute)
   .use(programmaticSeoRoute)

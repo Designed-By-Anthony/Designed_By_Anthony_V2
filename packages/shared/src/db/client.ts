@@ -13,9 +13,11 @@ export type {
   NewLead,
   NewProject,
   NewTransaction,
+  NewUser,
   NewVaultMessage,
   Project,
   Transaction,
+  User,
   VaultMessage,
 } from "./schema";
 export {
@@ -25,6 +27,7 @@ export {
   leads,
   projects,
   transactions,
+  users,
   vault_messages,
 } from "./schema";
 
