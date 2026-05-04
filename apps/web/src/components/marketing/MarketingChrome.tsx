@@ -24,7 +24,7 @@ const mailtoContactHref = `mailto:${businessProfile.email}?subject=${encodeURICo
 const mobileAuthButtonBase =
   "inline-flex w-full items-center justify-center rounded-full border px-6 py-4 text-base font-bold uppercase tracking-[0.06em] no-underline transition-[background,border-color,color,transform] duration-200 active:scale-[0.98]";
 const mobileAuthSecondary = `${mobileAuthButtonBase} border-brand-border bg-white text-brand-indigo hover:border-brand-indigo/30 hover:bg-brand-linen`;
-const mobileAuthPrimary = `${mobileAuthButtonBase} border-brand-indigo bg-brand-indigo text-white shadow-[0_14px_30px_-18px_rgba(26,42,64,0.45)] hover:border-[#486D8A] hover:bg-[#486D8A]`;
+const mobileAuthPrimary = `${mobileAuthButtonBase} border-[#486D8A] bg-[#486D8A] text-white shadow-[0_14px_30px_-18px_rgba(26,42,64,0.45)] hover:border-brand-indigo hover:bg-brand-indigo`;
 
 /** Build-time id (see `next.config.ts` env); avoids filesystem reads on Cloudflare Workers. */
 const siteScriptVersion = process.env.NEXT_PUBLIC_SITE_SCRIPT_BUILD_ID ?? "local";
@@ -148,7 +148,7 @@ export function MarketingChrome({
       <div className="site-body-canvas block min-w-0">
         <SiteContactDrawer />
         <div className="min-w-0">
-          <main id="main-content" className="pb-24 md:pb-0">{children}</main>
+          <main id="main-content" className="pb-24 min-[1200px]:pb-0">{children}</main>
           {!hidePreFooterCta && footerCta ? <FooterCta {...footerCta} /> : null}
           <BrandFooter />
         </div>
