@@ -129,14 +129,14 @@ function TierCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-[var(--radius-card,1.25rem)] border bg-card p-[var(--card-pad,1.5rem)] shadow-[0_8px_28px_-18px_rgba(26,42,64,0.08)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_20px_44px_-22px_rgba(26,42,64,0.14)] ${
+      className={`relative flex flex-col rounded-[var(--radius-card,1.25rem)] border p-[var(--card-pad,1.5rem)] transition-all duration-300 ease-out hover:-translate-y-1 ${
         tier.highlight
-          ? "border-[rgb(var(--brand-accent-rgb)/0.35)] bg-brand-linen hover:border-brand-accent"
-          : "border-brand-border hover:border-[rgb(var(--brand-accent-rgb)/0.28)]"
+          ? "border-brand-accent bg-brand-linen shadow-[0_12px_36px_-16px_rgb(var(--brand-accent-rgb)/0.22)] hover:shadow-[0_20px_48px_-20px_rgb(var(--brand-accent-rgb)/0.3)] ring-1 ring-brand-accent/20"
+          : "border-brand-border bg-card shadow-[0_8px_28px_-18px_rgba(26,42,64,0.08)] hover:shadow-[0_20px_44px_-22px_rgba(26,42,64,0.14)] hover:border-[rgb(var(--brand-accent-rgb)/0.28)]"
       }`}
     >
       {tier.highlight ? (
-        <span className="absolute -top-[0.55rem] right-4 rounded-full bg-brand-accent px-[0.6rem] py-[0.18rem] text-[0.6rem] font-extrabold uppercase tracking-[0.1em] text-brand-linen">
+        <span className="absolute -top-[0.65rem] left-1/2 -translate-x-1/2 rounded-full bg-brand-accent px-[0.75rem] py-[0.22rem] text-[0.62rem] font-extrabold uppercase tracking-[0.1em] text-white whitespace-nowrap shadow-[0_2px_8px_-2px_rgb(var(--brand-accent-rgb)/0.4)]">
           Most Popular
         </span>
       ) : null}
