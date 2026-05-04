@@ -164,7 +164,7 @@ export const purchases = sqliteTable(
     index("purchases_user_id_idx").on(t.user_id),
     index("purchases_product_slug_idx").on(t.product_slug),
     index("purchases_status_idx").on(t.status),
-    uniqueIndex("purchases_stripe_session_id_unique").on(t.stripe_session_id),
+    uniqueIndex("purchases_session_slug_unique").on(t.stripe_session_id, t.product_slug),
   ]
 );
 
