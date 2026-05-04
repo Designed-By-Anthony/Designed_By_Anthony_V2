@@ -20,6 +20,7 @@
     "db:migrate": "drizzle-kit migrate",
     "test:e2e": "playwright test apps/web/tests/e2e",
     "test:security": "playwright test apps/api/tests/security",
+    "test:chaos": "playwright test apps/web/tests/e2e/chaos-suite.spec.ts",
     "test": "playwright test",
     "test:ui": "playwright show-report",
     "test:install": "playwright install"
