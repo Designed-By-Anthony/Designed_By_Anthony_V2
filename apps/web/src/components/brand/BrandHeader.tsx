@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 import {
@@ -97,7 +97,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 id="nav-audit-btn"
               />
             )}
-            <SignedOut>
+            <Show when="signed-out">
               <SignInButton mode="modal">
                 <button
                   type="button"
@@ -111,8 +111,8 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                   Get Started
                 </button>
               </SignUpButton>
-            </SignedOut>
-            <SignedIn>
+            </Show>
+            <Show when="signed-in">
               <Link
                 href="/dashboard"
                 className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
@@ -120,13 +120,13 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 Dashboard
               </Link>
               <UserButton afterSignOutUrl="/" />
-            </SignedIn>
+            </Show>
           </nav>
 
           <div className="flex min-[960px]:hidden items-center gap-[0.6rem]">
-            <SignedIn>
+            <Show when="signed-in">
               <UserButton afterSignOutUrl="/" />
-            </SignedIn>
+            </Show>
             {isAudit ? (
               <span className={auditCurrentChip} aria-current="page">
                 <span
