@@ -5,6 +5,7 @@ import { auditEmailSummaryRoute } from "./routes/auditEmailSummary";
 import { authRoute } from "./routes/auth";
 import { leadEmailRoute } from "./routes/leadEmail";
 import { leadsRoute } from "./routes/leads";
+import { meRoute } from "./routes/me";
 import { programmaticSeoRoute } from "./routes/programmaticSeo";
 import { reportRoute } from "./routes/report";
 import { reportEmailRoute } from "./routes/reportEmail";
@@ -42,6 +43,7 @@ const app = new Elysia({ aot: false })
   .use(leadEmailRoute)
   .use(leadsRoute)
   .use(authRoute)
+  .use(meRoute)
   .use(adminRoute)
   .use(vaultRoute)
   .use(programmaticSeoRoute)

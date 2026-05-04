@@ -12,7 +12,6 @@ import {
   SITE_HEADER_NAV_LINKS,
 } from "@/design-system/site-config";
 import { businessProfile } from "@/lib/seo";
-import { CookieBanner } from "./CookieBanner";
 import { FooterCta, type FooterCtaProps } from "./FooterCta";
 import { PageLifecycle } from "./PageLifecycle";
 
@@ -45,55 +44,6 @@ export function MarketingChrome({
   return (
     <>
       <PageLifecycle />
-      <Script id="dba-ga-consent" strategy="beforeInteractive">
-        {`
-window.dataLayer = window.dataLayer || [];
-window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-window.__dbaAnalyticsEnabled = false;
-window.gtag('consent', 'default', {
-  analytics_storage: 'denied',
-  ad_storage: 'denied',
-  ad_user_data: 'denied',
-  ad_personalization: 'denied',
-});
-var gtmLoaded = false;
-var gtmConfigured = false;
-window.__dbaCookieConsentKey = 'dba_cookie_consent';
-function configureGtm() {
-  if (gtmConfigured) return;
-  gtmConfigured = true;
-  // GTM already handles its own initialization once the script is loaded
-}
-window.__dbaLoadAnalytics = function () {
-  if (gtmLoaded) return;
-  gtmLoaded = true;
-  if (document.getElementById('dba-gtm-loader')) return;
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.id='dba-gtm-loader';j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-W2JBTH5L');
-};
-window.__dbaGrantAnalyticsConsent = function () {
-  window.__dbaAnalyticsEnabled = true;
-  window.gtag('consent', 'update', {
-    analytics_storage: 'granted',
-    ad_storage: 'granted',
-    ad_user_data: 'granted',
-    ad_personalization: 'granted',
-  });
-  window.dataLayer.push({ event: 'consent_granted' });
-};
-window.__dbaRevokeAnalyticsConsent = function () {
-  window.__dbaAnalyticsEnabled = false;
-  window.gtag('consent', 'update', {
-    analytics_storage: 'denied',
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
-    ad_personalization: 'denied',
-  });
-};`}
-      </Script>
 
       <div id="reading-progress-bar" aria-hidden="true" />
       <div className="site-chrome-sticky header-container sticky top-0 z-50 border-b border-[rgba(26,42,64,0.05)] bg-[rgba(248,249,250,0.9)] backdrop-blur-[12px] [-webkit-backdrop-filter:blur(12px)]">
@@ -286,8 +236,6 @@ window.__dbaRevokeAnalyticsConsent = function () {
           </section>
         </div>
       </dialog>
-
-      <CookieBanner />
 
       <Script id="site-script-lazy-loader" strategy="afterInteractive">
         {`(function () {

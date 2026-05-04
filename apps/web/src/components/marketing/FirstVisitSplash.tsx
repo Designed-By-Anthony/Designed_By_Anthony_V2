@@ -10,40 +10,20 @@ export function FirstVisitSplash() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const COOKIE_KEY = "dba_cookie_consent";
-
-    function safeLocalGet(key: string): string | null {
-      try {
-        return localStorage.getItem(key);
-      } catch {
-        return null;
-      }
-    }
-
     function tryShow(): (() => void) | undefined {
-      const hasShown = safeLocalGet(STORAGE_KEY);
+      let hasShown: string | null = null;
+      try {
+        hasShown = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        /* private browsing */
+      }
       if (!hasShown) {
         const t = setTimeout(() => setIsOpen(true), 800);
         return () => clearTimeout(t);
       }
     }
 
-    const cookieStored = safeLocalGet(COOKIE_KEY);
-    const cookieResolved = cookieStored === "accepted" || cookieStored === "rejected";
-
-    if (cookieResolved) {
-      return tryShow();
-    }
-
-    let cleanup: (() => void) | undefined;
-    const handler = () => {
-      cleanup = tryShow();
-    };
-    window.addEventListener("dba:cookie-resolved", handler, { once: true });
-    return () => {
-      window.removeEventListener("dba:cookie-resolved", handler);
-      cleanup?.();
-    };
+    return tryShow();
   }, []);
 
   const handleClose = () => {
@@ -53,14 +33,6 @@ export function FirstVisitSplash() {
 
   const handleContactClick = () => {
     localStorage.setItem(STORAGE_KEY, "true");
-    // Track the CTA
-    if (typeof window !== "undefined") {
-      const w = window as unknown as { dataLayer?: unknown[] };
-      w.dataLayer?.push({
-        event: "first_visit_splash_contact",
-        cta_source: "first_visit_splash",
-      });
-    }
     setIsOpen(false);
   };
 

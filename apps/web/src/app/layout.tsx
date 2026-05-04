@@ -109,16 +109,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <JsonLd />
       </head>
       <body>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-W2JBTH5L"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="GTM-NoScript"
-          />
-        </noscript>
         <ClerkProvider
           allowedRedirectOrigins={["https://designedbyanthony.online", "http://localhost:3001"]}
         >

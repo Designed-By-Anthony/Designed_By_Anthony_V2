@@ -140,6 +140,34 @@ export const projects = sqliteTable(
   (t) => [index("projects_client_id_idx").on(t.client_id)]
 );
 
+export const purchaseStatusEnum = ["active", "cancelled", "expired"] as const;
+export type PurchaseStatus = (typeof purchaseStatusEnum)[number];
+
+/** Tracks which tool products a user has purchased via Stripe. */
+export const purchases = sqliteTable(
+  "purchases",
+  {
+    id: text("id").primaryKey(),
+    user_id: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    product_slug: text("product_slug").notNull(),
+    tier: text("tier").notNull(),
+    stripe_session_id: text("stripe_session_id"),
+    status: text("status", { enum: purchaseStatusEnum }).notNull().default("active"),
+    created_at: integer("created_at")
+      .notNull()
+      .$defaultFn(() => Date.now()),
+    expires_at: integer("expires_at"),
+  },
+  (t) => [
+    index("purchases_user_id_idx").on(t.user_id),
+    index("purchases_product_slug_idx").on(t.product_slug),
+    index("purchases_status_idx").on(t.status),
+    uniqueIndex("purchases_stripe_session_id_unique").on(t.stripe_session_id),
+  ]
+);
+
 /** Client → operator notes from the Vault “Direct Line” */
 export const vault_messages = sqliteTable(
   "vault_messages",
@@ -169,6 +197,8 @@ export type Project = typeof projects.$inferSelect;
 export type NewProject = typeof projects.$inferInsert;
 export type VaultMessage = typeof vault_messages.$inferSelect;
 export type NewVaultMessage = typeof vault_messages.$inferInsert;
+export type Purchase = typeof purchases.$inferSelect;
+export type NewPurchase = typeof purchases.$inferInsert;
 
 // Relations
 export const transactionsRelations = relations(transactions, ({ one }) => ({
@@ -187,7 +217,16 @@ export const clientsRelations = relations(clients, ({ many }) => ({
   vault_messages: many(vault_messages),
 }));
 
-export const usersRelations = relations(users, () => ({}));
+export const usersRelations = relations(users, ({ many }) => ({
+  purchases: many(purchases),
+}));
+
+export const purchasesRelations = relations(purchases, ({ one }) => ({
+  user: one(users, {
+    fields: [purchases.user_id],
+    references: [users.id],
+  }),
+}));
 
 export const vaultMessagesRelations = relations(vault_messages, ({ one }) => ({
   client: one(clients, {
