@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/cloudflare";
 import { Elysia } from "elysia";
 import { adminRoute } from "./routes/admin";
 import { auditRoute } from "./routes/audit";
@@ -63,39 +64,48 @@ async function handlePdfGeneration(message: AuditQueueMessage, env: any) {
 // Export the handler directly for Cloudflare Workers
 type WorkerStore = { env?: unknown; ctx?: ExecutionContext };
 
-export default {
-  async fetch(request: Request, env: unknown, ctx: ExecutionContext) {
-    Object.assign((app as unknown as { store: WorkerStore }).store, {
-      env,
-      ctx,
-    });
-
-    // 1. SLEDGEHAMMER CORS PREFLIGHT
-    if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "*",
-          "Access-Control-Max-Age": "86400",
-        },
+export default Sentry.withSentry(
+  (_env: Env) => ({
+    dsn: "https://f20594968b62b35635063d10b42dc8ba@o4511331024371712.ingest.us.sentry.io/4511331026927616",
+    tracesSampleRate: 1.0,
+    enableLogs: true,
+    sendDefaultPii: true,
+  }),
+  {
+    async fetch(request, env, ctx) {
+      Object.assign((app as unknown as { store: WorkerStore }).store, {
+        env,
+        ctx,
       });
-    }
 
-    // 2. NORMAL ROUTING (Wrap your existing logic here)
-    const response = await app.handle(request);
+      // 1. CORS PREFLIGHT
+      if (request.method === "OPTIONS") {
+        return new Response(null, {
+          status: 204,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Tenant-Id",
+            "Access-Control-Max-Age": "86400",
+          },
+        });
+      }
 
-    // 3. SLEDGEHAMMER CORS APPEND
-    const newResponse = new Response(response.body, response);
-    newResponse.headers.set("Access-Control-Allow-Origin", "*");
-    return newResponse;
-  },
-  async queue(batch: any, env: any) {
-    for (const message of batch.messages) {
-      await handlePdfGeneration(message.body, env);
-    }
-  },
-};
+      // 2. NORMAL ROUTING
+      const response = await app.handle(request);
+
+      // 3. CORS HEADERS ON ACTUAL RESPONSES
+      const newResponse = new Response(response.body, response);
+      newResponse.headers.set("Access-Control-Allow-Origin", "*");
+      return newResponse;
+    },
+    async queue(batch, env, _ctx) {
+      for (const message of batch.messages) {
+        await handlePdfGeneration(message.body as AuditQueueMessage, env);
+      }
+    },
+  } satisfies ExportedHandler<Env>,
+);
 
 // Export the App type for Eden Treaty client generation
 export type App = typeof app;
