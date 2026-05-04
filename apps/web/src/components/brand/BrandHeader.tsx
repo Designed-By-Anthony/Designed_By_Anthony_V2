@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 import {
@@ -31,9 +32,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
 
   return (
     <>
-      <div
-        className="relative border-b border-[rgba(26,42,64,0.05)] bg-transparent"
-      >
+      <div className="relative border-b border-[rgba(26,42,64,0.05)] bg-transparent">
         <Link
           href={isAudit ? SITE_BRAND.homeHref : SITE_BANNER.href}
           className="site-banner-link flex items-center justify-center gap-[0.6rem] px-4 py-[0.55rem] text-[0.7rem] font-[family-name:var(--font-inter)] font-normal tracking-[0.03em] text-brand-charcoal/85 no-underline transition-colors duration-[180ms] ease-in hover:text-brand-indigo max-[36rem]:text-[0.65rem] max-[36rem]:px-3 max-[36rem]:py-[0.5rem]"
@@ -98,9 +97,36 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 id="nav-audit-btn"
               />
             )}
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button
+                  type="button"
+                  className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo cursor-pointer bg-transparent border-none p-0"
+                >
+                  Sign In
+                </button>
+              </SignInButton>
+              <SignUpButton mode="redirect" forceRedirectUrl="/checkout">
+                <button type="button" className={`${navCtaBase} px-[1rem] py-[0.5rem]`}>
+                  Get Started
+                </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+              <Link
+                href="/dashboard"
+                className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo"
+              >
+                Dashboard
+              </Link>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
           </nav>
 
           <div className="flex min-[960px]:hidden items-center gap-[0.6rem]">
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
             {isAudit ? (
               <span className={auditCurrentChip} aria-current="page">
                 <span

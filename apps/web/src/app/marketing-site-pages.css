@@ -1080,33 +1080,19 @@ a.marketing-service-card:hover {
 }
 
 .pricing-tier--featured {
-  border-color: rgb(var(--accent-bronze-rgb) / 0.42);
-  box-shadow:
-    0 28px 70px -38px rgba(26, 42, 64, 0.18),
-    0 0 0 1px rgb(var(--accent-bronze-rgb) / 0.18),
-    0 0 60px -20px rgb(var(--accent-bronze-rgb) / 0.15);
+  border: 2px solid #1a2a40;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
+  z-index: 1;
+  overflow: visible;
+}
+
+.pricing-tier--featured:hover {
+  transform: scale(1.05) translateY(-4px) rotateX(1.5deg) rotateY(-1.5deg);
 }
 
 .pricing-tier--featured::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    rgb(var(--accent-bronze-rgb) / 0.25),
-    rgba(91, 156, 248, 0.15),
-    rgb(var(--accent-bronze-rgb) / 0.25)
-  );
-  background-size: 200% 200%;
-  animation: pricing-glow-border 5s ease-in-out infinite;
-  z-index: -1;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  padding: 1px;
+  display: none;
 }
 
 @keyframes pricing-glow-border {
@@ -1121,16 +1107,22 @@ a.marketing-service-card:hover {
 
 .pricing-tier-badge {
   display: inline-flex;
-  align-self: flex-start;
-  padding: 0.3rem 0.65rem;
+  align-self: center;
+  padding: 0.35rem 1rem;
   border-radius: 999px;
   font-size: 0.68rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #e8eef3;
-  background: linear-gradient(135deg, rgb(var(--accent-bronze-rgb) / 0.25), rgba(74, 98, 120, 0.4));
-  border: 1px solid rgb(var(--accent-bronze-rgb) / 0.4);
+  color: #ffffff;
+  background: #1a2a40;
+  border: 1px solid #1a2a40;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  white-space: nowrap;
 }
 
 .pricing-tier-name {
