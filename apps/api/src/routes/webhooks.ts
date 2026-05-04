@@ -1,6 +1,6 @@
 import { createD1Client, purchases, users } from "@dba/shared/db/client";
 import { leads, tryInsertLead, tryInsertTransaction } from "@dba/shared/lib/d1Leads";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { Elysia, t } from "elysia";
 import Stripe from "stripe";
 import { upsertSharedUser } from "../db/users";
@@ -142,7 +142,7 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
             const userRow = await drizzle
               .select({ id: users.id })
               .from(users)
-              .where(eq(users.email, customerEmail.trim().toLowerCase()))
+              .where(sql`lower(${users.email}) = ${customerEmail.trim().toLowerCase()}`)
               .limit(1);
             if (userRow[0]) {
               await drizzle.insert(purchases).values({

@@ -1,5 +1,5 @@
 import { createD1Client, purchases, users } from "@dba/shared/db/client";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { Elysia } from "elysia";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 
@@ -63,7 +63,7 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
     )[0];
 
     if (!userRow && email) {
-      userRow = (await drizzle.select().from(users).where(eq(users.email, email)).limit(1))[0];
+      userRow = (await drizzle.select().from(users).where(sql`lower(${users.email}) = ${email}`).limit(1))[0];
 
       if (userRow && !userRow.clerk_id) {
         await drizzle
@@ -74,14 +74,15 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
     }
 
     if (!userRow && email) {
+      const now = Date.now();
       const newId = crypto.randomUUID();
       await drizzle.insert(users).values({
         id: newId,
         clerk_id: clerkId,
         email,
         plan: "free",
-        created_at: Date.now(),
-        updated_at: Date.now(),
+        created_at: now,
+        updated_at: now,
       });
       userRow = {
         id: newId,
@@ -89,8 +90,8 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
         email,
         plan: "free",
         stripe_customer_id: null,
-        created_at: Date.now(),
-        updated_at: Date.now(),
+        created_at: now,
+        updated_at: now,
       };
     }
 
