@@ -35,17 +35,27 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
     return { error: "Missing bearer token." };
   }
 
+  // ── JWT verification (auth errors → 401) ──
+  let clerkId: string;
+  let email: string | null;
   try {
     const jwks = getJWKS(jwksUrl);
     const { payload } = await jwtVerify(token, jwks);
-    const clerkId = typeof payload.sub === "string" ? payload.sub : null;
-    const email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : null;
+    const sub = typeof payload.sub === "string" ? payload.sub : null;
+    email = typeof payload.email === "string" ? payload.email.trim().toLowerCase() : null;
 
-    if (!clerkId) {
+    if (!sub) {
       set.status = 401;
       return { error: "Invalid token claims." };
     }
+    clerkId = sub;
+  } catch {
+    set.status = 401;
+    return { error: "Invalid token." };
+  }
 
+  // ── DB operations (server errors → 500) ──
+  try {
     const drizzle = createD1Client(db);
 
     let userRow = (
@@ -119,7 +129,7 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
       })),
     };
   } catch {
-    set.status = 401;
-    return { error: "Invalid token." };
+    set.status = 500;
+    return { error: "Internal server error." };
   }
 });

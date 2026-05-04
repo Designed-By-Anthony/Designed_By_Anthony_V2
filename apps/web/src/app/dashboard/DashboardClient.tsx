@@ -84,7 +84,7 @@ export function DashboardClient() {
             {/* Purchased tools */}
             <section className="mb-12">
               <h2 className="mb-4 text-lg font-semibold text-[#1a2a40]">Your Tools</h2>
-              {data?.purchases && data.purchases.length > 0 ? (
+              {data?.purchases && data.purchases.filter((p) => p.status === "active").length > 0 ? (
                 <div className="grid gap-4 sm:grid-cols-2">
                   {data.purchases
                     .filter((p) => p.status === "active")
