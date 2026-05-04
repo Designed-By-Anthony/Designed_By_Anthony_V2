@@ -38,7 +38,11 @@ export function FirstVisitSplash() {
   }, [isOpen]);
 
   const handleClose = useCallback(() => {
-    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
+    try {
+      localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* private browsing / quota */
+    }
     setIsOpen(false);
     previousFocusRef.current?.focus();
   }, []);
@@ -56,7 +60,11 @@ export function FirstVisitSplash() {
   }, [isOpen, handleClose]);
 
   const handleContactClick = () => {
-    try { localStorage.setItem(STORAGE_KEY, "true"); } catch { /* private browsing / quota */ }
+    try {
+      localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* private browsing / quota */
+    }
     setIsOpen(false);
   };
 

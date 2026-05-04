@@ -91,7 +91,9 @@ export function SovereignDrawerForm({
     <form onSubmit={handleSubmit} className={SF_DRAWER_FORM}>
       <div className={SF_DRAWER_GRID}>
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>{t("First Name")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-first_name`}>
+            {t("First Name")} <span aria-hidden="true">*</span>
+          </label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -104,7 +106,9 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={SF_DRAWER_FIELD}>
-          <label htmlFor={`${formId}-email`}>{t("Email address")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-email`}>
+            {t("Email address")} <span aria-hidden="true">*</span>
+          </label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -148,7 +152,9 @@ export function SovereignDrawerForm({
         </div>
 
         <div className={`${SF_DRAWER_FIELD} ${SF_DRAWER_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>{t("Message")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-description`}>
+            {t("Message")} <span aria-hidden="true">*</span>
+          </label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}

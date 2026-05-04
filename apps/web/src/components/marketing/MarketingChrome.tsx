@@ -148,7 +148,9 @@ export function MarketingChrome({
       <div className="site-body-canvas block min-w-0">
         <SiteContactDrawer />
         <div className="min-w-0">
-          <main id="main-content" className="pb-24 md:pb-0">{children}</main>
+          <main id="main-content" className="pb-24 md:pb-0">
+            {children}
+          </main>
           {!hidePreFooterCta && footerCta ? <FooterCta {...footerCta} /> : null}
           <BrandFooter />
         </div>

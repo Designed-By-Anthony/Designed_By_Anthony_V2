@@ -97,7 +97,9 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
     <form onSubmit={handleSubmit} className={SF_FORM}>
       <div className={SF_GRID}>
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-first_name`}>{t("First Name")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-first_name`}>
+            {t("First Name")} <span aria-hidden="true">*</span>
+          </label>
           <input
             id={`${formId}-first_name`}
             maxLength={40}
@@ -110,7 +112,9 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={SF_FIELD}>
-          <label htmlFor={`${formId}-email`}>{t("Email address")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-email`}>
+            {t("Email address")} <span aria-hidden="true">*</span>
+          </label>
           <input
             id={`${formId}-email`}
             maxLength={80}
@@ -154,7 +158,9 @@ export function SovereignLeadForm({ sourceId }: { sourceId?: string }) {
         </div>
 
         <div className={`${SF_FIELD} ${SF_FIELD_FULL}`}>
-          <label htmlFor={`${formId}-description`}>{t("Message")} <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${formId}-description`}>
+            {t("Message")} <span aria-hidden="true">*</span>
+          </label>
           <textarea
             id={`${formId}-description`}
             ref={descriptionRef}

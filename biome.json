@@ -16,7 +16,8 @@
       "!!**/.vercel",
       "!!playwright-report",
       "!!reports",
-      "!!test-results"
+      "!!test-results",
+      "!!apps/web/public/email"
     ]
   },
   "formatter": {

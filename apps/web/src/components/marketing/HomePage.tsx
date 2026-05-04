@@ -1,30 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
-import { homeFaqEntries, processSteps, whyStackCards } from "@/data/home";
-import { showcaseFeaturedItems } from "@/data/showcase";
-import {
-  btnOutline,
-  btnPrimary,
-  btnPrimaryAudit,
-  btnSecondaryProof,
-} from "@/design-system/buttons";
+import { homeFaqEntries } from "@/data/home";
+import { btnOutline, btnPrimary, btnPrimaryAudit } from "@/design-system/buttons";
 import { ATELIER_ROME_LEGACY, COPPER_CITY_HOOK } from "@/design-system/location";
-import {
-  FOUNDING_PARTNER_BUILD_SLOTS,
-  FOUNDING_PARTNER_SEO_LABEL,
-  FOUNDING_PARTNER_SEO_MONTHLY,
-  STANDARD_WEBSITE_INSTALLMENT_EACH,
-  STANDARD_WEBSITE_STARTING_PRICE,
-  STANDARD_WEBSITE_TYPICAL_RANGE,
-} from "@/lib/offers";
+import { FOUNDING_PARTNER_BUILD_SLOTS } from "@/lib/offers";
 import { FaqSection } from "./FaqSection";
 import { FirstVisitSplash } from "./FirstVisitSplash";
 import { FoundingPartnerSection } from "./FoundingPartnerSection";
 import { PremiumPitchStrip } from "./PremiumPitchStrip";
 import "@/app/home-page.css";
 
-const homeFeaturedWorkItems = showcaseFeaturedItems.slice(0, 3);
 const heroGhostLines = [
   "WEBSITES THAT WORK.",
   "LETS BUILD SOMETHING GREAT.",
@@ -58,14 +44,24 @@ const heroVariants = {
 } as const;
 
 export function HomePage() {
-  const heroSub = "Fast, mobile-friendly websites for contractors, home services, medical spas, salons, and growing businesses in Utica, Rome, Syracuse, and Central New York. Sites that load fast on phones, rank higher on Google, and turn visitors into customers. ";
+  const heroSub =
+    "Fast, mobile-friendly websites for contractors, home services, medical spas, salons, and growing businesses in Utica, Rome, Syracuse, and Central New York. Sites that load fast on phones, rank higher on Google, and turn visitors into customers. ";
   const heroSubWithLegacy = `${heroSub}${ATELIER_ROME_LEGACY}`;
 
   return (
     <>
       <section className="page-hero page-hero--home">
         <div className="hero-lcp-layer" aria-hidden="true">
-          <Image src="/images/og-site-premium.png" alt="" width={2400} height={1260} className="hero-lcp-layer__img" priority fetchPriority="high" sizes="100vw" />
+          <Image
+            src="/images/og-site-premium.png"
+            alt=""
+            width={2400}
+            height={1260}
+            className="hero-lcp-layer__img"
+            priority
+            fetchPriority="high"
+            sizes="100vw"
+          />
         </div>
         <HeroGhostLayer />
         <div className="page-hero-inner">
@@ -75,16 +71,25 @@ export function HomePage() {
             </p>
             <div className="hero-launch-pill relative z-[40]">
               <span className="hero-launch-pill__text">
-                Limited Offer: <strong>{FOUNDING_PARTNER_BUILD_SLOTS} Free Website Builds Remaining</strong>
+                Limited Offer:{" "}
+                <strong>{FOUNDING_PARTNER_BUILD_SLOTS} Free Website Builds Remaining</strong>
               </span>
             </div>
             <h1 data-hero-h1 className="home-hero-title font-[family-name:var(--font-inter)]">
-              <span className="font-[family-name:var(--font-playfair)] font-bold">Websites</span> that work as hard as you do.
+              <span className="font-[family-name:var(--font-playfair)] font-bold">Websites</span>{" "}
+              that work as hard as you do.
             </h1>
             <p data-hero-sub>{heroSubWithLegacy}</p>
             <div className="hero-actions">
-              <Link href="/lighthouse" className={`${btnPrimaryAudit} hero-cta-glow`}>Audit My Site</Link>
-              <Link href="/contact" className={`${btnOutline} !text-[#1A2A40] !bg-white !border-[#1A2A40]/50`}>Contact us</Link>
+              <Link href="/lighthouse" className={`${btnPrimaryAudit} hero-cta-glow`}>
+                Audit My Site
+              </Link>
+              <Link
+                href="/contact"
+                className={`${btnOutline} !text-[#1A2A40] !bg-white !border-[#1A2A40]/50`}
+              >
+                Contact us
+              </Link>
             </div>
           </div>
         </div>
@@ -99,8 +104,12 @@ export function HomePage() {
           <div className="home-email-cta__card surface-card">
             <h2>Send us a message</h2>
             <div className="flex gap-3 mt-4">
-               <Link href="/contact" className={`${btnOutline} !text-[#1A2A40] !bg-white`}>Open form</Link>
-               <Link href="/contact" className={btnPrimary}>Let's build.</Link>
+              <Link href="/contact" className={`${btnOutline} !text-[#1A2A40] !bg-white`}>
+                Open form
+              </Link>
+              <Link href="/contact" className={btnPrimary}>
+                Let's build.
+              </Link>
             </div>
           </div>
         </div>

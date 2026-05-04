@@ -13,7 +13,10 @@ export function LanguageSwitcher() {
   const { lang, setLang, t } = useLanguage();
 
   return (
-    <div className="flex items-center gap-[0.3rem] shrink-0" role="group" aria-label={t("Language")}>
+    <fieldset
+      className="flex items-center gap-[0.3rem] shrink-0 border-0 m-0 p-0"
+      aria-label={t("Language")}
+    >
       <button
         type="button"
         onClick={() => setLang("en")}
@@ -35,6 +38,6 @@ export function LanguageSwitcher() {
       >
         ES
       </button>
-    </div>
+    </fieldset>
   );
 }
