@@ -301,7 +301,10 @@ export function PricingPage() {
         <div className="section-container">
           <div className="section-divider-glow" aria-hidden="true" />
           <MotionStagger className="pricing-tiers" staggerDelay={0.08}>
-            <MotionStaggerChild as="article" className="surface-card pricing-tier reveal-left">
+            <MotionStaggerChild
+              as="article"
+              className="surface-card pricing-tier !p-10 reveal-left"
+            >
               <p className="pricing-tier-name">Simple Site</p>
               <p className="pricing-tier-price">
                 <span className="pricing-tier-from">from </span>
@@ -319,12 +322,18 @@ export function PricingPage() {
                 <li>Full source code handed to you at launch</li>
                 <li>{BESPOKE_CONFIG_LABEL}</li>
               </ul>
+              <Link
+                href="/sign-up?redirect_url=/checkout"
+                className={`${btnOutline} mt-auto !w-full !text-center`}
+              >
+                Get Started
+              </Link>
             </MotionStaggerChild>
             <MotionStaggerChild
               as="article"
-              className="surface-card pricing-tier pricing-tier--featured reveal-scale"
+              className="surface-card pricing-tier pricing-tier--featured !p-10 reveal-scale"
             >
-              <span className="pricing-tier-badge">Most popular</span>
+              <span className="pricing-tier-badge">Most Popular</span>
               <p className="pricing-tier-name">Standard Rebuild</p>
               <p className="pricing-tier-price pricing-tier-price--stacked">
                 <span className="pricing-tier-installments">
@@ -348,8 +357,17 @@ export function PricingPage() {
                 <li>Source code is yours — no lock-in</li>
                 <li>{BESPOKE_CONFIG_LABEL}</li>
               </ul>
+              <Link
+                href="/sign-up?redirect_url=/checkout"
+                className="mt-auto inline-flex w-full items-center justify-center gap-[0.45rem] rounded-full px-[1.8rem] py-[0.96rem] font-[family-name:var(--font-inter)] font-semibold text-[0.95rem] leading-none tracking-normal text-white bg-[#1A2A40] border border-[#1A2A40] shadow-[0_8px_30px_rgb(26,42,64,0.06)] no-underline cursor-pointer transition-[transform,box-shadow,background-color,border-color] duration-[300ms] [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:bg-[#0f1a28] hover:shadow-[0_10px_34px_-20px_rgba(26,42,64,0.14)]"
+              >
+                Get Started
+              </Link>
             </MotionStaggerChild>
-            <MotionStaggerChild as="article" className="surface-card pricing-tier reveal-right">
+            <MotionStaggerChild
+              as="article"
+              className="surface-card pricing-tier !p-10 reveal-right"
+            >
               <p className="pricing-tier-name">Enterprise</p>
               <p className="pricing-tier-price">
                 <span className="pricing-tier-from">from </span>
@@ -367,6 +385,12 @@ export function PricingPage() {
                 <li>Priority support channel</li>
                 <li>{BESPOKE_CONFIG_LABEL}</li>
               </ul>
+              <Link
+                href="/sign-up?redirect_url=/checkout"
+                className={`${btnOutline} mt-auto !w-full !text-center`}
+              >
+                Get Started
+              </Link>
             </MotionStaggerChild>
           </MotionStagger>
         </div>
