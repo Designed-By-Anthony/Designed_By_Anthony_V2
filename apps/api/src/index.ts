@@ -4,9 +4,11 @@ import { adminRoute } from "./routes/admin";
 import { auditRoute } from "./routes/audit";
 import { auditEmailSummaryRoute } from "./routes/auditEmailSummary";
 import { authRoute } from "./routes/auth";
+import { checkoutRoute } from "./routes/checkout";
 import { leadEmailRoute } from "./routes/leadEmail";
 import { leadsRoute } from "./routes/leads";
 import { meRoute } from "./routes/me";
+import { pagespeedAuditRoute } from "./routes/pagespeedAudit";
 import { programmaticSeoRoute } from "./routes/programmaticSeo";
 import { reportRoute } from "./routes/report";
 import { reportEmailRoute } from "./routes/reportEmail";
@@ -15,7 +17,6 @@ import { testEmailsRoute } from "./routes/testEmails";
 import { testRateLimitsRoute } from "./routes/testRateLimits";
 import { vaultRoute } from "./routes/vault";
 import { webhooks } from "./routes/webhooks";
-import { checkoutRoute } from "./routes/checkout";
 
 // Export the handler directly for Cloudflare Workers
 // env and ctx are passed directly from the Worker fetch handler to Elysia
@@ -55,7 +56,8 @@ const app = new Elysia({ aot: false })
   .use(testEmailsRoute)
   .use(testRateLimitsRoute)
   .use(webhooks)
-  .use(checkoutRoute);
+  .use(checkoutRoute)
+  .use(pagespeedAuditRoute);
 
 import { type AuditQueueMessage, runAuditDetonatorJob } from "./services/auditDetonatorPipeline";
 
@@ -106,7 +108,7 @@ export default Sentry.withSentry(
         await handlePdfGeneration(message.body as AuditQueueMessage, env);
       }
     },
-  } satisfies ExportedHandler<Env>,
+  } satisfies ExportedHandler<Env>
 );
 
 // Export the App type for Eden Treaty client generation

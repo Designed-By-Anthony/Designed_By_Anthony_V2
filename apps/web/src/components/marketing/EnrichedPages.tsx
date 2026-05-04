@@ -325,7 +325,7 @@ export function PricingPage() {
               </ul>
               <Link
                 href="/sign-up?redirect_url=/checkout"
-                className={`${btnOutline} mt-auto !w-full !text-center`}
+                className={`${btnPrimary} mt-auto !w-full !text-center`}
               >
                 Get Started
               </Link>
@@ -390,7 +390,7 @@ export function PricingPage() {
               </ul>
               <Link
                 href="/sign-up?redirect_url=/checkout"
-                className={`${btnOutline} mt-auto !w-full !text-center`}
+                className={`${btnPrimary} mt-auto !w-full !text-center`}
               >
                 Get Started
               </Link>
