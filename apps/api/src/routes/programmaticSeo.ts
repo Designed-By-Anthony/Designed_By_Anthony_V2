@@ -42,7 +42,11 @@ export const programmaticSeoRoute = new Elysia({ prefix: "/api/seo" })
       return { error: "not_found" };
     }
     set.headers["Cache-Control"] = "public, s-maxage=3600, stale-while-revalidate=86400";
-    return { title: row.title, description: row.description ?? "", keywords: row.keywords ?? "" };
+    return {
+      title: row.title,
+      description: row.description ?? "",
+      keywords: row.keywords ?? "",
+    };
   })
   .get("/infrastructure/:city/:industry", ({ params, set }) => {
     const payload = parseInfrastructureParams(params);

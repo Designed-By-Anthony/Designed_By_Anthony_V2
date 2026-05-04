@@ -62,7 +62,10 @@ export async function syncCloudflareAccess(env: CloudflareVaultEnv): Promise<voi
       include,
     }),
   });
-  const patchJson = (await patchRes.json()) as { success?: boolean; errors?: unknown[] };
+  const patchJson = (await patchRes.json()) as {
+    success?: boolean;
+    errors?: unknown[];
+  };
   if (!patchRes.ok || !patchJson.success) {
     throw new Error("Cloudflare Access group update failed");
   }

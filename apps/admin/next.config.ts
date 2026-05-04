@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+
 const monorepoRoot = new URL("../../", `file://${process.cwd()}/`).pathname;
 
 const nextConfig: NextConfig = {

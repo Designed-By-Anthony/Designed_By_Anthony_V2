@@ -7,7 +7,17 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!**/node_modules", "!**/.next", "!**/dist", "!**/.vercel"]
+    "includes": [
+      "**",
+      "!!**/node_modules",
+      "!!**/.next",
+      "!!**/.open-next",
+      "!!**/dist",
+      "!!**/.vercel",
+      "!!playwright-report",
+      "!!reports",
+      "!!test-results"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -24,7 +34,12 @@
         "noUnusedVariables": "error"
       },
       "suspicious": {
-        "noConsole": { "level": "warn", "options": { "allow": ["log"] } },
+        "noConsole": {
+          "level": "warn",
+          "options": {
+            "allow": ["log"]
+          }
+        },
         "noArrayIndexKey": "warn"
       },
       "style": {
@@ -38,5 +53,26 @@
       "trailingCommas": "es5",
       "semicolons": "always"
     }
-  }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "html": {
+    "parser": {
+      "interpolation": true
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["apps/web/public/scripts/site.js"],
+      "linter": {
+        "enabled": false
+      },
+      "assist": {
+        "enabled": false
+      }
+    }
+  ]
 }

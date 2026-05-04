@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import { createRemoteJWKSet, jwtVerify, type JWTPayload } from "jose";
+import { createRemoteJWKSet, type JWTPayload, jwtVerify } from "jose";
 
 type SharedToolPlan = "free" | "paid" | "client" | "admin";
 
@@ -68,7 +68,7 @@ async function findClientByEmail(db: D1Database, email: string) {
 async function findCompletedTransactionByEmail(db: D1Database, email: string) {
   return db
     .prepare(
-      "SELECT plan_name FROM transactions WHERE lower(customer_email) = ? AND status = 'completed' ORDER BY created_at DESC LIMIT 1",
+      "SELECT plan_name FROM transactions WHERE lower(customer_email) = ? AND status = 'completed' ORDER BY created_at DESC LIMIT 1"
     )
     .bind(email)
     .first<TransactionRow>();
@@ -81,14 +81,22 @@ async function resolvePlan(db: D1Database, payload: JWTPayload) {
   if (clerkId) {
     const user = await findSharedUserByClerkId(db, clerkId);
     if (user) {
-      return { userId: user.id, plan: user.plan, email: normalizeEmail(user.email) };
+      return {
+        userId: user.id,
+        plan: user.plan,
+        email: normalizeEmail(user.email),
+      };
     }
   }
 
   if (email) {
     const user = await findSharedUserByEmail(db, email);
     if (user) {
-      return { userId: user.id, plan: user.plan, email: normalizeEmail(user.email) };
+      return {
+        userId: user.id,
+        plan: user.plan,
+        email: normalizeEmail(user.email),
+      };
     }
 
     const client = await findClientByEmail(db, email);
@@ -98,50 +106,57 @@ async function resolvePlan(db: D1Database, payload: JWTPayload) {
 
     const transaction = await findCompletedTransactionByEmail(db, email);
     if (transaction) {
-      return { userId: email, plan: planFromTransaction(transaction.plan_name), email };
+      return {
+        userId: email,
+        plan: planFromTransaction(transaction.plan_name),
+        email,
+      };
     }
   }
 
   return { userId: clerkId, plan: "free" as const, email };
 }
 
-export const authRoute = new Elysia({ prefix: "/auth" }).get("/verify", async ({ request, set, store }) => {
-  set.headers["Cache-Control"] = "no-store";
+export const authRoute = new Elysia({ prefix: "/auth" }).get(
+  "/verify",
+  async ({ request, set, store }) => {
+    set.headers["Cache-Control"] = "no-store";
 
-  const env = (store as { env?: CfEnv }).env;
-  const db = env?.DB;
-  const jwksUrl = env?.CLERK_JWKS_URL?.trim();
+    const env = (store as { env?: CfEnv }).env;
+    const db = env?.DB;
+    const jwksUrl = env?.CLERK_JWKS_URL?.trim();
 
-  if (!db) {
-    set.status = 503;
-    return { error: "Database not available." };
+    if (!db) {
+      set.status = 503;
+      return { error: "Database not available." };
+    }
+
+    if (!jwksUrl) {
+      set.status = 503;
+      return { error: "CLERK_JWKS_URL is not configured." };
+    }
+
+    const authHeader = request.headers.get("authorization") ?? "";
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
+
+    if (!token) {
+      set.status = 401;
+      return { error: "Missing bearer token.", plan: "free" };
+    }
+
+    try {
+      const jwks = getJWKS(jwksUrl);
+      const { payload } = await jwtVerify(token, jwks);
+      const resolved = await resolvePlan(db, payload);
+      return {
+        ok: true,
+        userId: resolved.userId,
+        email: resolved.email,
+        plan: resolved.plan,
+      };
+    } catch {
+      set.status = 401;
+      return { error: "Invalid token.", plan: "free" };
+    }
   }
-
-  if (!jwksUrl) {
-    set.status = 503;
-    return { error: "CLERK_JWKS_URL is not configured." };
-  }
-
-  const authHeader = request.headers.get("authorization") ?? "";
-  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7).trim() : "";
-
-  if (!token) {
-    set.status = 401;
-    return { error: "Missing bearer token.", plan: "free" };
-  }
-
-  try {
-    const jwks = getJWKS(jwksUrl);
-    const { payload } = await jwtVerify(token, jwks);
-    const resolved = await resolvePlan(db, payload);
-    return {
-      ok: true,
-      userId: resolved.userId,
-      email: resolved.email,
-      plan: resolved.plan,
-    };
-  } catch {
-    set.status = 401;
-    return { error: "Invalid token.", plan: "free" };
-  }
-});
+);

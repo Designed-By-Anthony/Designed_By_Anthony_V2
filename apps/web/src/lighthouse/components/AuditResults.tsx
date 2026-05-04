@@ -129,6 +129,7 @@ export function AuditResults({
             </Link>
             {/* Secondary CTA — Download PDF (frosted glass outline) */}
             <button
+              type="button"
               onClick={handleDownloadPdf}
               disabled={pdfStatus === "generating"}
               className="w-full rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-sm py-3 text-sm font-bold text-brand-charcoal hover:bg-white/10 transition-all disabled:opacity-50"
@@ -136,6 +137,7 @@ export function AuditResults({
               {pdfStatus === "generating" ? "Generating…" : "Download PDF Report"}
             </button>
             <button
+              type="button"
               onClick={handlePrintView}
               className="w-full rounded-xl border border-white/[0.06] bg-transparent py-2.5 text-xs font-bold text-brand-charcoal/50 hover:text-brand-charcoal/80 hover:border-white/10 transition-all"
             >
@@ -247,6 +249,7 @@ export function AuditResults({
 
       <div className="mt-24 border-t border-white/10 pt-16 text-center">
         <button
+          type="button"
           onClick={() => {
             if (onReset) onReset();
             else router.push("/lighthouse");

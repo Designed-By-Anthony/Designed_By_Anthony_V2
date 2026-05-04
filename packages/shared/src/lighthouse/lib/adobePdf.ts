@@ -183,7 +183,10 @@ export async function startDocumentGenerationJob(
     throw new Error(`Start job failed (${res.status}): ${body}`);
   }
 
-  const json = (await res.json()) as { id: string; _links: { self: { href: string } } };
+  const json = (await res.json()) as {
+    id: string;
+    _links: { self: { href: string } };
+  };
   return { jobId: json.id, pollingUrl: json._links.self.href };
 }
 
@@ -200,7 +203,10 @@ export async function pollJobStatus(
     throw new Error(`Poll job failed (${res.status}): ${body}`);
   }
 
-  const json = (await res.json()) as { status: string; _links?: { result?: { href: string } } };
+  const json = (await res.json()) as {
+    status: string;
+    _links?: { result?: { href: string } };
+  };
   return { status: json.status, resultUrl: json._links?.result?.href };
 }
 

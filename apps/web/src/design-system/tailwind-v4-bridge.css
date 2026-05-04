@@ -3,84 +3,84 @@
  * Permanent light / high-contrast — linen page, indigo headings, slate accent.
  */
 @theme {
-	/* ── Backgrounds ─────────────────────────────────────────────── */
-	--color-brand-background: var(--brand-background);
-	--color-bg-dark: var(--bg-dark);
-	--color-bg-deeper: var(--bg-deeper);
-	--color-bg-ink: var(--bg-ink);
-	--color-surface-0: var(--bg-ink);
-	--color-surface-1: var(--surface-1);
-	--color-surface-2: var(--surface-2);
-	--color-surface-3: var(--surface-3);
+  /* ── Backgrounds ─────────────────────────────────────────────── */
+  --color-brand-background: var(--brand-background);
+  --color-bg-dark: var(--bg-dark);
+  --color-bg-deeper: var(--bg-deeper);
+  --color-bg-ink: var(--bg-ink);
+  --color-surface-0: var(--bg-ink);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
 
-	/* ── Type ────────────────────────────────────────────────────── */
-	--color-text-white: var(--text-white);
-	--color-text-cream: var(--text-cream);
-	--color-text-soft: var(--text-soft);
-	--color-text-gray: var(--text-gray);
-	--color-text-muted: var(--text-muted);
+  /* ── Type ────────────────────────────────────────────────────── */
+  --color-text-white: var(--text-white);
+  --color-text-cream: var(--text-cream);
+  --color-text-soft: var(--text-soft);
+  --color-text-gray: var(--text-gray);
+  --color-text-muted: var(--text-muted);
 
-	/* ── Bronze accent (Midnight & Bronze palette) ───────────────── */
-	--color-accent-bronze: var(--accent-bronze);
-	--color-accent-bronze-dark: var(--accent-bronze-dark);
-	--color-accent-bronze-light: var(--accent-bronze-light);
-	--color-accent-bronze-muted: var(--accent-bronze-muted);
-	--color-accent-bronze-soft: var(--accent-bronze-soft);
-	--color-accent-bronze-hairline: var(--accent-bronze-hairline);
-	--color-accent-bronze-glow: var(--accent-bronze-glow);
-	--color-accent-brass: var(--accent-brass);
+  /* ── Bronze accent (Midnight & Bronze palette) ───────────────── */
+  --color-accent-bronze: var(--accent-bronze);
+  --color-accent-bronze-dark: var(--accent-bronze-dark);
+  --color-accent-bronze-light: var(--accent-bronze-light);
+  --color-accent-bronze-muted: var(--accent-bronze-muted);
+  --color-accent-bronze-soft: var(--accent-bronze-soft);
+  --color-accent-bronze-hairline: var(--accent-bronze-hairline);
+  --color-accent-bronze-glow: var(--accent-bronze-glow);
+  --color-accent-brass: var(--accent-brass);
 
-	/* ── Blue (legacy; used by Lighthouse segment only) ─────────── */
-	--color-accent-blue: var(--accent-blue);
-	--color-accent-blue-hover: var(--accent-blue-hover);
+  /* ── Blue (legacy; used by Lighthouse segment only) ─────────── */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-blue-hover: var(--accent-blue-hover);
 
-	/* ── Brand tokens (slate accent) ─────────────────────────────── */
-	--color-brand: var(--accent-bronze);
-	--color-brand-hover: var(--accent-bronze-dark);
-	--color-brand-subtle: rgb(var(--brand-accent-rgb) / 0.14);
-	--color-brand-glow: rgb(var(--brand-accent-rgb) / 0.22);
-	--color-brand-ring: rgb(var(--brand-accent-rgb) / 0.45);
+  /* ── Brand tokens (slate accent) ─────────────────────────────── */
+  --color-brand: var(--accent-bronze);
+  --color-brand-hover: var(--accent-bronze-dark);
+  --color-brand-subtle: rgb(var(--brand-accent-rgb) / 0.14);
+  --color-brand-glow: rgb(var(--brand-accent-rgb) / 0.22);
+  --color-brand-ring: rgb(var(--brand-accent-rgb) / 0.45);
 
-	--color-brand-linen: var(--brand-linen);
-	--color-brand-indigo: var(--brand-indigo);
-	--color-brand-charcoal: var(--brand-charcoal);
-	--color-brand-accent: var(--brand-accent);
-	--color-brand-surface: var(--brand-surface);
-	--color-brand-border: var(--border-brand);
+  --color-brand-linen: var(--brand-linen);
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-charcoal: var(--brand-charcoal);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-border: var(--border-brand);
 
-	/* ── Borders ─────────────────────────────────────────────────── */
-	--color-border-soft: var(--border-soft);
+  /* ── Borders ─────────────────────────────────────────────────── */
+  --color-border-soft: var(--border-soft);
 
-	/* ── Glass surfaces (light) ──────────────────────────────────── */
-	--color-glass-bg: rgba(255, 255, 255, 0.92);
-	--color-glass-border: var(--border-brand);
-	--color-glass-border-hover: rgba(26, 42, 64, 0.18);
+  /* ── Glass surfaces (light) ──────────────────────────────────── */
+  --color-glass-bg: rgba(255, 255, 255, 0.92);
+  --color-glass-border: var(--border-brand);
+  --color-glass-border-hover: rgba(26, 42, 64, 0.18);
 
-	/* ── Status ──────────────────────────────────────────────────── */
-	--color-success: var(--success-green);
-	--color-warning: #f59e0b;
-	--color-danger: #ef4444;
-	--color-info: var(--accent-bronze);
+  /* ── Status ──────────────────────────────────────────────────── */
+  --color-success: var(--success-green);
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-info: var(--accent-bronze);
 
-	/* Logo / display tracking — wordmark uses `tracking-tighter` (-0.05em). */
-	--tracking-tighter: -0.05em;
+  /* Logo / display tracking — wordmark uses `tracking-tighter` (-0.05em). */
+  --tracking-tighter: -0.05em;
 
-	/* ── Fonts (Tailwind font-sans / font-serif + legacy token names) ─ */
-	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-	--font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
-	--font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-	--font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  /* ── Fonts (Tailwind font-sans / font-serif + legacy token names) ─ */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-main: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
 
-	/* ── Lighthouse app (light) ─────────────────────────────────── */
-	--color-foreground: var(--brand-charcoal);
-	--color-primary: var(--brand-accent);
-	--color-accent: var(--brand-accent);
-	--color-card: var(--brand-surface);
-	--color-card-border: var(--border-brand);
-	--color-input: #ffffff;
-	--color-input-border: var(--border-brand);
-	--color-label: var(--brand-indigo);
-	--color-placeholder: rgba(51, 51, 51, 0.42);
+  /* ── Lighthouse app (light) ─────────────────────────────────── */
+  --color-foreground: var(--brand-charcoal);
+  --color-primary: var(--brand-accent);
+  --color-accent: var(--brand-accent);
+  --color-card: var(--brand-surface);
+  --color-card-border: var(--border-brand);
+  --color-input: #ffffff;
+  --color-input-border: var(--border-brand);
+  --color-label: var(--brand-indigo);
+  --color-placeholder: rgba(51, 51, 51, 0.42);
 }
 
 /*

@@ -74,7 +74,9 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
       const stripeSessionId = session.id;
 
       if (!customerEmail) {
-        const body400 = JSON.stringify({ error: "Missing customer_email in session" });
+        const body400 = JSON.stringify({
+          error: "Missing customer_email in session",
+        });
         await persistIdempotencyKey(db, event.id, body400, 400);
         return new Response(body400, {
           status: 400,
@@ -89,7 +91,10 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
         source: "Contact_Form",
         status: "Closed",
         turnstile_passed: null,
-        metadata: JSON.stringify({ stripeSessionId, plan: session.metadata?.plan ?? null }),
+        metadata: JSON.stringify({
+          stripeSessionId,
+          plan: session.metadata?.plan ?? null,
+        }),
         created_at: Date.now(),
       });
 
@@ -119,14 +124,16 @@ export const webhooks = new Elysia({ prefix: "/webhooks" }).post(
         created_at: Date.now(),
       });
 
-	  if (db) {
-		await upsertSharedUser(db, {
-			email: customerEmail,
-			plan: "paid",
-			stripeCustomerId:
-				typeof session.customer === "string" ? session.customer : session.customer?.id ?? null,
-		});
-	  }
+      if (db) {
+        await upsertSharedUser(db, {
+          email: customerEmail,
+          plan: "paid",
+          stripeCustomerId:
+            typeof session.customer === "string"
+              ? session.customer
+              : (session.customer?.id ?? null),
+        });
+      }
     }
 
     const responseBody = JSON.stringify({ received: true });

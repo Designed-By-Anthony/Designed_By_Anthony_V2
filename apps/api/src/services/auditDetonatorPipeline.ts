@@ -147,7 +147,7 @@ export async function runAuditDetonatorJob(
     readPageSpeedErrorMessage
   );
 
-  let lighthouse;
+  let lighthouse: ReturnType<typeof emptyLighthouse>;
   let psiDegradedReason: string | null;
 
   if (!resolved.ok) {

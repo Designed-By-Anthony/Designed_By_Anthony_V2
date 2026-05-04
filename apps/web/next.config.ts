@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
+
 const monorepoRoot = new URL("../../", `file://${process.cwd()}/`).pathname;
 
-const CSP = [
+const _CSP = [
   "default-src 'self'",
   // Next.js uses inline scripts; third-party analytics/widgets require 'unsafe-inline'.
   // No require-trusted-types-for — too restrictive for GTM/Stripe/Clarity/Crisp on a marketing site.

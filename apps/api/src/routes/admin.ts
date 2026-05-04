@@ -130,10 +130,10 @@ export const adminRoute = new Elysia({ prefix: "/api/admin" }).post(
 
     await db.update(leads).set({ status: "Active_Client" }).where(eq(leads.id, lead.id));
 
-  await upsertSharedUser(d1 as D1Database, {
-    email: emailStored,
-    plan: "client",
-  });
+    await upsertSharedUser(d1 as D1Database, {
+      email: emailStored,
+      plan: "client",
+    });
 
     await syncCloudflareAccess(env);
 

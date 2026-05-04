@@ -4,10 +4,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
  * Routes that require authentication.
  * Everything else (marketing pages, pSEO, checkout, etc.) is public.
  */
-const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)",
-  "/account(.*)",
-]);
+const isProtectedRoute = createRouteMatcher(["/dashboard(.*)", "/account(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {

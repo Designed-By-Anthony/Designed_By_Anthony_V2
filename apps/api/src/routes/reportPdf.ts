@@ -85,7 +85,10 @@ export const reportPdfRoute = new Elysia({ aot: false })
     const result = await stmt?.bind(jobId).first<{ status?: string; r2_url?: string }>();
 
     if (!result) {
-      return { status: "pending", message: "Your report is being generated..." };
+      return {
+        status: "pending",
+        message: "Your report is being generated...",
+      };
     }
 
     if (result.status === "completed" && result.r2_url) {
