@@ -26,13 +26,18 @@ test.describe("Sovereign Fortress — web + admin", () => {
       });
     });
 
-    await page.route("**/turnstile.js", (route) => {
+    await page.route("https://challenges.cloudflare.com/turnstile/**", (route) => {
       route.fulfill({
         status: 200,
         contentType: "application/javascript",
         body: `
           window.turnstile = {
-            render: () => 'mock-turnstile-container',
+            render: (el, opts) => {
+              if (opts && typeof opts.callback === 'function') {
+                setTimeout(() => opts.callback('mock-turnstile-token'), 0);
+              }
+              return 'mock-turnstile-container';
+            },
             reset: () => {},
             remove: () => {},
             getResponse: () => 'mock-turnstile-token'
