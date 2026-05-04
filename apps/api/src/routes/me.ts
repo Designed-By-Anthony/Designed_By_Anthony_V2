@@ -77,6 +77,16 @@ export const meRoute = new Elysia({ prefix: "/me" }).get("/", async ({ request, 
     }
 
     if (!userRow && email) {
+      const existingByEmail = await drizzle
+        .select({ id: users.id })
+        .from(users)
+        .where(sql`lower(${users.email}) = ${email}`)
+        .limit(1);
+      if (existingByEmail[0]) {
+        set.status = 409;
+        return { error: "Email already associated with another account." };
+      }
+
       const now = Date.now();
       const newId = crypto.randomUUID();
       await drizzle.insert(users).values({
