@@ -62,7 +62,7 @@ export const btnWhite = `${btnBase} !bg-brand-surface !text-brand-indigo border-
  * Wraps the `.btn-premium-primary` CSS rule (defined in tailwind-v4-bridge.css)
  * so consumers go through the design-system file, not the raw class name.
  */
-export const btnPremiumPrimary = "btn-premium-primary";
+export const btnPremiumPrimary = `${btnChrome} !bg-[#1A2A40] !text-[#FFFFFF] hover:!bg-[#486D8A] shadow-[0_8px_30px_rgba(26,42,64,0.15)]`;
 
 export const btnSm = "!px-[1.2rem] !py-[0.65rem] !text-[0.82rem]";
 

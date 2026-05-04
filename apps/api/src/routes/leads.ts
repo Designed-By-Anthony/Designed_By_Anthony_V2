@@ -64,7 +64,21 @@ export const leadsRoute = new Elysia({ prefix: "/leads" })
         return {
           success: result.length > 0,
           deletedId: params.id,
-       .post(
+        };
+      } catch (_error) {
+        return {
+          error: "Failed to delete lead",
+          success: false,
+        };
+      }
+    },
+    {
+      params: t.Object({
+        id: t.String(),
+      }),
+    }
+  )
+  .post(
     "",
     // biome-ignore lint/suspicious/noExplicitAny: Elysia handler context inferred at runtime
     async ({ body, set, store, request }: any) => {
