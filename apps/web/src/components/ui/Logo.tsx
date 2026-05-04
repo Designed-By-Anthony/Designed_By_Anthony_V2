@@ -1,8 +1,6 @@
 import Image from "next/image";
 import type { ComponentPropsWithoutRef } from "react";
-
-const wordmarkBase =
-  "font-serif font-black uppercase tracking-tighter text-brand-indigo leading-none";
+import { BRAND_ASSETS, BRAND_NAME } from "@/design-system/brand";
 
 const variants = {
   header: "text-2xl",
@@ -25,8 +23,8 @@ export function Logo({ variant = "header", className = "", ...props }: LogoProps
   return (
     <span className={`inline-flex items-center ${className}`.trim()} {...props}>
       <Image
-        src="/logo.png"
-        alt="ANTHONY."
+        src={BRAND_ASSETS.logo}
+        alt={BRAND_NAME}
         width={h}
         height={h}
         className="h-auto object-contain"
