@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { MarketingChrome } from "@/components/marketing/MarketingChrome";
 import { buildToolsStoreJsonLd } from "@/lib/tools-jsonld";
-import { ToolsPage } from "./ToolsPage";
+import ToolsPage from "./ToolsPage";
 
 export const revalidate = 86400;
 
