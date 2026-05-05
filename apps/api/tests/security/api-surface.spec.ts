@@ -89,9 +89,7 @@ test.describe("API Surface — Input Validation (/api/lead-email)", () => {
     expect(res.status()).toBe(400);
     const body = (await res.json()) as { errors?: Array<{ field?: string; message: string }> };
     expect(Array.isArray(body.errors)).toBe(true);
-    const hasEmailError = body.errors!.some(
-      (e) => /email/i.test(e.message) || e.field === "email"
-    );
+    const hasEmailError = body.errors!.some((e) => /email/i.test(e.message) || e.field === "email");
     expect(hasEmailError, "At least one error must reference the email field").toBe(true);
   });
 
@@ -318,9 +316,7 @@ test.describe("API Surface — Rate Limiting (/api/audit)", () => {
     await request.delete(RATE_RESET);
   });
 
-  test("6th rapid POST → 429 with Retry-After header and structured error", async ({
-    request,
-  }) => {
+  test("6th rapid POST → 429 with Retry-After header and structured error", async ({ request }) => {
     const ip = makeTestIp();
     const headers = jsonHeaders(ip);
 
@@ -337,10 +333,9 @@ test.describe("API Surface — Rate Limiting (/api/audit)", () => {
         },
       });
       // Allow 200, 400, 503 (missing bindings) — just not 429 on the first 5
-      expect(
-        res.status(),
-        `POST ${i}/5 to /api/audit should not yet be rate-limited`
-      ).not.toBe(429);
+      expect(res.status(), `POST ${i}/5 to /api/audit should not yet be rate-limited`).not.toBe(
+        429
+      );
     }
 
     // 6th request must be rejected
@@ -490,7 +485,7 @@ test.describe("API Surface — Security Probes", () => {
         company: "Proto Corp",
         // biome-ignore format: intentional prototype pollution probe
         "__proto__": { polluted: true },
-        "constructor": { prototype: { polluted: true } },
+        constructor: { prototype: { polluted: true } },
       }),
     });
 

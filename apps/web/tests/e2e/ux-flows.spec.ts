@@ -34,6 +34,21 @@ async function mockLeadEmailSuccess(page: import("@playwright/test").Page) {
   });
 }
 
+/**
+ * Suppress the first-visit splash dialog that otherwise covers the page
+ * and intercepts pointer events on other elements.
+ */
+async function suppressSplash(page: import("@playwright/test").Page) {
+  await page.addInitScript(() => {
+    try { localStorage.setItem("dba_first_visit_shown_v1", "true"); } catch {}
+  });
+}
+
+/** Find the visible SovereignLeadForm (not the hidden drawer form). */
+function visibleLeadForm(page: import("@playwright/test").Page) {
+  return page.locator('form:has(button:has-text("Let\'s build something great."))');
+}
+
 // ═════════════════════════════════════════════════════════════════════════
 // SECTION 1 — Contact Form (SovereignLeadForm) UI flow
 // ═════════════════════════════════════════════════════════════════════════
@@ -43,18 +58,17 @@ test.describe("UX Flows — Contact Form (SovereignLeadForm)", () => {
 
   test("fill all required fields → submit → success state appears", async ({ page }) => {
     await mockLeadEmailSuccess(page);
+    await suppressSplash(page);
     await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30_000 });
 
-    const form = page.locator("form").first();
+    const form = visibleLeadForm(page);
     await form.getByLabel(/first name/i).fill("E2E Tester");
     await form.getByLabel(/email/i).fill(`ux-flow-${randomUUID()}@example.test`);
     await form.getByLabel(/message/i).fill("End-to-end form submission test.");
     await form.locator("[type=submit]").click();
 
     await expect(
-      page
-        .getByText(/thank you for your interest/i)
-        .or(page.getByText(/we.ll be in touch/i))
+      page.getByText(/thank you for your interest/i).or(page.getByText(/we.ll be in touch/i))
     ).toBeVisible({ timeout: 10_000 });
   });
 
@@ -68,7 +82,7 @@ test.describe("UX Flows — Contact Form (SovereignLeadForm)", () => {
 
     await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30_000 });
 
-    const form = page.locator("form").first();
+    const form = visibleLeadForm(page);
     await form.getByLabel(/first name/i).fill("E2E Tester");
     // Intentionally omit email
     await form.getByLabel(/message/i).fill("Incomplete submission.");
@@ -90,7 +104,7 @@ test.describe("UX Flows — Contact Form (SovereignLeadForm)", () => {
 
     await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30_000 });
 
-    const form = page.locator("form").first();
+    const form = visibleLeadForm(page);
     await form.getByLabel(/first name/i).fill("E2E Tester");
     await form.getByLabel(/email/i).fill(`error-test-${randomUUID()}@example.test`);
     await form.getByLabel(/message/i).fill("Testing error state.");
@@ -235,7 +249,10 @@ test.describe("UX Flows — Mobile Hamburger Menu", () => {
     // Either the page navigated (new page → no #mobile-nav with .open) or the
     // overlay JS removed the `open` class in place.
     await page.waitForTimeout(600);
-    const classAttr = await page.locator("#mobile-nav").getAttribute("class").catch(() => "");
+    const classAttr = await page
+      .locator("#mobile-nav")
+      .getAttribute("class")
+      .catch(() => "");
     expect(classAttr ?? "").not.toMatch(/\bopen\b/);
   });
 });
@@ -247,6 +264,10 @@ test.describe("UX Flows — Mobile Hamburger Menu", () => {
 test.describe("UX Flows — FAQ Accordion", () => {
   test.describe.configure({ mode: "serial" });
 
+  test.beforeEach(async ({ page }) => {
+    await suppressSplash(page);
+  });
+
   test("clicking a summary expands its details element", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
@@ -257,7 +278,7 @@ test.describe("UX Flows — FAQ Accordion", () => {
     const openBefore = await firstItem.evaluate((el) => (el as HTMLDetailsElement).open);
     expect(openBefore).toBe(false);
 
-    await firstItem.locator("summary").click();
+    await firstItem.locator("summary").click({ force: true });
 
     const openAfter = await firstItem.evaluate((el) => (el as HTMLDetailsElement).open);
     expect(openAfter, "Details element should be open after clicking summary").toBe(true);
@@ -267,7 +288,7 @@ test.describe("UX Flows — FAQ Accordion", () => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
     const firstItem = page.locator("details.home-faq-item").first();
-    await firstItem.locator("summary").click();
+    await firstItem.locator("summary").click({ force: true });
 
     // The .home-faq-answer div holds the visible answer
     const answer = firstItem.locator(".home-faq-answer");
@@ -284,11 +305,11 @@ test.describe("UX Flows — FAQ Accordion", () => {
     test.skip(count < 2, "Need at least two FAQ items for the exclusive-details test");
 
     // Open first
-    await items.nth(0).locator("summary").click();
+    await items.nth(0).locator("summary").click({ force: true });
     await expect(items.nth(0)).toHaveJSProperty("open", true);
 
     // Open second — the [data-exclusive-details] JS closes the first
-    await items.nth(1).locator("summary").click();
+    await items.nth(1).locator("summary").click({ force: true });
     // Allow up to 400 ms for the exclusive handler in site.js to run
     await page.waitForTimeout(400);
 
@@ -316,6 +337,10 @@ test.describe("UX Flows — FAQ Accordion", () => {
 test.describe("UX Flows — Language Switcher", () => {
   test.describe.configure({ mode: "serial" });
 
+  test.beforeEach(async ({ page }) => {
+    await suppressSplash(page);
+  });
+
   test("clicking ES button translates nav labels to Spanish", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
@@ -330,7 +355,9 @@ test.describe("UX Flows — Language Switcher", () => {
   test("ES button gets aria-pressed=true; EN button gets aria-pressed=false", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-    const esBtn = page.locator('button[aria-label*="Spanish"], button[aria-label*="Español"]').first();
+    const esBtn = page
+      .locator('button[aria-label*="Spanish"], button[aria-label*="Español"]')
+      .first();
     await esBtn.click();
     await expect(esBtn).toHaveAttribute("aria-pressed", "true");
 
@@ -341,7 +368,10 @@ test.describe("UX Flows — Language Switcher", () => {
   test("language cookie (dba_lang=es) is written after switching to Spanish", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-    await page.locator('button[aria-label*="Spanish"], button[aria-label*="Español"]').first().click();
+    await page
+      .locator('button[aria-label*="Spanish"], button[aria-label*="Español"]')
+      .first()
+      .click();
     await page.waitForTimeout(300);
 
     const cookies = await page.context().cookies();
@@ -353,7 +383,10 @@ test.describe("UX Flows — Language Switcher", () => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
     // Switch to Spanish
-    await page.locator('button[aria-label*="Spanish"], button[aria-label*="Español"]').first().click();
+    await page
+      .locator('button[aria-label*="Spanish"], button[aria-label*="Español"]')
+      .first()
+      .click();
     await expect(page.getByText("Servicios").first()).toBeVisible({ timeout: 3_000 });
 
     // Hard reload — cookie must restore the language

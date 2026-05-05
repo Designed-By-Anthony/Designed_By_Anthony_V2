@@ -45,9 +45,13 @@ export const auditRoute = new Elysia({ aot: false }).post(
     const company = normalizeText(body.company, 160);
     const location = typeof body.location === "string" ? normalizeText(body.location, 160) : "";
 
-    if (!url || !email || !name || !company) {
+    if (!url) {
       set.status = 400;
-      return { error: "Valid URL, name, company, and email are required." };
+      return { error: "A valid URL starting with http:// or https:// is required." };
+    }
+    if (!email || !name || !company) {
+      set.status = 400;
+      return { error: "Valid name, company, and email are required." };
     }
 
     const turnstileSecret = resolveEffectiveSecretKey(process.env.TURNSTILE_SECRET_KEY?.trim());

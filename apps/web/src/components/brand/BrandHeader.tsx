@@ -98,19 +98,25 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
               />
             )}
             <Show when="signed-out">
-              <SignInButton mode="modal">
-                <button
-                  type="button"
-                  className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo cursor-pointer bg-transparent border-none p-0"
-                >
-                  Sign In
-                </button>
-              </SignInButton>
-              <SignUpButton mode="redirect" forceRedirectUrl="/checkout">
-                <button type="button" className={`${navCtaBase} px-[1rem] py-[0.5rem]`}>
-                  Get Started
-                </button>
-              </SignUpButton>
+              <div className="flex items-center gap-5">
+                <SignInButton mode="modal">
+                  <span>
+                    <button
+                      type="button"
+                      className="text-[0.82rem] font-medium text-brand-charcoal/75 no-underline transition-colors duration-[180ms] ease-in tracking-[-0.005em] whitespace-nowrap hover:text-brand-indigo cursor-pointer bg-transparent border-none p-0"
+                    >
+                      Sign In
+                    </button>
+                  </span>
+                </SignInButton>
+                <SignUpButton mode="redirect" forceRedirectUrl="/checkout">
+                  <span>
+                    <button type="button" className={`${navCtaBase} px-[1rem] py-[0.5rem]`}>
+                      Get Started
+                    </button>
+                  </span>
+                </SignUpButton>
+              </div>
             </Show>
             <Show when="signed-in">
               <Link
@@ -119,13 +125,13 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
               >
                 Dashboard
               </Link>
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </Show>
           </nav>
 
           <div className="flex min-[960px]:hidden items-center gap-[0.6rem]">
             <Show when="signed-in">
-              <UserButton afterSignOutUrl="/" />
+              <UserButton />
             </Show>
             {isAudit ? (
               <span className={auditCurrentChip} aria-current="page">
@@ -149,7 +155,6 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 type="button"
                 aria-label="Open navigation menu"
                 aria-controls="mobile-nav"
-                aria-expanded="false"
               >
                 <span className="block h-[1.5px] w-full bg-[#1a2a40] rounded-[1px] transition-transform duration-[200ms] ease-in" />
                 <span className="block h-[1.5px] w-full bg-[#1a2a40] rounded-[1px] transition-[opacity,transform] duration-[200ms] ease-in" />

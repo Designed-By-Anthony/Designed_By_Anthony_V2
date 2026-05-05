@@ -187,10 +187,7 @@ test.describe("Chaos · Pillar 1 — Integration Gauntlet", () => {
     expect(inserted, `Lead with email ${email} must appear in GET /leads`).toBeTruthy();
 
     // Metadata JSON round-trip: the "JSON packer" in leadsRoute must preserve custom fields
-    expect(
-      inserted?.metadata,
-      "metadata column must be a non-null JSON string"
-    ).not.toBeNull();
+    expect(inserted?.metadata, "metadata column must be a non-null JSON string").not.toBeNull();
 
     const parsedMeta = JSON.parse(inserted?.metadata ?? "{}") as Record<string, unknown>;
     expect(parsedMeta.widget).toBe("chaos-suite");
@@ -223,10 +220,13 @@ test.describe("Chaos · Pillar 1 — Integration Gauntlet", () => {
       route.abort("timedout");
     });
 
-    await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30000 });
+    await page.addInitScript(() => {
+    try { localStorage.setItem('dba_first_visit_shown_v1', 'true'); } catch (e) {}
+  });
+  await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30000 });
 
     // Fill required fields — works for SovereignLeadForm at /contact
-    const form = page.locator("form").first();
+    const form = page.locator('form:has(button:has-text("Let\'s build something great."))');
     await form.getByLabel(/first name/i).fill("Chaos Tester");
     await form.getByLabel(/email/i).fill(randomEmail());
     await form.getByLabel(/message/i).fill("Trial by fire — timeout test.");
@@ -260,10 +260,7 @@ test.describe("Chaos · Pillar 2 — Security & Auth Infiltration", () => {
   test("GET /api/vault/project without CF-Access header → 401", async ({ request }) => {
     // No cf-access-authenticated-user-email header → vault route must reject
     const res = await request.get(`${API}/api/vault/project`);
-    expect(
-      res.status(),
-      "Vault API must return 401 when CF Access header is absent"
-    ).toBe(401);
+    expect(res.status(), "Vault API must return 401 when CF Access header is absent").toBe(401);
 
     const body = (await res.json()) as { error?: string };
     expect(body.error).toBeTruthy();
@@ -411,7 +408,10 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
     });
 
     // If no .btn elements exist on the page the suite itself is broken
-    expect(results.length, "At least one .btn element must be present on the home page").toBeGreaterThan(0);
+    expect(
+      results.length,
+      "At least one .btn element must be present on the home page"
+    ).toBeGreaterThan(0);
 
     const ghosts = results.filter((b) => b.isGhost);
     expect(
@@ -450,10 +450,8 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
       const bgLower = btn.bgColor.toLowerCase();
 
       // Convert rgb(26, 42, 64) → the indigo brand color
-      const isIndigoText =
-        colorLower.includes(BRAND_INDIGO_RGB) || colorLower === BRAND_INDIGO_HEX;
-      const isIndigoBg =
-        bgLower.includes(BRAND_INDIGO_RGB) || bgLower === BRAND_INDIGO_HEX;
+      const isIndigoText = colorLower.includes(BRAND_INDIGO_RGB) || colorLower === BRAND_INDIGO_HEX;
+      const isIndigoBg = bgLower.includes(BRAND_INDIGO_RGB) || bgLower === BRAND_INDIGO_HEX;
 
       expect(
         isIndigoText && isIndigoBg,
@@ -471,8 +469,7 @@ test.describe("Chaos · Pillar 3 — UX Ghost & Visual Integrity", () => {
     await page
       .waitForFunction(
         () => {
-          const h1 =
-            document.querySelector("[data-hero-h1]") ?? document.querySelector("h1");
+          const h1 = document.querySelector("[data-hero-h1]") ?? document.querySelector("h1");
           if (!h1) return false;
           return Number.parseFloat(window.getComputedStyle(h1).opacity) > 0;
         },
@@ -573,7 +570,10 @@ test.describe("Chaos · Pillar 4 — Data Stress", () => {
     });
 
     // Must NOT crash the Worker
-    expect(res.status(), `POST /leads with ${MAX_MESSAGE_STRESS_LENGTH}-char body should not 5xx — got ${res.status()}`).not.toBe(500);
+    expect(
+      res.status(),
+      `POST /leads with ${MAX_MESSAGE_STRESS_LENGTH}-char body should not 5xx — got ${res.status()}`
+    ).not.toBe(500);
 
     if (res.ok()) {
       // Verify D1 preserved the full payload

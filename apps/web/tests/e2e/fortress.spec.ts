@@ -75,11 +75,14 @@ test.describe("Sovereign Fortress — web + admin", () => {
   });
 
   test("lead URL normalization — contact drawer Website field", async ({ page }) => {
+    await page.addInitScript(() => {
+      try { localStorage.setItem("dba_first_visit_shown_v1", "true"); } catch {}
+    });
     await page.goto(`${WEB_BASE}/`, { waitUntil: "commit" });
 
     await page.getByRole("button", { name: "Contact" }).click();
     const drawer = page.locator('[role="dialog"][aria-label="Contact form"]');
-    await expect(drawer).toBeVisible();
+    await expect(drawer).toBeVisible({ timeout: 5_000 });
 
     const urlInput = drawer.getByLabel("Website");
     await urlInput.fill("testsite.com");

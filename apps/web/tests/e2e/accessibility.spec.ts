@@ -130,7 +130,9 @@ test.describe("Accessibility — Keyboard Navigation", () => {
     expect(navLinkFocused, "Tab should reach Main navigation within 25 presses").toBe(true);
   });
 
-  test("banner link is reachable before the nav (second Tab press or earlier)", async ({ page }) => {
+  test("banner link is reachable before the nav (second Tab press or earlier)", async ({
+    page,
+  }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
@@ -193,9 +195,7 @@ test.describe("Accessibility — Dialog ARIA Roles", () => {
     expect(ariaModal).not.toBeNull();
   });
 
-  test("contact drawer tab button has aria-controls pointing to the panel id", async ({
-    page,
-  }) => {
+  test("contact drawer tab button has aria-controls pointing to the panel id", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "commit", timeout: 30_000 });
 
     const tab = page.locator('button[aria-expanded][aria-label*="Contact"]').first();
@@ -234,14 +234,11 @@ test.describe("Accessibility — Viewport Overflow", () => {
     await page.setViewportSize({ width, height });
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-    const overflows = await page.evaluate(() =>
-      document.documentElement.scrollWidth > document.documentElement.clientWidth
+    const overflows = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth
     );
 
-    expect(
-      overflows,
-      `Horizontal scroll overflow detected at ${width}×${height}`
-    ).toBe(false);
+    expect(overflows, `Horizontal scroll overflow detected at ${width}×${height}`).toBe(false);
   }
 
   test("tablet 768 px — no horizontal scroll overflow", async ({ page }) => {
@@ -284,10 +281,9 @@ test.describe("Accessibility — Footer Navigation", () => {
 
     for (const href of internalHrefs) {
       const res = await request.get(`${WEB}${href}`);
-      expect.soft(
-        res.status(),
-        `Footer nav link "${href}" returned ${res.status()}`
-      ).toBeLessThan(400);
+      expect
+        .soft(res.status(), `Footer nav link "${href}" returned ${res.status()}`)
+        .toBeLessThan(400);
     }
   });
 
@@ -296,10 +292,7 @@ test.describe("Accessibility — Footer Navigation", () => {
 
     for (const path of legalPaths) {
       const res = await request.get(`${WEB}${path}`);
-      expect.soft(
-        res.status(),
-        `Legal page "${path}" returned ${res.status()}`
-      ).toBeLessThan(400);
+      expect.soft(res.status(), `Legal page "${path}" returned ${res.status()}`).toBeLessThan(400);
     }
   });
 

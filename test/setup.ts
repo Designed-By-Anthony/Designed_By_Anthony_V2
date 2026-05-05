@@ -23,10 +23,14 @@ async function globalSetup() {
   // Set default environment variables if not provided
   process.env.NEXT_PUBLIC_WEB_URL = process.env.NEXT_PUBLIC_WEB_URL || "http://localhost:3000";
   process.env.NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8787";
+  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY =
+    process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+    "pk_live_Y2xlcmsuZGVzaWduZWRieWFudGhvbnkuY29tJA";
 
   console.log("✅ Test environment configured");
   console.log(`🌐 Web URL: ${process.env.NEXT_PUBLIC_WEB_URL}`);
   console.log(`🔌 API URL: ${process.env.NEXT_PUBLIC_API_URL}`);
+  if (process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) console.log("🔑 Clerk Publishable Key: Found");
   if (process.env.PLAYWRIGHT_ZAP_PROXY?.trim()) {
     console.log(`🔒 ZAP proxy (Playwright): ${process.env.PLAYWRIGHT_ZAP_PROXY.trim()}`);
   }

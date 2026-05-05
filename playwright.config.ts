@@ -57,6 +57,11 @@ export default defineConfig({
           cwd: path.join(repoRoot, "apps/web"),
           url: "http://localhost:3000",
           reuseExistingServer: !process.env.CI,
+          env: {
+            NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+              process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+              "pk_live_Y2xlcmsuZGVzaWduZWRieWFudGhvbnkuY29tJA",
+          },
           timeout: 240000,
           stdout: "pipe",
           stderr: "pipe",
@@ -67,6 +72,11 @@ export default defineConfig({
           cwd: path.join(repoRoot, "apps/admin"),
           url: "http://localhost:3100",
           reuseExistingServer: !process.env.CI,
+          env: {
+            NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+              process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ||
+              "pk_live_Y2xlcmsuZGVzaWduZWRieWFudGhvbnkuY29tJA",
+          },
           timeout: 240000,
           stdout: "pipe",
           stderr: "pipe",

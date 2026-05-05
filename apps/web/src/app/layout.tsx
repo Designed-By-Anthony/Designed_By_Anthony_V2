@@ -5,7 +5,6 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/fraunces";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { CSSProperties, ReactNode } from "react";
-import { CrispBootstrap } from "@/components/CrispBootstrap";
 import { JsonLd } from "@/components/JsonLd";
 import { LanguageProvider } from "@/lib/i18n";
 
@@ -114,7 +113,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         >
           <LanguageProvider>{children}</LanguageProvider>
         </ClerkProvider>
-        <CrispBootstrap />
       </body>
     </html>
   );
