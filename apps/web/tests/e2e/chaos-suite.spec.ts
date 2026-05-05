@@ -226,7 +226,8 @@ test.describe("Chaos · Pillar 1 — Integration Gauntlet", () => {
   await page.goto(`${WEB}/contact`, { waitUntil: "commit", timeout: 30000 });
 
     // Fill required fields — works for SovereignLeadForm at /contact
-    const form = page.locator('form:has(button:has-text("Let\'s build something great."))').first();    await form.getByLabel(/first name/i).fill("Chaos Tester");
+    const form = page.locator('form:has(button:has-text("Let\'s build something great."))').first();
+    await form.getByLabel(/first name/i).fill("Chaos Tester");
     await form.getByLabel(/email/i).fill(randomEmail());
     await form.getByLabel(/message/i).fill("Trial by fire — timeout test.");
 

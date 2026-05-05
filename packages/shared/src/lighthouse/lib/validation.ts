@@ -44,7 +44,8 @@ export function normalizeHttpUrl(input: unknown): string | null {
       return null;
     }
 
-    // Reject path-traversal hostnames (e.g. "../../etc/passwd" → hostname "..")
+    // Reject path-traversal hostnames (e.g. "../../etc/passwd" → hostname "..").
+    // Leading dots and dashes are also rejected as they are invalid DNS labels.
     if (url.hostname.includes("..") || url.hostname.startsWith(".") || url.hostname.startsWith("-")) {
       return null;
     }
