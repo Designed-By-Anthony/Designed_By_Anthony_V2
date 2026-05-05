@@ -31,11 +31,21 @@ export function normalizeHttpUrl(input: unknown): string | null {
     return null;
   }
 
+  // Reject any explicit non-http(s) scheme (e.g. ftp://, file://, javascript:)
+  if (/^[a-z][a-z0-9+\-.]*:\/\//i.test(raw) && !/^https?:\/\//i.test(raw)) {
+    return null;
+  }
+
   const candidate = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
 
   try {
     const url = new URL(candidate);
     if (!["http:", "https:"].includes(url.protocol) || !url.hostname) {
+      return null;
+    }
+
+    // Reject path-traversal hostnames (e.g. "../../etc/passwd" → hostname "..")
+    if (url.hostname.includes("..") || url.hostname.startsWith(".") || url.hostname.startsWith("-")) {
       return null;
     }
 

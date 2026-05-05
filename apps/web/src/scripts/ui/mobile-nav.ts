@@ -64,7 +64,15 @@ export function initMobileNav(): void {
     "[data-mobile-nav-dismiss], [data-mobile-nav-close]"
   );
 
+  // Close the nav on SPA page transitions but skip the very first
+  // `dba:page-ready` that fires on initial hydration — otherwise the event
+  // can arrive after the user opens the menu and close it immediately.
+  let initialPageReadyFired = false;
   window.addEventListener("dba:page-ready", () => {
+    if (!initialPageReadyFired) {
+      initialPageReadyFired = true;
+      return;
+    }
     closeMobileNav();
   });
 

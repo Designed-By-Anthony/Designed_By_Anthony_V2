@@ -46,7 +46,9 @@ async function suppressSplash(page: import("@playwright/test").Page) {
 
 /** Find the visible SovereignLeadForm (not the hidden drawer form). */
 function visibleLeadForm(page: import("@playwright/test").Page) {
-  return page.locator('form:has(button:has-text("Let\'s build something great."))');
+  // Use .first() to avoid strict-mode violations when the SiteContactDrawer's
+  // SovereignDrawerForm is also in the DOM (same submit button text, but hidden).
+  return page.locator('form:has(button:has-text("Let\'s build something great."))').first();
 }
 
 // ═════════════════════════════════════════════════════════════════════════
@@ -355,14 +357,25 @@ test.describe("UX Flows — Language Switcher", () => {
   test("ES button gets aria-pressed=true; EN button gets aria-pressed=false", async ({ page }) => {
     await page.goto(`${WEB}/`, { waitUntil: "domcontentloaded", timeout: 30_000 });
 
-    const esBtn = page
+    // Click the ES button using the aria-label (works before language changes).
+    await page
       .locator('button[aria-label*="Spanish"], button[aria-label*="Español"]')
-      .first();
-    await esBtn.click();
-    await expect(esBtn).toHaveAttribute("aria-pressed", "true");
+      .first()
+      .click();
 
-    const enBtn = page.locator('button[aria-label*="English"]').first();
-    await expect(enBtn).toHaveAttribute("aria-pressed", "false");
+    // After clicking, the button's aria-label is translated to Spanish so the
+    // original selector no longer resolves it.  Use the stable button text
+    // content ("EN" / "ES") scoped to the language-switcher fieldset instead.
+    const langFieldset = page
+      .locator("fieldset")
+      .filter({ hasText: "EN" })
+      .filter({ hasText: "ES" });
+    await expect(
+      langFieldset.locator("button").filter({ hasText: /^ES$/ })
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(
+      langFieldset.locator("button").filter({ hasText: /^EN$/ })
+    ).toHaveAttribute("aria-pressed", "false");
   });
 
   test("language cookie (dba_lang=es) is written after switching to Spanish", async ({ page }) => {

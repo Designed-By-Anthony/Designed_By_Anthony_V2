@@ -155,6 +155,7 @@ export function BrandHeader({ currentSection, includeHamburger = true }: BrandHe
                 type="button"
                 aria-label="Open navigation menu"
                 aria-controls="mobile-nav"
+                aria-expanded="false"
               >
                 <span className="block h-[1.5px] w-full bg-[#1a2a40] rounded-[1px] transition-transform duration-[200ms] ease-in" />
                 <span className="block h-[1.5px] w-full bg-[#1a2a40] rounded-[1px] transition-[opacity,transform] duration-[200ms] ease-in" />
