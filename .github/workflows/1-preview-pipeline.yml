@@ -29,6 +29,12 @@ jobs:
       - name: Install Playwright browsers
         run: bun run test:install
 
+      - name: Write Wrangler dev secrets
+        run: |
+          {
+            echo "GOOGLE_PAGESPEED_API_KEY=${{ secrets.GOOGLE_PAGESPEED_API_KEY }}"
+          } > apps/api/.dev.vars
+
       - name: Run Playwright suite (E2E + API fuzzer)
         run: bun run test
         env:
